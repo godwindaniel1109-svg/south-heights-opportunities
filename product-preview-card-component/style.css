@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: hsl(30, 38%, 92%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 340px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.product-img {
+  width: 100%;
+  display: block;
+}
+
+.content {
+  padding: 25px;
+}
+
+.category {
+  letter-spacing: 3px;
+  color: hsl(228, 12%, 48%);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 22px;
+  color: hsl(212, 21%, 14%);
+  margin-bottom: 15px;
+}
+
+.h1:hover {
+  color: hsl(156, 42%, 18%);
+  cursor: pointer;
+}
+
+.description {
+  font-size: 14px;
+  color: hsl(228, 12%, 48%);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.current {
+  color: hsl(158, 36%, 37%);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.old {
+  text-decoration: line-through;
+  color: hsl(228, 12%, 48%);
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  background: hsl(158, 36%, 37%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: hsl(156, 42%, 18%);
+}
