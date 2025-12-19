@@ -1,0 +1,36 @@
+/* Admin custom CSS for Prime SMS Hub */
+body#admin-interface {
+    --admin-brand-color: #0a6ccf;
+}
+
+/* Header branding tweaks */
+.branding a {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.branding img {
+    height:36px;
+    border-radius:6px;
+    object-fit:cover;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Adjust the admin header background and link colors */
+header#header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Style the site title */
+.branding strong {
+    color: #0a6ccf !important;
+}
+
+/* Custom login page tweaks */
+div#content-main form {
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    padding: 24px;
+}

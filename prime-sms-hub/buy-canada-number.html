@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Canada Number - Prime SMS Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/buy-number.css">
+</head>
+<body class="dashboard-page" data-live-reload="soft">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="nav-brand">
+                <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                <span>Prime SMS Hub</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="dashboard.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📊</span>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📞</span>
+                        <span class="ms-3">Buy Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-usa-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🇺🇸</span>
+                        <span class="ms-3">USA Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-canada-number.html" class="flex items-center p-2 text-white bg-[#FF6B35] rounded-lg group transition font-semibold">
+                        <span class="text-lg">🇨🇦</span>
+                        <span class="ms-3">Canada Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="my-numbers.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📱</span>
+                        <span class="ms-3">My Numbers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="order-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📋</span>
+                        <span class="ms-3">Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transaction-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">💳</span>
+                        <span class="ms-3">Transactions</span>
+                    </a>
+                </li>
+                <li class="pt-4 border-t">
+                    <a href="support.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">❓</span>
+                        <span class="ms-3">Help & FAQ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">⚙️</span>
+                        <span class="ms-3">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <button id="logoutBtn" class="w-full text-left flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🚪</span>
+                        <span class="ms-3">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <h2>Buy Canada Number</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="userEmail">user@example.com</span>
+                    <img src="images/neil.jpg" alt="User" class="user-avatar-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="buy-number-container">
+                <!-- Filter Section -->
+                <section class="filter-section">
+                    <h3>Select Canada Number</h3>
+                    <form id="serviceForm" class="filter-form">
+                        <div class="form-group">
+                            <label for="serviceSelect">Select Service / App</label>
+                            <select id="serviceSelect" name="serviceSelect" required>
+                                <option value="">Choose a service</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <select id="duration" name="duration" required>
+                                <option value="1">1 Month</option>
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" id="serviceContinueBtn" class="select-btn">Continue</button>
+                        </div>
+                    </form>
+
+                <!-- Order History / Active Numbers -->
+                <div class="mt-6">
+                    <h3 class="font-semibold text-gray-900 mb-4">Order History</h3>
+                    <div class="overflow-auto">
+                        <table class="orders-table w-full" id="orderHistoryTable">
+                            <thead>
+                                <tr>
+                                    <th>PHONE NUMBER</th>
+                                    <th>CODE</th>
+                                    <th>SERVICE</th>
+                                    <th>TIMER</th>
+                                    <th>ID</th>
+                                    <th>DATE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                </section>
+
+                <!-- Available Numbers -->
+                <section class="numbers-section">
+                    <h3>Available Canada Numbers</h3>
+                    <div class="numbers-grid" id="numbersGrid">
+                        <div class="loading">Searching for numbers...</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Purchase Canada Number</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="purchaseForm" class="modal-form">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="selectedNumber" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Province</label>
+                    <input type="text" id="selectedState" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <input type="text" id="selectedType" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" id="selectedPrice" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="useForSending">Use for Sending SMS</label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="useForSending" name="useForSending" checked>
+                        Enable SMS sending on this number
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script>const COUNTRY = 'CA';</script>
+    <script src="js/backend-api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/buy-number.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/buy-usa-number.js"></script>
+</body>
+</html>

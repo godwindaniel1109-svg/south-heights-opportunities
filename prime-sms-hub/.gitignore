@@ -1,0 +1,13 @@
+venv/
+venv311/
+__pycache__/
+*.pyc
+db.sqlite3
+*.sqlite3
+*.env
+node_modules/
+dist/
+build/
+venv311/
+collected_static/
+*.log

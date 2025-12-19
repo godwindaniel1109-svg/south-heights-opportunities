@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Number - Prime SMS Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-dark: #0d122b;
+            --secondary-dark: #1a1f3c;
+            --accent-blue: #42c5f5;
+            --accent-purple: #3756c4;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --pending: #f59e0b;
+            --cancelled: #ef4444;
+        }
+
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--secondary-dark);
+            border-right: 1px solid rgba(66, 197, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .wallet-balance .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--text-light);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.active {
+            background: rgba(66, 197, 245, 0.15);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .logout-section {
+            padding: 20px;
+            border-top: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .country-selection {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .country-selection h2 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .country-dropdown {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .dropdown-toggle {
+            width: 100%;
+            padding: 15px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .dropdown-toggle:hover {
+            border-color: var(--accent-blue);
+            background: rgba(66, 197, 245, 0.1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            margin-top: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .country-flag {
+            font-size: 1.5rem;
+        }
+
+        .country-info {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .country-name {
+            font-weight: 500;
+        }
+
+        .country-price {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .service-section {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            display: none;
+        }
+
+        .service-section.active {
+            display: block;
+        }
+
+        .service-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .service-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .service-tab {
+            padding: 10px 20px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 20px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .service-tab:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .service-tab.active {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+        }
+
+        .numbers-table {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            overflow: hidden;
+            display: none;
+        }
+
+        .numbers-table.active {
+            display: block;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .table-header h2 {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            background: rgba(13, 18, 43, 0.5);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(66, 197, 245, 0.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(55, 86, 196, 0.4);
+        }
+
+        .btn-buy {
+            padding: 8px 16px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-buy:hover {
+            box-shadow: 0 4px 12px rgba(55, 86, 196, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 18, 43, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-light);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+        }
+
+        .modal-info {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+        }
+
+        .info-label {
+            color: var(--text-gray);
+        }
+
+        .info-value {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .timer-display {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .sms-code-display {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .sms-code-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .sms-code {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success);
+            font-family: monospace;
+            letter-spacing: 3px;
+        }
+
+        .copy-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-confirm {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body data-live-reload="soft">
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub" onerror="this.style.display='none'">
+            <h1>PRIME SMS HUB</h1>
+            <p>verify more for less</p>
+        </div>
+
+        <div class="wallet-balance">
+            <h3>Your Balance</h3>
+            <div class="amount" id="walletBalanceSidebar">₦0</div>
+        </div>
+
+        <div class="nav-menu">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="buy-number.html" class="nav-item active">
+                <i class="fas fa-phone"></i>
+                Buy Number
+            </a>
+            <a href="buy-usa-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number (US)
+            </a>
+            <a href="buy-canada-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number (CA)
+            </a>
+            <a href="order-history.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                Order History
+            </a>
+            <a href="transaction-history.html" class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                My Transactions
+            </a>
+            <a href="fund-wallet.html" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                Fund Wallet
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-phone" style="margin-right: 10px;"></i>Buy Phone Number</h1>
+            <div class="user-info">
+                <span>Welcome</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+
+        <div class="country-selection">
+            <h2>Step 1: Select Country</h2>
+            <div class="country-dropdown">
+                <button class="dropdown-toggle" onclick="toggleDropdown()">
+                    <span id="selectedCountryText">Choose a country</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu" id="countryDropdown">
+                    <div class="dropdown-item" onclick="selectCountry('US', '🇺🇸', '₦1,200-1,500')"><span class="country-flag">🇺🇸</span><div class="country-info"><span class="country-name">United States</span><span class="country-price">₦1,200-1,500</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('GB', '🇬🇧', '₦1,300-1,600')"><span class="country-flag">🇬🇧</span><div class="country-info"><span class="country-name">United Kingdom</span><span class="country-price">₦1,300-1,600</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('CA', '🇨🇦', '₦1,350-1,650')"><span class="country-flag">🇨🇦</span><div class="country-info"><span class="country-name">Canada</span><span class="country-price">₦1,350-1,650</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('AU', '🇦🇺', '₦1,400-1,700')"><span class="country-flag">🇦🇺</span><div class="country-info"><span class="country-name">Australia</span><span class="country-price">₦1,400-1,700</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('DE', '🇩🇪', '₦1,150-1,450')"><span class="country-flag">🇩🇪</span><div class="country-info"><span class="country-name">Germany</span><span class="country-price">₦1,150-1,450</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('FR', '🇫🇷', '₦1,200-1,500')"><span class="country-flag">🇫🇷</span><div class="country-info"><span class="country-name">France</span><span class="country-price">₦1,200-1,500</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('JP', '🇯🇵', '₦1,500-1,800')"><span class="country-flag">🇯🇵</span><div class="country-info"><span class="country-name">Japan</span><span class="country-price">₦1,500-1,800</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('SG', '🇸🇬', '₦1,100-1,400')"><span class="country-flag">🇸🇬</span><div class="country-info"><span class="country-name">Singapore</span><span class="country-price">₦1,100-1,400</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('IN', '🇮🇳', '₦800-1,100')"><span class="country-flag">🇮🇳</span><div class="country-info"><span class="country-name">India</span><span class="country-price">₦800-1,100</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('BR', '🇧🇷', '₦950-1,250')"><span class="country-flag">🇧🇷</span><div class="country-info"><span class="country-name">Brazil</span><span class="country-price">₦950-1,250</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('MX', '🇲🇽', '₦900-1,200')"><span class="country-flag">🇲🇽</span><div class="country-info"><span class="country-name">Mexico</span><span class="country-price">₦900-1,200</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('ZA', '🇿🇦', '₦850-1,150')"><span class="country-flag">🇿🇦</span><div class="country-info"><span class="country-name">South Africa</span><span class="country-price">₦850-1,150</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('NG', '🇳🇬', '₦700-1,000')"><span class="country-flag">🇳🇬</span><div class="country-info"><span class="country-name">Nigeria</span><span class="country-price">₦700-1,000</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('KE', '🇰🇪', '₦750-1,050')"><span class="country-flag">🇰🇪</span><div class="country-info"><span class="country-name">Kenya</span><span class="country-price">₦750-1,050</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('EG', '🇪🇬', '₦800-1,100')"><span class="country-flag">🇪🇬</span><div class="country-info"><span class="country-name">Egypt</span><span class="country-price">₦800-1,100</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('NL', '🇳🇱', '₦1,250-1,550')"><span class="country-flag">🇳🇱</span><div class="country-info"><span class="country-name">Netherlands</span><span class="country-price">₦1,250-1,550</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('BE', '🇧🇪', '₦1,200-1,500')"><span class="country-flag">🇧🇪</span><div class="country-info"><span class="country-name">Belgium</span><span class="country-price">₦1,200-1,500</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('SE', '🇸🇪', '₦1,350-1,650')"><span class="country-flag">🇸🇪</span><div class="country-info"><span class="country-name">Sweden</span><span class="country-price">₦1,350-1,650</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('NO', '🇳🇴', '₦1,400-1,700')"><span class="country-flag">🇳🇴</span><div class="country-info"><span class="country-name">Norway</span><span class="country-price">₦1,400-1,700</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('DK', '🇩🇰', '₦1,300-1,600')"><span class="country-flag">🇩🇰</span><div class="country-info"><span class="country-name">Denmark</span><span class="country-price">₦1,300-1,600</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('FI', '🇫🇮', '₦1,350-1,650')"><span class="country-flag">🇫🇮</span><div class="country-info"><span class="country-name">Finland</span><span class="country-price">₦1,350-1,650</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('PL', '🇵🇱', '₦1,100-1,400')"><span class="country-flag">🇵🇱</span><div class="country-info"><span class="country-name">Poland</span><span class="country-price">₦1,100-1,400</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('CZ', '🇨🇿', '₦1,050-1,350')"><span class="country-flag">🇨🇿</span><div class="country-info"><span class="country-name">Czech Republic</span><span class="country-price">₦1,050-1,350</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('RU', '🇷🇺', '₦900-1,200')"><span class="country-flag">🇷🇺</span><div class="country-info"><span class="country-name">Russia</span><span class="country-price">₦900-1,200</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('CH', '🇨🇭', '₦1,500-1,800')"><span class="country-flag">🇨🇭</span><div class="country-info"><span class="country-name">Switzerland</span><span class="country-price">₦1,500-1,800</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('IT', '🇮🇹', '₦1,200-1,500')"><span class="country-flag">🇮🇹</span><div class="country-info"><span class="country-name">Italy</span><span class="country-price">₦1,200-1,500</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('ES', '🇪🇸', '₦1,150-1,450')"><span class="country-flag">🇪🇸</span><div class="country-info"><span class="country-name">Spain</span><span class="country-price">₦1,150-1,450</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('PT', '🇵🇹', '₦1,100-1,400')"><span class="country-flag">🇵🇹</span><div class="country-info"><span class="country-name">Portugal</span><span class="country-price">₦1,100-1,400</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('GR', '🇬🇷', '₦1,150-1,450')"><span class="country-flag">🇬🇷</span><div class="country-info"><span class="country-name">Greece</span><span class="country-price">₦1,150-1,450</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('TH', '🇹🇭', '₦900-1,200')"><span class="country-flag">🇹🇭</span><div class="country-info"><span class="country-name">Thailand</span><span class="country-price">₦900-1,200</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('MY', '🇲🇾', '₦950-1,250')"><span class="country-flag">🇲🇾</span><div class="country-info"><span class="country-name">Malaysia</span><span class="country-price">₦950-1,250</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('PH', '🇵🇭', '₦850-1,150')"><span class="country-flag">🇵🇭</span><div class="country-info"><span class="country-name">Philippines</span><span class="country-price">₦850-1,150</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('ID', '🇮🇩', '₦800-1,100')"><span class="country-flag">🇮🇩</span><div class="country-info"><span class="country-name">Indonesia</span><span class="country-price">₦800-1,100</span></div></div>
+                    <div class="dropdown-item" onclick="selectCountry('VN', '🇻🇳', '₦750-1,050')"><span class="country-flag">🇻🇳</span><div class="country-info"><span class="country-name">Vietnam</span><span class="country-price">₦750-1,050</span></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-section" id="serviceSection">
+            <h2>Step 2: Select Service</h2>
+            <div class="service-tabs">
+                <button class="service-tab active" onclick="filterByService('all')">All Services</button>
+                <button class="service-tab" onclick="filterByService('telegram')"><i class="fab fa-telegram" style="margin-right: 5px;"></i>Telegram</button>
+                <button class="service-tab" onclick="filterByService('whatsapp')"><i class="fab fa-whatsapp" style="margin-right: 5px;"></i>WhatsApp</button>
+                <button class="service-tab" onclick="filterByService('facebook')"><i class="fab fa-facebook" style="margin-right: 5px;"></i>Facebook</button>
+                <button class="service-tab" onclick="filterByService('google')"><i class="fab fa-google" style="margin-right: 5px;"></i>Google</button>
+                <button class="service-tab" onclick="filterByService('twitter')"><i class="fab fa-twitter" style="margin-right: 5px;"></i>Twitter</button>
+                <button class="service-tab" onclick="filterByService('instagram')"><i class="fab fa-instagram" style="margin-right: 5px;"></i>Instagram</button>
+                <button class="service-tab" onclick="filterByService('viber')">Viber</button>
+                <button class="service-tab" onclick="filterByService('line')">LINE</button>
+                <button class="service-tab" onclick="filterByService('snapchat')">Snapchat</button>
+                <button class="service-tab" onclick="filterByService('tiktok')"><i class="fab fa-tiktok" style="margin-right: 5px;"></i>TikTok</button>
+                <button class="service-tab" onclick="filterByService('youtube')"><i class="fab fa-youtube" style="margin-right: 5px;"></i>YouTube</button>
+                <button class="service-tab" onclick="filterByService('discord')"><i class="fab fa-discord" style="margin-right: 5px;"></i>Discord</button>
+                <button class="service-tab" onclick="filterByService('slack')">Slack</button>
+                <button class="service-tab" onclick="filterByService('pinterest')"><i class="fab fa-pinterest" style="margin-right: 5px;"></i>Pinterest</button>
+                <button class="service-tab" onclick="filterByService('linkedin')"><i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn</button>
+                <button class="service-tab" onclick="filterByService('reddit')"><i class="fab fa-reddit" style="margin-right: 5px;"></i>Reddit</button>
+                <button class="service-tab" onclick="filterByService('amazon')">Amazon</button>
+                <button class="service-tab" onclick="filterByService('airbnb')">Airbnb</button>
+                <button class="service-tab" onclick="filterByService('uber')">Uber</button>
+                <button class="service-tab" onclick="filterByService('paypal')">PayPal</button>
+                <button class="service-tab" onclick="filterByService('stripe')">Stripe</button>
+                <button class="service-tab" onclick="filterByService('dropbox')">Dropbox</button>
+                <button class="service-tab" onclick="filterByService('github')"><i class="fab fa-github" style="margin-right: 5px;"></i>GitHub</button>
+                <button class="service-tab" onclick="filterByService('twitch')"><i class="fab fa-twitch" style="margin-right: 5px;"></i>Twitch</button>
+                <button class="service-tab" onclick="filterByService('spotify')">Spotify</button>
+                <button class="service-tab" onclick="filterByService('apple')">Apple ID</button>
+                <button class="service-tab" onclick="filterByService('microsoft')">Microsoft</button>
+                <button class="service-tab" onclick="filterByService('adobe')">Adobe</button>
+                <button class="service-tab" onclick="filterByService('salesforce')">Salesforce</button>
+                <button class="service-tab" onclick="filterByService('zendesk')">Zendesk</button>
+                <button class="service-tab" onclick="filterByService('mailchimp')">Mailchimp</button>
+            </div>
+
+            <div class="numbers-table active">
+                <div class="table-header">
+                    <h2>Available Numbers</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phone Number</th>
+                            <th>Service</th>
+                            <th>Price</th>
+                            <th>Availability</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="numbersTableBody">
+                        <tr><td>+1 (201) 234-5601</td><td><i class="fab fa-telegram"></i> Telegram</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5601', 'Telegram', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5602</td><td><i class="fab fa-whatsapp"></i> WhatsApp</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5602', 'WhatsApp', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5603</td><td><i class="fab fa-facebook"></i> Facebook</td><td>₦1,250</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5603', 'Facebook', '₦1,250')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5604</td><td><i class="fab fa-google"></i> Google</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5604', 'Google', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5605</td><td><i class="fab fa-twitter"></i> Twitter</td><td>₦1,280</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5605', 'Twitter', '₦1,280')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5606</td><td><i class="fab fa-instagram"></i> Instagram</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5606', 'Instagram', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5607</td><td>Viber</td><td>₦1,280</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5607', 'Viber', '₦1,280')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5608</td><td>LINE</td><td>₦1,290</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5608', 'LINE', '₦1,290')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5609</td><td>Snapchat</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5609', 'Snapchat', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5610</td><td><i class="fab fa-tiktok"></i> TikTok</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5610', 'TikTok', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6711</td><td><i class="fab fa-youtube"></i> YouTube</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6711', 'YouTube', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6712</td><td><i class="fab fa-discord"></i> Discord</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6712', 'Discord', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6713</td><td>Slack</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6713', 'Slack', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6714</td><td><i class="fab fa-pinterest"></i> Pinterest</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6714', 'Pinterest', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6715</td><td><i class="fab fa-linkedin"></i> LinkedIn</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6715', 'LinkedIn', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7816</td><td><i class="fab fa-reddit"></i> Reddit</td><td>₦1,290</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7816', 'Reddit', '₦1,290')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7817</td><td>Amazon</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7817', 'Amazon', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7818</td><td>Airbnb</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7818', 'Airbnb', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7819</td><td>Uber</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7819', 'Uber', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7820</td><td>PayPal</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7820', 'PayPal', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8921</td><td>Stripe</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8921', 'Stripe', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8922</td><td>Dropbox</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8922', 'Dropbox', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8923</td><td><i class="fab fa-github"></i> GitHub</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8923', 'GitHub', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8924</td><td><i class="fab fa-twitch"></i> Twitch</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8924', 'Twitch', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8925</td><td>Spotify</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8925', 'Spotify', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9026</td><td>Apple ID</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9026', 'Apple ID', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9027</td><td>Microsoft</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9027', 'Microsoft', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9028</td><td>Adobe</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9028', 'Adobe', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9029</td><td>Salesforce</td><td>₦1,360</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9029', 'Salesforce', '₦1,360')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9030</td><td>Zendesk</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9030', 'Zendesk', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (206) 789-0131</td><td>Mailchimp</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (206) 789-0131', 'Mailchimp', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (206) 789-0132</td><td><i class="fab fa-telegram"></i> Telegram</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (206) 789-0132', 'Telegram', '₦1,300')">Buy</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePurchaseModal()">×</button>
+            <div class="modal-header">
+                <h2>Purchase Confirmation</h2>
+            </div>
+            <div class="modal-info">
+                <div class="info-row">
+                    <span class="info-label">Phone Number:</span>
+                    <span class="info-value" id="modalPhone">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Service:</span>
+                    <span class="info-value" id="modalService">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Price:</span>
+                    <span class="info-value" id="modalPrice">-</span>
+                </div>
+            </div>
+
+            <div class="sms-code-display" id="codeDisplay" style="display: none;">
+                <div class="sms-code-label">Your SMS Code:</div>
+                <div class="sms-code" id="smsCode">123456</div>
+                <button class="copy-btn" onclick="copyCode()">📋 Copy Code</button>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Time Remaining:</span>
+                <span class="timer-display" id="timerDisplay">20:00</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-confirm" onclick="confirmPurchase()">Confirm & Close</button>
+                <button class="btn-cancel" onclick="closePurchaseModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/backend-api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/live-reload.js"></script>
+    <script>const COUNTRY = 'ALL';</script>
+    <script src="js/buy-number.js"></script>
+    <script>
+        // Update wallet balance in sidebar
+        (async function(){
+            try{
+                const wallet = await api.getWalletBalance();
+                const el = document.getElementById('walletBalanceSidebar');
+                if (el) {
+                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                }
+            } catch(e) { /* ignore if api not available */ }
+        })();
+        let timerInterval;
+        let selectedCountry = null;
+
+        function toggleDropdown() {
+            document.getElementById('countryDropdown').classList.toggle('active');
+        }
+
+        function selectCountry(code, flag, price) {
+            selectedCountry = { code, flag, price };
+            document.getElementById('selectedCountryText').textContent = `${flag} ${code}`;
+            document.getElementById('countryDropdown').classList.remove('active');
+            document.getElementById('serviceSection').classList.add('active');
+        }
+
+        function filterByService(service) {
+            const tabs = document.querySelectorAll('.service-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function openPurchaseModal(phone, service, price) {
+            document.getElementById('modalPhone').textContent = phone;
+            document.getElementById('modalService').textContent = service;
+            document.getElementById('modalPrice').textContent = price;
+            
+            // Generate random 6-digit code
+            const code = String(Math.floor(Math.random() * 999999)).padStart(6, '0');
+            document.getElementById('smsCode').textContent = code;
+            document.getElementById('codeDisplay').style.display = 'block';
+            
+            document.getElementById('purchaseModal').classList.add('active');
+            
+            let timeLeft = 1200; // 20 minutes
+            updateTimer(timeLeft);
+            
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    closePurchaseModal();
+                }
+            }, 1000);
+        }
+
+        function updateTimer(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('smsCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function confirmPurchase() {
+            closePurchaseModal();
+        }
+
+        function logout() {
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('countryDropdown');
+            const toggle = document.querySelector('.dropdown-toggle');
+            if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

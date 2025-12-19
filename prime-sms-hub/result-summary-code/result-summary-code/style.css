@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 18px;
+}
+
+body {
+  background-color: #cbf5dd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.left-card {
+  background-color: hsl(241, 81%, 54%);
+  color: #b2beb5;
+  text-align: center;
+  position: relative; 
+  border-radius: 15px; 
+  z-index: 1;
+  font-family: "Hanken Grotesk", sans-serif;
+}
+
+.right-card {
+  background: white;
+  color: hsl(224, 30%, 27%);
+  border-radius: 15px;
+  position: relative;
+  margin-left: -20px;
+  z-index: 0;
+  font-family: "Hanken Grotesk", sans-serif;
+}
+
+.score-box {
+  background-color: hsla(256, 72%, 46%, 1);
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 25px auto 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(15px);
+  overflow: hidden;
+}
+
+.score-box h1 {
+  font-size: 50px;
+  color: white;
+}
+
+.score-box h6 {
+  font-size: 14px;
+  color: #b2beb5;
+}
+
+.gaint h2 {
+  color: white;
+  margin-top: 20px;
+}
+
+.summary-item,
+.summary-boy,
+.summary-dwin,
+.summary-chick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.summary-item h4,
+.summary-boy h4,
+.summary-dwin h4,
+.summary-chick h4 {
+  flex: 1;
+}
+
+.summary-item {
+  background-color: hsl(0, 100%, 98%);
+}
+
+.summary-boy {
+  background-color: hsl(39, 100%, 90%);
+}
+
+.summary-dwin {
+  background-color: hsl(166, 100%, 90%);
+}
+
+.summary-chick {
+  background-color: hsl(234, 85%, 95%);
+}
+
+.action {
+  color: hsl(0, 100%, 67%);
+}
+
+.tension {
+  color: hsl(39, 100%, 56%);
+}
+
+.read {
+  color: hsl(166, 100%, 37%);
+}
+
+.cobalt-blue {
+  color: hsl(234, 85%, 45%);
+}
+
+.score {
+  display: flex;
+  gap: 5px;
+}
+
+.gray {
+  color: gray;
+}
+
+.footer {
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 30px;
+  background-color: hsl(224, 30%, 27%);
+  color: white;
+  cursor: pointer;
+  margin-top: 19px;
+}
