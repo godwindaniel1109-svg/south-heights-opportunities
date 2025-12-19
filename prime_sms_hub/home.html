@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime SMS Hub | Get Virtual Numbers & SMS Codes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1f3c;
+            --secondary: #3756c4;
+            --accent: #42c5f5;
+            --dark: #0d122b;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(13, 18, 43, 0.95);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        nav img {
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+        }
+        
+        nav h1 {
+            font-size: 24px;
+            color: var(--accent);
+            letter-spacing: 1.5px;
+            background: linear-gradient(to right, var(--accent), #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .nav-links .btn-login {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            padding: 8px 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(rgba(13, 18, 43, 0.9), rgba(13, 18, 43, 0.9)), url('images/adem.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(55, 86, 196, 0.3);
+        }
+        
+        .features {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--accent);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(26, 31, 60, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .copyright {
+            color: #94a3b8;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub Logo">
+            <h1>PRIME SMS HUB</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+            <a href="login.html" class="btn-login">Login / Register</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <h2>Get Virtual Numbers & SMS Codes Instantly</h2>
+        <p>Purchase virtual numbers for WhatsApp, Telegram, Google, and 200+ services. Receive SMS codes in seconds.</p>
+        <a href="login.html" class="btn-primary">Get Started Now</a>
+    </section>
+    
+    <section class="features" id="features">
+        <h2>Why Choose Prime SMS Hub?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Instant Delivery</h3>
+                <p>Get numbers and codes within seconds of purchase.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure & Private</h3>
+                <p>Your data is encrypted and never shared with third parties.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Coverage</h3>
+                <p>Numbers available from 50+ countries worldwide.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="logo-container" style="justify-content: center; margin-bottom: 20px;">
+            <img src="images/godwin.jpg" alt="Logo" style="height: 40px;">
+            <h2 style="font-size: 1.5rem;">PRIME SMS HUB</h2>
+        </div>
+        <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto;">Secure virtual number service for SMS verification</p>
+        <div class="copyright">
+            © 2025 Prime SMS Hub. All rights reserved.<br>
+            Contact: primesmshub50@gmail.com | +234 704 869 4977
+        </div>
+    </footer>
+</body>
+</html>

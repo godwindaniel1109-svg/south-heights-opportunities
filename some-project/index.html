@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Countdown Timer</title>
+    <style>
+        /* CSS styling for layout and design */
+        body {
+            background-color: #0d0d2b;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background-color: #1a1a40;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+        }
+
+        .time-value {
+            font-size: 4rem;
+            font-weight: bold;
+            display: block;
+            color: #4da6ff; /* A nice blue color */
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #aaa;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .time-box {
+                padding: 15px 20px;
+                min-width: 70px;
+            }
+            .time-value {
+                font-size: 2.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Time Until Christmas Day 2025</h1>
+
+    <div class="countdown-container" id="countdown">
+        <!-- JavaScript will fill these in -->
+        <div class="time-box"><span class="time-value" id="days">00</span><span class="time-label">Days</span></div>
+        <div class="time-box"><span class="time-value" id="hours">00</span><span class="time-label">Hours</span></div>
+        <div class="time-box"><span class="time-value" id="minutes">00</span><span class="time-label">Minutes</span></div>
+        <div class="time-box"><span class="time-value" id="seconds">00</span><span class="time-label">Seconds</span></div>
+    </div>
+
+    <script>
+        // JavaScript logic to count time in real-time
+        function updateCountdown() {
+            // Set the target date (December 25, 2025 at midnight)
+            const targetDate = new Date("Dec 25, 2025 00:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the results in the elements using IDs
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            // If the countdown is finished, display a message
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "<h2>Merry Christmas!</h2>";
+            }
+        }
+
+        // Run the function immediately and then update every 1 second
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
