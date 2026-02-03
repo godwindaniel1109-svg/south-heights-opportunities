@@ -1,7 +1,24 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import './LandingPage.css'
 
 const LandingPage = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const heroImages = [
+    '/images/Landing 1.jpg',
+    '/images/Landing 2.jpg',
+    '/images/Landing 3.jpg',
+    '/images/Landing 4.jpg',
+    '/images/LandS 1.jpg'
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length)
+    }, 4000) // Change image every 4 seconds
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="landing-page">
       <div className="landing-container">
@@ -16,9 +33,14 @@ const LandingPage = () => {
           </div>
 
           <div className="hero-images">
-            <img src="/images/Landing 1.jpg" alt="hero1" className="hero-image" />
-            <img src="/images/Landing 2.jpg" alt="hero2" className="hero-image" />
-            <img src="/images/Landing 3.jpg" alt="hero3" className="hero-image" />
+            {heroImages.map((img, idx) => (
+              <img 
+                key={idx}
+                src={img} 
+                alt={`hero${idx + 1}`} 
+                className={`hero-image ${idx === currentImageIndex ? 'active' : ''}`}
+              />
+            ))}
           </div>
         </div>
 
