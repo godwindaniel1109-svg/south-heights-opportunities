@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - primesmshub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-box">
+            <a href="/" class="nav-brand" style="display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-bottom:.2rem;">
+                <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img" style="height:44px;border-radius:6px;object-fit:cover;">
+                <span style="font-size:1.4rem;font-weight:700;">primesmshub</span>
+            </a>
+            <p class="auth-subtitle">Admin Access</p>
+
+            <form id="adminLoginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Admin Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="admin@primesmshub.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="rememberMe">
+                        Remember me
+                    </label>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:.5rem;">
+                    <div id="formSpinner" class="form-spinner inline hidden" style="display:inline-flex;align-items:center"><div class="spinner spinner--small" aria-hidden="true"></div><button type="button" id="formSpinnerCancel" class="btn btn-link hidden" style="margin-left:.4rem;padding:0;font-size:.9rem;">Cancel</button></div>
+                    <div id="formAlert" class="alert alert-hidden" style="margin-bottom:.75rem;flex:1"></div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Sign In
+                    </button>
+                </div>
+            </form> 
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Need help accessing admin panel?
+                </p>
+                <a href="#" class="link" onclick="event.preventDefault(); showAlert('Contact support at admin-support@primesmshub.com', 'info')">
+                    Contact Administrator
+                </a>
+            </div>
+        </div>
+
+        <div class="auth-illustration">
+            <div class="illustration-content">
+                <h2>🔐 Secure Admin Portal</h2>
+                <p>Manage your primesmshub platform with complete control and visibility.</p>
+                <ul style="margin-top: 1rem; list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem;">✓ User Management</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Payment Processing</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Number Inventory</li>
+                    <li style="margin-bottom: 0.5rem;">✓ Revenue Analytics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert (re-usable across auth pages) -->
+    <div id="alert" class="hidden fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-md border-l-4 border-[#FF6B35] z-50">
+        <p id="alertMessage" class="text-gray-900 font-medium"></p>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        // Reusable alert helper - prefer inline form alert if present
+        function showAlert(message, type = 'info') {
+            const inline = document.getElementById('formAlert');
+            if (inline) {
+                inline.textContent = message;
+                inline.className = `alert alert-${type}`;
+                inline.classList.remove('alert-hidden');
+                setTimeout(() => inline.classList.add('alert-hidden'), 4000);
+                return;
+            }
+
+            const alertEl = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            if (!alertEl || !alertMessage) return console.warn('Alert element missing');
+            alertMessage.textContent = message;
+            alertEl.classList.remove('hidden');
+            if (type === 'success') {
+                alertEl.style.borderColor = '#10b981';
+            } else if (type === 'error') {
+                alertEl.style.borderColor = '#ef4444';
+            } else {
+                alertEl.style.borderColor = '#FF6B35';
+            }
+            setTimeout(() => alertEl.classList.add('hidden'), 4000);
+        }
+
+        // Admin authentication is handled via backend API
+        // No hardcoded credentials for security
+
+        // Spinner helpers (for admin form) - support cancel for the backend fetch
+        function showFormSpinner(controller){
+            const s = document.getElementById('formSpinner');
+            const cancelBtn = document.getElementById('formSpinnerCancel');
+            if (s) s.classList.remove('hidden');
+            if (cancelBtn && controller) {
+                cancelBtn.classList.remove('hidden');
+                cancelBtn.onclick = () => {
+                    controller.abort();
+                    hideFormSpinner();
+                    showAlert('Login cancelled', 'info');
+                };
+            }
+        }
+        function hideFormSpinner(){
+            const s = document.getElementById('formSpinner');
+            const cancelBtn = document.getElementById('formSpinnerCancel');
+            if (s) s.classList.add('hidden');
+            if (cancelBtn) { cancelBtn.classList.add('hidden'); cancelBtn.onclick = null; }
+        }
+
+        // Handle admin login
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing in...';
+
+            // create controller to allow cancelling the fetch
+            const fetchController = new AbortController();
+            showFormSpinner(fetchController);
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Validate
+            if (!email || !password) {
+                showAlert('Please fill in all fields', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                hideFormSpinner();
+                return;
+            }
+
+            // First try backend admin login
+            try{
+                const res = await fetch('/api/auth/admin/login/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                    signal: fetchController.signal
+                });
+
+                if (res.ok){
+                    const data = await res.json();
+                    const token = data.token;
+                    // Store token for authenticated API calls
+                    localStorage.setItem('authToken', token);
+
+                    const adminSession = {
+                        email: email,
+                        role: 'admin',
+                        username: data.username,
+                        loginTime: new Date().toISOString()
+                    };
+                    localStorage.setItem('adminSession', JSON.stringify(adminSession));
+                    if (rememberMe) localStorage.setItem('rememberAdminEmail', email);
+                    showAlert('Login successful!', 'success');
+                    setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 800);
+                    return;
+                }
+            }catch(err){
+                if (err.name === 'AbortError') {
+                    console.warn('Admin login fetch aborted');
+                } else {
+                    console.warn('Backend login failed', err);
+                }
+            }
+
+            // Fallback to dev hard-coded credentials (offline/dev only)
+            if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+                const adminSession = { email: email, role: 'admin', loginTime: new Date().toISOString() };
+                localStorage.setItem('adminSession', JSON.stringify(adminSession));
+                if (rememberMe) {
+                    localStorage.setItem('rememberAdminEmail', email);
+                }
+                showAlert('Login successful (dev fallback)!', 'success');
+                setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 800);
+            } else {
+                showAlert('Invalid admin credentials', 'error');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            hideFormSpinner();
+        });
+
+        // Pre-fill email if remembered
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedEmail = localStorage.getItem('rememberAdminEmail');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -8,7 +8,6 @@ const COUNTRIES = {
     de: { name: 'Germany', flag: '🇩🇪', code: '+49' },
     it: { name: 'Italy', flag: '🇮🇹', code: '+39' },
     es: { name: 'Spain', flag: '🇪🇸', code: '+34' },
-    ca: { name: 'Canada', flag: '🇨🇦', code: '+1' },
     au: { name: 'Australia', flag: '🇦🇺', code: '+61' },
     jp: { name: 'Japan', flag: '🇯🇵', code: '+81' },
     in: { name: 'India', flag: '🇮🇳', code: '+91' },
@@ -168,13 +167,24 @@ function handlePurchase(e) {
 }
 
 function handleLogout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userEmail');
-    showAlert('Logout successful!', 'success');
-    
-    setTimeout(() => {
-        window.location.href = 'login.html';
-    }, 1000);
+    // Use logout confirmation helper
+    if (typeof showLogoutConfirmation === 'function') {
+        showLogoutConfirmation(() => {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            showAlert('Logout successful!', 'success');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
+        });
+    } else {
+        // Fallback if helper not loaded
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+    }
 }
 
 function showAlert(message, type = 'info') {

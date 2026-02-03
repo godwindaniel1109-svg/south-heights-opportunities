@@ -75,8 +75,8 @@ http-server -p 8000 -c-1
 ## Test Credentials
 
 ### Admin Account
-- **Email**: godwin.daniel1109@gmail.com
-- **Password**: Godwin@2005
+- **Email**: admin@example.com (CHANGE THIS)
+- **Password**: CHANGE_THIS_PASSWORD (CHANGE THIS)
 
 ### User Account (Demo)
 - **Email**: user@example.com

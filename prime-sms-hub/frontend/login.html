@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - primesmshub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/branding.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page shining-bg font-improved">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <a href="/" class="nav-brand">
+                    <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                    <span class="app-name-nav"><span class="gold">P</span>r<span class="gold">i</span>mesmsHub</span>
+                </a>
+                <p>Welcome Back</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    <div class="field-error" id="emailError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                    <div class="field-error" id="passwordError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:.5rem;">
+                    <div id="formSpinner" class="form-spinner inline hidden" style="display:inline-flex;align-items:center"><div class="spinner spinner--small" aria-hidden="true"></div><button type="button" id="formSpinnerCancel" class="btn btn-link hidden" style="margin-left:.4rem;padding:0;font-size:.9rem;">Cancel</button></div>
+                    <button type="submit" class="btn btn-primary btn-block" style="flex:1">Sign In</button>
+                </div>
+
+                <div class="form-divider">OR</div>  
+
+                <button type="button" class="btn btn-secondary btn-block" id="googleLogin">
+                    <span>🔐</span> Sign in with Google
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html" class="link-signup">Sign up here</a></p>
+            </div>
+        </div>
+
+        <div class="auth-illustration">
+            <div class="illustration-content">
+                <img src="images/neil.jpg" alt="SMS Solutions" style="width: 250px; height: 250px; border-radius: 10px; object-fit: cover; margin-bottom: 1rem;">
+                <h2>Powerful SMS Solutions</h2>
+                <p>Manage all your SMS campaigns from one place</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap');
+
   :root {
   --primary: #1a1f3c;
   --secondary: #3756c4;
@@ -16,8 +18,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", "Poppins", sans-serif;
 }
+
+/* Shining animated background for landing and auth pages */
+.shining-bg {
+  background: linear-gradient(120deg, #0d122b 0%, #223a73 25%, #42c5f5 50%, #9d4edd 75%, #0d122b 100%);
+  background-size: 200% 200%;
+  animation: bg-shine 12s linear infinite;
+}
+
+@keyframes bg-shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.font-improved { font-family: "Inter", "Poppins", sans-serif; }
 
 body {
   background-color: var(--dark);

@@ -141,3 +141,59 @@ class FirebaseService:
     def get_config(self):
         """Get Firebase config for frontend"""
         return self.config
+
+
+class TelegramService:
+    """Service for sending/receiving messages via Telegram Bot API"""
+
+    def __init__(self):
+        self.token = getattr(settings, 'TELEGRAM_BOT_TOKEN', None)
+        self.admin_chat = getattr(settings, 'TELEGRAM_ADMIN_CHAT_ID', None)
+        self.base = 'https://api.telegram.org'
+
+    def send_to_admin(self, conversation, user_display, message_text):
+        """Send a formatted message to the admin chat and return message_id and chat_id"""
+        if not self.token or not self.admin_chat:
+            return {'ok': False, 'message': 'Telegram not configured'}
+
+        url = f"{self.base}/bot{self.token}/sendMessage"
+        payload = {
+            'chat_id': int(self.admin_chat),
+            'text': f"🟢 Ticket #{conversation.id}\n👤 User: {user_display}\n📍 Page: {conversation.page}\n\n{message_text}",
+            'parse_mode': 'HTML'
+        }
+        try:
+            r = requests.post(url, json=payload)
+            r.raise_for_status()
+            data = r.json()
+            if data.get('ok'):
+                msg = data['result']
+                return {'ok': True, 'chat_id': msg['chat']['id'], 'message_id': msg['message_id'], 'data': msg}
+            return {'ok': False, 'message': data}
+        except Exception as e:
+            logger.exception('Telegram send error')
+            return {'ok': False, 'message': str(e)}
+
+    def send_message_to_chat(self, chat_id, text, parse_mode='HTML'):
+        """Send a message to a specific Telegram chat_id and return result dict."""
+        if not self.token:
+            return {'ok': False, 'message': 'Telegram token not configured'}
+        url = f"{self.base}/bot{self.token}/sendMessage"
+        payload = {'chat_id': int(chat_id), 'text': text, 'parse_mode': parse_mode}
+        try:
+            r = requests.post(url, json=payload, timeout=10)
+            r.raise_for_status()
+            data = r.json()
+            if data.get('ok'):
+                msg = data['result']
+                return {'ok': True, 'chat_id': msg['chat']['id'], 'message_id': msg['message_id'], 'data': msg}
+            return {'ok': False, 'message': data}
+        except Exception as e:
+            logger.exception('Telegram send error')
+            return {'ok': False, 'message': str(e)}
+
+    def reply_to_user(self, conversation, text):
+        """Send message to the user's Telegram chat if known."""
+        if not conversation or not conversation.telegram_chat_id:
+            return {'ok': False, 'message': 'No telegram chat id for conversation'}
+        return self.send_message_to_chat(conversation.telegram_chat_id, text)

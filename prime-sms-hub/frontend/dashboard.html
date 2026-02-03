@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Prime SMS Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-dark: #0d122b;
+            --secondary-dark: #1a1f3c;
+            --accent-blue: #42c5f5;
+            --accent-purple: #3756c4;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --pending: #f59e0b;
+            --cancelled: #ef4444;
+        }
+
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--secondary-dark);
+            border-right: 1px solid rgba(66, 197, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .wallet-balance .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--text-light);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.active {
+            background: rgba(66, 197, 245, 0.15);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .logout-section {
+            padding: 20px;
+            border-top: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .tables-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .table-section {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .table-header h2 {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            background: rgba(13, 18, 43, 0.5);
+        }
+
+        td {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: rgba(66, 197, 245, 0.05);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .status.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--pending);
+        }
+
+        .status.cancelled {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--cancelled);
+        }
+
+        .amount {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1400px) {
+            .tables-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body data-live-reload="soft">
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub" onerror="this.style.display='none'">
+            <h1>PRIME SMS HUB</h1>
+            <p>verify more for less</p>
+        </div>
+
+        <div class="wallet-balance">
+            <h3>Your Balance</h3>
+            <div class="amount" id="walletBalanceSidebar">₦0</div>
+        </div>
+
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+
+        <div class="nav-menu">
+            <a href="buy-domain.html" class="nav-item" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">
+                <i class="fas fa-globe"></i>
+                Buy Domain <span class="badge-new badge-new-small">New</span>
+            </a>
+            <a href="dashboard.html" class="nav-item active">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="buy-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number
+            </a>
+            <a href="order-history.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                Order History
+            </a>
+            <a href="transaction-history.html" class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                My Transactions
+            </a>
+            <a href="fund-wallet.html" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                Fund Wallet
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-chart-line" style="margin-right: 10px;"></i>Dashboard</h1>
+            <div class="user-info">
+                <span id="userWelcome">Welcome back!</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-label">Total Spent</div>
+                <div class="stat-value">₦156,800</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📱</div>
+                <div class="stat-label">Numbers Purchased</div>
+                <div class="stat-value">45</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-label">Completed Orders</div>
+                <div class="stat-value">38</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-label">Pending Orders</div>
+                <div class="stat-value">7</div>
+            </div>
+        </div>
+
+        <div class="tables-container">
+            <div class="table-section">
+                <div class="table-header">
+                    <h2>Recent Orders</h2>
+                </div>
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody">
+                        <tr><td>#ORD-001</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-002</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-003</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-004</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status pending">⏳ Pending</span></td></tr>
+                        <tr><td>#ORD-005</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-006</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-007</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-008</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status pending">⏳ Pending</span></td></tr>
+                        <tr><td>#ORD-009</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-010</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-011</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-012</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-013</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-014</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status pending">⏳ Pending</span></td></tr>
+                        <tr><td>#ORD-015</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-016</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-017</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-018</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-019</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-020</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-021</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-022</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status pending">⏳ Pending</span></td></tr>
+                        <tr><td>#ORD-023</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-024</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-025</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-026</td><td>Telegram</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-027</td><td>WhatsApp</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-028</td><td>Facebook</td><td class="amount">₦1,250</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-029</td><td>Google</td><td class="amount">₦1,300</td><td><span class="status completed">✓ Completed</span></td></tr>
+                        <tr><td>#ORD-030</td><td>Twitter</td><td class="amount">₦1,280</td><td><span class="status pending">⏳ Pending</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-section">
+                <div class="table-header">
+                    <h2>Active Sessions</h2>
+                </div>
+                <table id="sessionsTable">
+                    <thead>
+                        <tr>
+                            <th>Phone Number</th>
+                            <th>Service</th>
+                            <th>SMS Code</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionsBody">
+                        <tr><td>+1 (201) 234-5601</td><td>Telegram</td><td class="amount">123456</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (201) 234-5602</td><td>WhatsApp</td><td class="amount">654321</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (201) 234-5603</td><td>Facebook</td><td class="amount">789012</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (201) 234-5604</td><td>Google</td><td class="amount">345678</td><td><span class="status pending">⏳ Waiting</span></td></tr>
+                        <tr><td>+1 (201) 234-5605</td><td>Twitter</td><td class="amount">901234</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (202) 345-6711</td><td>Telegram</td><td class="amount">567890</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (202) 345-6712</td><td>WhatsApp</td><td class="amount">234567</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (202) 345-6713</td><td>Facebook</td><td class="amount">012345</td><td><span class="status pending">⏳ Waiting</span></td></tr>
+                        <tr><td>+1 (202) 345-6714</td><td>Google</td><td class="amount">456789</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (202) 345-6715</td><td>Twitter</td><td class="amount">678901</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (203) 456-7816</td><td>Telegram</td><td class="amount">789123</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (203) 456-7817</td><td>WhatsApp</td><td class="amount">345012</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (203) 456-7818</td><td>Facebook</td><td class="amount">012789</td><td><span class="status completed">✓ Received</span></td></tr>
+                        <tr><td>+1 (203) 456-7819</td><td>Google</td><td class="amount">567123</td><td><span class="status pending">⏳ Waiting</span></td></tr>
+                        <tr><td>+1 (203) 456-7820</td><td>Twitter</td><td class="amount">234890</td><td><span class="status completed">✓ Received</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/logout-helper.js"></script>
+    <script src="js/backend-api.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/live-reload.js"></script>
+    <script>
+        function logout() {
+            if (typeof showLogoutConfirmation === 'function') {
+                showLogoutConfirmation(() => {
+                    window.location.href = 'login.html';
+                });
+            } else {
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+
+        (async function(){
+            try{
+                const wallet = await api.getWalletBalance();
+                const el = document.getElementById('walletBalanceSidebar');
+                if (el) {
+                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                }
+            } catch(e) {}
+        })();
+    </script>
+</body>
+</html>

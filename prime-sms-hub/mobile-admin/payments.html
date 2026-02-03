@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FF6B35">
+    <title>Payments - Prime SMS Hub Admin</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="../mobile/css/mobile.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="mobile-header">
+        <div class="mobile-header-title">Payment Review</div>
+        <button class="mobile-header-action" id="logoutBtn" onclick="handleLogout()">🚪</button>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="mobile-main">
+        <!-- FILTER TABS -->
+        <div class="filter-buttons" style="padding: var(--spacing-md);">
+            <button class="filter-btn active" onclick="filterPayments('pending')">Pending</button>
+            <button class="filter-btn" onclick="filterPayments('approved')">Approved</button>
+            <button class="filter-btn" onclick="filterPayments('rejected')">Rejected</button>
+        </div>
+
+        <!-- PAYMENTS LIST -->
+        <div id="paymentsContainer" class="payments-list"></div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Stats</span>
+        </a>
+        <a href="users.html" class="nav-item">
+            <span class="nav-icon">👥</span>
+            <span>Users</span>
+        </a>
+        <a href="payments.html" class="nav-item active">
+            <span class="nav-icon">💰</span>
+            <span>Payments</span>
+        </a>
+        <a href="support.html" class="nav-item">
+            <span class="nav-icon">💬</span>
+            <span>Support</span>
+        </a>
+    </nav>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Action</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-success" id="approveBtn" onclick="confirmApprove()">Approve</button>
+                <button class="btn btn-danger" id="rejectBtn" onclick="confirmReject()" style="display:none;">Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../mobile/js/mock-data.js"></script>
+    <script src="../mobile/js/api.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>
+        let allPayments = [];
+        let filteredPayments = [];
+        let currentFilter = 'pending';
+        let selectedPaymentId = null;
+
+        async function loadPayments() {
+            showLoading('paymentsContainer', 'Loading payments...');
+            let payments = await api.getTransactions();
+            if (!payments) {
+                payments = getMockData('admin.payments');
+            }
+            allPayments = (payments || []).filter(p => p.status);
+            filterPayments('pending');
+        }
+
+        function filterPayments(status) {
+            currentFilter = status;
+            filteredPayments = allPayments.filter(p => p.status === status);
+            renderPayments();
+            updateFilterButtons();
+        }
+
+        function renderPayments() {
+            const container = document.getElementById('paymentsContainer');
+            if (filteredPayments.length === 0) {
+                container.innerHTML = `<div class="empty-state">No ${currentFilter} payments</div>`;
+                return;
+            }
+            container.innerHTML = filteredPayments.map(payment => `
+                <div class="payment-item">
+                    <div class="payment-info">
+                        <div class="payment-user">${payment.user || 'Unknown User'}</div>
+                        <div class="payment-amount">₦${(payment.amount || 0).toFixed(2)}</div>
+                        <div class="payment-meta">
+                            ${payment.method || 'Payment'} • ${payment.date || new Date().toLocaleDateString()}
+                        </div>
+                    </div>
+                    <div class="payment-status">
+                        <span class="status-badge status-${payment.status}">${payment.status}</span>
+                    </div>
+                    ${payment.status === 'pending' ? `
+                        <div class="payment-actions">
+                            <button class="btn btn-sm btn-success" onclick="openApprovalModal(${payment.id})">Approve</button>
+                            <button class="btn btn-sm btn-danger" onclick="openRejectionModal(${payment.id})">Reject</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const btnStatus = btn.textContent.toLowerCase();
+                btn.classList.toggle('active', btnStatus === currentFilter);
+            });
+        }
+
+        function openApprovalModal(paymentId) {
+            const payment = allPayments.find(p => p.id === paymentId);
+            if (!payment) return;
+            
+            selectedPaymentId = paymentId;
+            document.getElementById('modalBody').innerHTML = `
+                <p>Approve payment of <strong>₦${(payment.amount || 0).toFixed(2)}</strong> from <strong>${payment.user || 'Unknown'}</strong>?</p>
+                <p class="text-muted">Payment method: ${payment.method || 'Unknown'}</p>
+            `;
+            document.getElementById('approveBtn').style.display = 'block';
+            document.getElementById('rejectBtn').style.display = 'none';
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function openRejectionModal(paymentId) {
+            const payment = allPayments.find(p => p.id === paymentId);
+            if (!payment) return;
+            
+            selectedPaymentId = paymentId;
+            document.getElementById('modalBody').innerHTML = `
+                <p>Reject payment of <strong>₦${(payment.amount || 0).toFixed(2)}</strong> from <strong>${payment.user || 'Unknown'}</strong>?</p>
+                <p class="text-muted">The user will be notified of the rejection.</p>
+            `;
+            document.getElementById('approveBtn').style.display = 'none';
+            document.getElementById('rejectBtn').style.display = 'block';
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+            selectedPaymentId = null;
+        }
+
+        async function confirmApprove() {
+            if (!selectedPaymentId) return;
+            showLoading('modalBody', 'Processing approval...');
+            const success = await api.approveTransaction(selectedPaymentId);
+            if (success) {
+                showNotification('Payment approved successfully');
+                closeModal();
+                loadPayments();
+            } else {
+                showNotification('Failed to approve payment', 'error');
+                closeModal();
+            }
+        }
+
+        async function confirmReject() {
+            if (!selectedPaymentId) return;
+            showLoading('modalBody', 'Processing rejection...');
+            const success = await api.rejectTransaction(selectedPaymentId);
+            if (success) {
+                showNotification('Payment rejected');
+                closeModal();
+                loadPayments();
+            } else {
+                showNotification('Failed to reject payment', 'error');
+                closeModal();
+            }
+        }
+
+        function showNotification(msg, type = 'success') {
+            const notif = document.createElement('div');
+            notif.className = `notification notification-${type}`;
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        function showLoading(containerId, msg = 'Loading...') {
+            document.getElementById(containerId).innerHTML = `<div class="loading">${msg}</div>`;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', loadPayments);
+    </script>
+</body>
+</html>

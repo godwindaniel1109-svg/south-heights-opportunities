@@ -30,10 +30,10 @@ const firebaseConfig = {
 
 ```javascript
 // Line 4
-const PAYSTACK_PUBLIC_KEY = 'pk_live_your_public_key_here';
+const PAYSTACK_PUBLIC_KEY = 'YOUR_PAYSTACK_PUBLIC_KEY_HERE';
 
 // Line 5 (in verifyPaystackPayment function)
-const PAYSTACK_SECRET_KEY = 'sk_live_your_secret_key_here';
+const PAYSTACK_SECRET_KEY = 'YOUR_PAYSTACK_SECRET_KEY_HERE';
 ```
 
 **How to set up:**
@@ -267,8 +267,8 @@ FIREBASE_PROJECT_ID=your_project_id
 FIREBASE_PRIVATE_KEY=your_private_key
 FIREBASE_CLIENT_EMAIL=your_email@firebase.gserviceaccount.com
 
-PAYSTACK_SECRET_KEY=sk_live_...
-PAYSTACK_PUBLIC_KEY=pk_live_...
+PAYSTACK_SECRET_KEY=YOUR_PAYSTACK_SECRET_KEY_HERE
+PAYSTACK_PUBLIC_KEY=YOUR_PAYSTACK_PUBLIC_KEY_HERE
 
 FIVESIM_API_KEY=your_api_key
 5SIM_WEBHOOK_SECRET=your_webhook_secret

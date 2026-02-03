@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Wallet - Prime SMS Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-dark: #0d122b;
+            --secondary-dark: #1a1f3c;
+            --accent-blue: #42c5f5;
+            --accent-purple: #3756c4;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --pending: #f59e0b;
+            --cancelled: #ef4444;
+        }
+
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--secondary-dark);
+            border-right: 1px solid rgba(66, 197, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .wallet-balance .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--text-light);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.active {
+            background: rgba(66, 197, 245, 0.15);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .logout-section {
+            padding: 20px;
+            border-top: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .payment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .payment-method {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .payment-method h2 {
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(66, 197, 245, 0.1);
+        }
+
+        .bank-details {
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .bank-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+        }
+
+        .bank-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .copy-btn:hover {
+            background: rgba(66, 197, 245, 0.2);
+        }
+
+        .amount-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            padding: 10px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .preset-btn.active {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(55, 86, 196, 0.4);
+        }
+
+        .payment-info {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-info h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .payment-info p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Pending deposits table */
+        .deposits-section {
+            margin-top: 30px;
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .deposits-section h3 {
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .deposits-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .deposits-table th, .deposits-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.05);
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .status-pending { background: var(--pending); color: #121212; }
+        .status-approved { background: var(--success); color: #072b21; }
+        .status-rejected { background: var(--cancelled); color: #3f0b0b; }
+
+
+        @media (max-width: 1024px) {
+            .payment-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body data-live-reload="soft">
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub" onerror="this.style.display='none'">
+            <h1>PRIME SMS HUB</h1>
+            <p>verify more for less</p>
+        </div>
+
+        <div class="wallet-balance">
+            <h3>Your Balance</h3>
+            <div class="amount" id="walletBalanceSidebar">₦0</div>
+        </div>
+
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+
+        <div class="nav-menu">
+            <a href="buy-domain.html" class="nav-item" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">🌐 Buy Domain <span class="badge-new badge-new-small">New</span></a>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="buy-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number
+            </a>
+            <a href="order-history.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                Order History
+            </a>
+            <a href="transaction-history.html" class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                My Transactions
+            </a>
+            <a href="fund-wallet.html" class="nav-item active">
+                <i class="fas fa-wallet"></i>
+                Fund Wallet
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-wallet" style="margin-right: 10px;"></i>Fund Your Wallet</h1>
+            <div class="user-info">
+                <span>Add funds to your account</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+
+        <div class="payment-container">
+            <div class="payment-method">
+                <h2><i class="fas fa-building"></i>Manual Bank Transfer</h2>
+                
+                <div class="payment-info">
+                    <h4>💳 Bank Transfer Instructions</h4>
+                    <p>Transfer funds directly to our bank account below. <strong>Please note:</strong> A ₦5 service charge applies. If you want to fund ₦1000, transfer ₦1005 (₦1000 + ₦5 service charge). Only the wallet amount (₦1000) will be credited to your account.</p>
+                </div>
+
+                <div class="bank-details">
+                    <div class="bank-detail-row">
+                        <span class="detail-label">Bank Name:</span>
+                        <span class="detail-value">Kuda</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span class="detail-label">Account Name:</span>
+                        <span class="detail-value">Godwin Ugbedeojo Daniel</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span class="detail-label">Account Number:</span>
+                        <span class="detail-value">2082112914</span>
+                    </div>
+                    <div class="bank-detail-row">
+                        <span class="detail-label">Business Name:</span>
+                        <span class="detail-value">Prime SMS Hub</span>
+                    </div>
+                </div>
+
+                <button class="copy-btn" onclick="copyBank()">📋 Copy Bank Details</button>
+
+                <form id="manualForm" onsubmit="handleManualSubmit(event)" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label>Amount to Credit to Wallet (₦)</label>
+                        <input id="manualAmount" type="number" placeholder="e.g., 1000 (you'll pay ₦1005)" min="1" step="1" required>
+                        <div style="font-size:0.85rem;color:#94a3b8;margin-top:4px;">You'll need to transfer: <span id="manualTotalAmount" style="color:#42c5f5;font-weight:600;">₦0</span> (includes ₦5 service charge)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transaction Reference</label>
+                        <input id="manualReference" type="text" placeholder="Bank transaction reference" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Proof of Payment (Image or PDF)</label>
+                        <input id="manualProof" type="file" accept="image/*,.pdf" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="manualStatus"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Confirm Deposit</button>
+                </form>
+            </div>
+
+            <div class="payment-method">
+                <h2><i class="fas fa-credit-card"></i>Paystack Payment</h2>
+                
+                <div class="payment-info">
+                    <h4>⚡ Instant Payment</h4>
+                    <p>Pay instantly using Paystack. Secure payment gateway with card and bank transfer options.</p>
+                </div>
+
+                <form onsubmit="handlePaystackSubmit(event)">
+                    <div class="form-group">
+                        <label>Select Amount (₦)</label>
+                        <div class="amount-presets">
+                            <button type="button" class="preset-btn" onclick="setAmount(this, 5000)">₦5,000</button>
+                            <button type="button" class="preset-btn" onclick="setAmount(this, 10000)">₦10,000</button>
+                            <button type="button" class="preset-btn" onclick="setAmount(this, 25000)">₦25,000</button>
+                            <button type="button" class="preset-btn" onclick="setAmount(this, 50000)">₦50,000</button>
+                        </div>
+                        <input type="number" id="paystackAmount" placeholder="Or enter custom amount" min="100" step="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Card Details (entered securely by Paystack)</label>
+                        <input type="text" placeholder="Card number (handled by Paystack)" disabled>
+                        <div style="font-size:12px;color:#94a3b8;margin-top:6px;">We do not store card details. Card entry is handled securely in Paystack's modal.</div>
+                        <div style="margin-top:6px;"><label><input id="saveCard" type="checkbox"> Save card for future payments (tokenized by Paystack)</label></div>
+                    </div>
+
+                        <button type="submit" class="btn-primary">Pay with Paystack</button>
+                </form>
+
+                <div class="payment-info" style="margin-top: 20px;">
+                    <h4>✨ Payment Methods Available</h4>
+                    <p>• Debit/Credit Card<br>• Bank Transfer<br>• USSD<br>• Mobile Money<br>• Secure & Encrypted</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Deposits Section -->
+        <div class="deposits-section">
+            <h3>Pending Deposits</h3>
+            <div id="depositsContainer">
+                <table class="deposits-table" id="pendingDepositsTable">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Amount</th>
+                            <th>Uploaded</th>
+                            <th>Status</th>
+                            <th>Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingDepositsBody">
+                        <tr><td colspan="5">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/backend-api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/live-reload.js"></script>
+    <script>
+        function copyBank() {
+            const bankDetails = "Bank Name: Kuda\nAccount Name: Godwin Ugbedeojo Daniel\nAccount Number: 2082112914\nBusiness Name: Prime SMS Hub";
+            navigator.clipboard.writeText(bankDetails).then(() => {
+                alert('Bank details copied to clipboard!');
+            });
+        }
+
+        function setAmount(button, amount) {
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById('paystackAmount').value = amount;
+        }
+
+        async function handleManualSubmit(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('manualAmount').value);
+            const reference = document.getElementById('manualReference').value.trim();
+            const proofFile = document.getElementById('manualProof').files[0];
+            const statusEl = document.getElementById('manualStatus');
+
+            if (!amount || amount < 1) {
+                alert('Please enter a valid amount (minimum ₦1)');
+                return;
+            }
+            
+            const serviceCharge = 5;
+            const totalToTransfer = amount + serviceCharge;
+            if (!reference) {
+                alert('Please enter the transaction reference');
+                return;
+            }
+            if (!proofFile) {
+                alert('Please upload proof of payment (image or PDF)');
+                return;
+            }
+
+            try {
+                statusEl.textContent = 'Uploading proof...';
+                const resp = await api.uploadProof(amount, proofFile, reference);
+                statusEl.innerHTML = `<strong>Pending Verification</strong> — Reference: ${resp.transaction.reference}<br><small style="color:#94a3b8;">Ensure you transferred ₦${totalToTransfer.toLocaleString()} (₦${amount.toLocaleString()} + ₦${serviceCharge} service charge)</small>`;
+                alert(`Proof uploaded! Please ensure you transferred ₦${totalToTransfer.toLocaleString()} (₦${amount.toLocaleString()} + ₦${serviceCharge} service charge). Only ₦${amount.toLocaleString()} will be credited to your wallet after verification.`);
+                // reset form
+                document.getElementById('manualForm').reset();
+
+                // Refresh pending deposits list
+                await loadPendingDeposits();
+            } catch (err) {
+                console.error('Upload failed', err);
+                alert('Failed to upload proof. Please try again.');
+                statusEl.textContent = '';
+            }
+        }
+
+        // Update manual deposit total amount display
+        document.getElementById('manualAmount').addEventListener('input', function() {
+            const walletAmount = parseFloat(this.value) || 0;
+            const serviceCharge = 5;
+            const total = walletAmount + serviceCharge;
+            document.getElementById('manualTotalAmount').textContent = `₦${total.toLocaleString()}`;
+        });
+
+        function handlePaystackSubmit(e) {
+            e.preventDefault();
+            const walletAmount = parseFloat(document.getElementById('paystackAmount').value);
+            const serviceCharge = 5;
+            const totalAmount = walletAmount + serviceCharge; // User pays wallet amount + 5 naira
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            // Update UI to show service charge
+            if (walletAmount > 0) {
+                alert(`You'll pay ₦${totalAmount.toLocaleString()} (₦${walletAmount.toLocaleString()} + ₦${serviceCharge} service charge). Only ₦${walletAmount.toLocaleString()} will be credited to your wallet.`);
+            }
+            
+            // Initialize Paystack payment
+            const handler = PaystackPop.setup({
+                key: 'pk_test_YOUR_PAYSTACK_KEY', // Replace with your actual Paystack public key
+                email: email,
+                amount: totalAmount * 100, // Paystack uses kobo (cents) - total amount including service charge
+                onClose: function() {
+                    alert('Payment window closed.');
+                },
+                onSuccess: async function(response) {
+                    try {
+                        // Verify with backend (backend will handle service charge)
+                        const verifyResp = await api.verifyPayment(response.reference);
+                        alert(verifyResp.message || `Payment verified successfully! ₦${walletAmount.toLocaleString()} has been credited to your wallet.`);
+                        // Refresh sidebar balance if possible
+                        if (typeof updateWalletBalance === 'function') {
+                            updateWalletBalance();
+                        } else {
+                            try {
+                                const wallet = await api.getWalletBalance();
+                                const el = document.getElementById('walletBalanceSidebar');
+                                if (el) {
+                                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                                }
+                            } catch (e) { /* ignore */ }
+                        }
+
+                        // Refresh pending deposits in case a transaction is now completed
+                        await loadPendingDeposits();
+                    } catch (err) {
+                        console.error('Verification failed', err);
+                        alert('Payment succeeded but verification failed. Contact support.');
+                    }
+                }
+            });
+            handler.openIframe();
+        }
+
+        function logout() {
+            if (typeof showLogoutConfirmation === 'function') {
+                showLogoutConfirmation(() => {
+                    window.location.href = 'login.html';
+                });
+            } else {
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+
+        // Format currency
+        function formatCurrency(amount, currency='NGN') {
+            const symbol = currency === 'NGN' ? '₦' : (currency === 'USD' ? '$' : '')
+            return `${symbol}${Number(amount || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+        }
+
+        // Load pending deposits
+        async function loadPendingDeposits() {
+            try {
+                const data = await api.getTransactions();
+                // Support paginated and non-paginated responses
+                const list = Array.isArray(data) ? data : (data && data.results ? data.results : (data || []));
+                const deposits = (list || []).filter(tx => tx.transaction_type === 'fund');
+                const tbody = document.getElementById('pendingDepositsBody');
+                if (!tbody) return;
+
+                if (!deposits || deposits.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">No pending deposits</td></tr>';
+                    return;
+                }
+
+                // Sort by most recent
+                deposits.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+
+                tbody.innerHTML = deposits.map(tx => {
+                    const status = tx.verification_status || 'pending';
+                    const statusClass = status === 'pending' ? 'status-pending' : (status === 'approved' ? 'status-approved' : 'status-rejected');
+                    const proofLink = tx.proof ? `<a href="${tx.proof}" target="_blank">View</a>` : '-';
+                    const uploaded = new Date(tx.created_at).toLocaleString();
+                    return `
+                        <tr>
+                            <td>${tx.reference}</td>
+                            <td>${formatCurrency(tx.amount)}</td>
+                            <td>${uploaded}</td>
+                            <td><span class="status-badge ${statusClass}">${status.toUpperCase()}</span></td>
+                            <td>${proofLink}</td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Error loading pending deposits', err);
+                const tbody = document.getElementById('pendingDepositsBody');
+                if (tbody) tbody.innerHTML = '<tr><td colspan="5">Could not load deposits</td></tr>';
+            }
+        }
+
+        (async function(){
+            try{
+                const wallet = await api.getWalletBalance();
+                const el = document.getElementById('walletBalanceSidebar');
+                if (el) {
+                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                }
+            } catch(e) {}
+
+            // Load pending deposits once page is ready
+            await loadPendingDeposits();
+
+            // Periodically refresh pending deposits
+            setInterval(loadPendingDeposits, 60000);
+        })();
+    </script>
+</body>
+</html>

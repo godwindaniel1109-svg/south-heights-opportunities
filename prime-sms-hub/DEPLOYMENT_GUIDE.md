@@ -93,8 +93,8 @@ pendingPayments/{paymentId}
 **What You Need**:
 ```javascript
 // Update in js/paystack.js
-const PAYSTACK_PUBLIC_KEY = 'pk_live_YOUR_ACTUAL_PUBLIC_KEY';
-const PAYSTACK_SECRET_KEY = 'sk_live_YOUR_ACTUAL_SECRET_KEY';
+const PAYSTACK_PUBLIC_KEY = 'YOUR_PAYSTACK_PUBLIC_KEY_HERE';
+const PAYSTACK_SECRET_KEY = 'YOUR_PAYSTACK_SECRET_KEY_HERE';
 ```
 
 **Features Implemented**:
@@ -213,8 +213,8 @@ FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
 FIREBASE_PROJECT_ID=your_project_id
 
 # Paystack
-PAYSTACK_PUBLIC_KEY=pk_live_xxxxx
-PAYSTACK_SECRET_KEY=sk_live_xxxxx
+PAYSTACK_PUBLIC_KEY=YOUR_PAYSTACK_PUBLIC_KEY_HERE
+PAYSTACK_SECRET_KEY=YOUR_PAYSTACK_SECRET_KEY_HERE
 PAYSTACK_WEBHOOK_SECRET=xxxxx
 
 # 5SIM
@@ -257,23 +257,37 @@ if ('Notification' in window) {
 - [ ] Set up monitoring and alerts
 
 **Hosting Options**:
-1. **Firebase Hosting** (Recommended)
-   ```bash
-   npm install -g firebase-tools
-   firebase login
-   firebase init hosting
-   firebase deploy
-   ```
 
-2. **Vercel**
+1. **Render (Backend / API)**
+   - Use the `Procfile` included to run Daphne ASGI server for WebSockets:
+     `web: daphne -b 0.0.0.0 -p $PORT prime_sms.asgi:application`
+   - Set environment variables in Render dashboard:
+     - `SECRET_KEY`, `DEBUG=false`, `ALLOWED_HOSTS`, `REDIS_URL`, `ADMIN_DASHBOARD_SECRET`, `PAYSTACK_SECRET_KEY`, `PAYSTACK_PUBLIC_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID`, etc.
+   - Ensure `requirements.txt` includes `channels`, `channels-redis`, `daphne` (already present).
+   - Use Redis (via `REDIS_URL`) for Channels production channel layer.
+
+2. **Netlify (Frontend)**
+   - Connect your GitHub repo and configure builds as needed. For this static repo you can deploy without a build step.
+   - In Netlify site settings add an environment variable `API_BASE` or use HTML meta tag `api-base` to point to the Render backend API base (e.g. `https://api.example.com/api`).
+   - If you need to inject the API base at build time, use a simple build script or Netlify's _Replace values_ build plugin to populate `index.html` meta tag.
+
+3. **Vercel**
    ```bash
    npm install -g vercel
    vercel
    ```
 
-3. **Netlify**
+4. **Netlify (simple)**
    - Connect GitHub repo
    - Auto-deploy on push
+
+
+---
+
+> Tips:
+> - Keep secrets in Render/Netlify env vars and never commit `.env`
+> - Use an HTTPS certificate (Render/Netlify provide this automatically)
+> - Test Paystack and Telegram webhooks in production by registering the webhook URL (e.g., `https://api.example.com/api/support/telegram/webhook/`) and configuring the `TELEGRAM_WEBHOOK_SECRET` in envs.
 
 ### 9. Monitoring & Analytics
 **Recommended Tools**:

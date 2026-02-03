@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="api-base" content=""> <!-- Set to backend API base when deploying to Netlify -->
+    <title>Support - Prime SMS Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-dark: #0d122b;
+            --secondary-dark: #1a1f3c;
+            --accent-blue: #42c5f5;
+            --accent-purple: #3756c4;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --pending: #f59e0b;
+            --cancelled: #ef4444;
+        }
+
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            background: var(--secondary-dark);
+            border-right: 1px solid rgba(66, 197, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .wallet-balance .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .wallet-balance .currency {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--text-light);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.active {
+            background: rgba(66, 197, 245, 0.15);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .logout-section {
+            padding: 20px;
+            border-top: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .contact-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .contact-item {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(to right, rgba(55, 86, 196, 0.3), rgba(66, 197, 245, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1rem;
+            word-break: break-all;
+        }
+
+        .contact-value a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SOCIAL SECTION ===== */
+        .social-section {
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .social-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--accent-blue);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-blue);
+            background: rgba(66, 197, 245, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .social-link i {
+            font-size: 1.3rem;
+        }
+
+        .social-link-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-link-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .social-link-handle {
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            grid-column: 1 / -1;
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .faq-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-blue);
+        }
+
+        .faq-answer {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-section {
+                grid-column: 1;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub" onerror="this.style.display='none'">
+            <h1>PRIME SMS HUB</h1>
+            <p>verify more for less</p>
+        </div>
+
+        <div class="wallet-balance">
+            <h3>Your Balance</h3>
+            <div class="amount" id="walletBalanceSidebar">₦0</div>
+        </div>
+
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+
+        <div class="nav-menu">
+            <a href="buy-domain.html" class="nav-item" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">🌐 Buy Domain <span class="badge-new badge-new-small">New</span></a>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="buy-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number
+            </a>
+            <a href="order-history.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                Order History
+            </a>
+            <a href="transaction-history.html" class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                My Transactions
+            </a>
+            <a href="fund-wallet.html" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                Fund Wallet
+            </a>
+            <a href="support.html" class="nav-item active">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-headset" style="margin-right: 10px;"></i>Support & Contact</h1>
+            <div class="user-info">
+                <span>Welcome</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- CONTACT SECTION -->
+            <div class="contact-section">
+                <h2>Get In Touch</h2>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">WhatsApp</div>
+                        <div class="contact-value">
+                            <a href="https://wa.me/2349155359202" target="_blank">+234 915 5359 202</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Email Address</div>
+                        <div class="contact-value">
+                            <a href="mailto:primesmshub50@gmail.com">primesmshub50@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Telegram Channel</div>
+                        <div class="contact-value">
+                            <a href="https://t.me/Primesmshub" target="_blank">t.me/Primesmshub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Response Time</div>
+                        <div class="contact-value">Usually within 1 minute</div>
+                    </div>
+                </div>
+
+                <div class="contact-item chat-widget">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Live Support Chat</div>
+                        <div class="contact-value">Start a conversation with our support team. Messages are stored and you will be notified when we reply.</div>
+
+                        <div class="chat-container" id="supportChatContainer" style="margin-top:12px;">
+                            <div id="supportMessages" style="max-height:300px; overflow:auto; margin-top:6px; padding:12px; background:rgba(13,18,43,0.6); border-radius:8px;">
+                                <!-- messages will load here -->
+                            </div>
+                            <div style="display:flex; gap:8px; margin-top:10px;">
+                                <textarea id="supportInput" placeholder="Type your message..." style="flex:1; padding:10px; border-radius:8px; background:rgba(0,0,0,0.2); color:#fff; border:1px solid rgba(66,197,245,0.1);"></textarea>
+                                <button id="supportSendBtn" class="btn-primary" style="padding:10px 14px;">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOCIAL SECTION -->
+            <div class="social-section">
+                <div>
+                    <h2>Follow Us</h2>
+                    <div class="social-links">
+                        <a href="https://www.tiktok.com/@realdwin" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">TikTok</div>
+                                <div class="social-link-handle">@realdwin</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.instagram.com/realdwin5" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">Instagram</div>
+                                <div class="social-link-handle">@realdwin5</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.facebook.com/profile.php?id=61583194722703" target="_blank" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">Facebook</div>
+                                <div class="social-link-handle">View profile</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.twitter.com/realdwin5" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">Twitter</div>
+                                <div class="social-link-handle">@realdwin5</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.snapchat.com/add/realdwin5" target="_blank" class="social-link">
+                            <i class="fab fa-snapchat"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">Snapchat</div>
+                                <div class="social-link-handle">@realdwin5</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@realdwin" target="_blank" class="social-link">
+                            <i class="fas fa-link"></i>
+                            <div class="social-link-text">
+                                <div class="social-link-name">More Links</div>
+                                <div class="social-link-handle">Visit profile</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ SECTION -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I get a phone number?</div>
+                    <div class="faq-answer">Go to the "Buy Number" section, select your desired country, choose a service (Telegram, WhatsApp, etc.), and click "Buy". The number will be assigned immediately.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How long can I use a purchased number?</div>
+                    <div class="faq-answer">Numbers are active for 20 minutes by default. You can extend the duration if needed through your account settings.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I fund my wallet?</div>
+                    <div class="faq-answer">Visit the "Fund Wallet" section and choose between Manual Deposit (bank transfer) or VPay (automatic). Follow the instructions for your chosen method.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What payment methods do you accept?</div>
+                    <div class="faq-answer">We accept bank transfers (manual deposits) and VPay automatic payments. Both methods are fast and secure.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the SMS code after 20 minutes?</div>
+                    <div class="faq-answer">SMS codes expire after 20 minutes. You'll need to purchase a new number if you require additional time.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How can I track my orders?</div>
+                    <div class="faq-answer">All your orders are listed in the "Order History" section where you can see status, phone numbers, SMS codes, and time remaining.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Is my account secure?</div>
+                    <div class="faq-answer">Yes, we use industry-standard encryption and security measures to protect your account and transaction data.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What should I do if I experience issues?</div>
+                    <div class="faq-answer">Contact our support team via phone, email, or Telegram. We usually respond within 2 hours during business hours.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/logout-helper.js"></script>
+    <script src="js/backend-api.js"></script>
+    <script src="js/support-chat.js"></script>
+    <script src="js/live-reload.js"></script>
+    <script>
+        function logout() {
+            if (typeof showLogoutConfirmation === 'function') {
+                showLogoutConfirmation(() => {
+                    window.location.href = 'login.html';
+                });
+            } else {
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+        (async function(){
+            try{
+                const wallet = await api.getWalletBalance();
+                const el = document.getElementById('walletBalanceSidebar');
+                if (el) {
+                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                }
+            } catch(e) { /* ignore */ }
+        })();
+    </script>
+</body>
+</html>

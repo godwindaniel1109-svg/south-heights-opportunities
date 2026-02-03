@@ -1,0 +1,58 @@
+/* ========================================
+   CONSISTENT BRANDING ACROSS ALL PAGES
+   ======================================== */
+
+/* App Name Styling - Consistent across all pages */
+.app-name,
+.app-name-nav {
+    background: linear-gradient(135deg, #32a89e 0%, #2a9088 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.2rem;
+}
+
+/* Gold accent for P and i */
+.app-name .gold,
+.app-name-nav .gold {
+    color: #ffd700 !important;
+    -webkit-text-fill-color: #ffd700 !important;
+}
+
+/* Logo image styling */
+.logo-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    display: inline-block;
+    border: 2px solid rgba(66, 197, 245, 0.3);
+}
+
+/* Nav brand container */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Admin branding */
+.admin-brand {
+    text-align: center;
+}
+
+.admin-brand .app-name-nav {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.admin-brand .tagline {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-style: italic;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Domain - Coming Soon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="nav-brand">
+                <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                <span>Prime SMS Hub</span>
+            </a>
+        </div>
+        <div class="sidebar-new-feature" style="margin:18px;">
+            <span class="badge-new">New</span>
+            <span class="new-title">Buy Domain</span>
+            <span class="new-sub">Coming soon — join our waitlist for early access</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">🏠 Dashboard</a>
+            <a href="buy-number.html" class="nav-item">📞 Buy Number</a>
+            <a href="#" class="nav-item active">🌐 Buy Domain <span class="badge-new badge-new-small">New</span></a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="header">
+            <h1>Buy Domain (Coming Soon)</h1>
+            <div class="user-info">Get notified when we launch</div>
+        </header>
+        <section style="padding:30px;">
+            <div style="background:white;color:#0d122b;padding:30px;border-radius:8px;max-width:800px;">
+                <h2>Buy Domain is coming soon 🎉</h2>
+                <p>We're building a simple domain buy flow that will let you search and purchase domains directly from the dashboard. Subscribe below to get early access and updates.</p>
+                <div style="margin-top:18px;">
+                    <input id="emailNotify" placeholder="Your email" style="padding:12px;border-radius:6px;border:1px solid #ddd;width:60%;margin-right:8px;" />
+                    <button id="notifyBtn" class="btn btn-primary">Notify Me</button>
+                </div>
+                <div id="notifMsg" style="margin-top:12px;color:green;display:none;">Thanks — we'll notify you!</div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('notifyBtn').addEventListener('click', () => {
+            document.getElementById('notifMsg').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

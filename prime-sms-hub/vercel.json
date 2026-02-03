@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "buildCommand": "echo 'Static frontend - no build needed'",
+  "outputDirectory": ".",
+  "public": ".",
+  "routes": [
+    {
+      "src": "/admin/(.*)",
+      "dest": "/admin/$1"
+    },
+    {
+      "src": "/app/(.*)",
+      "dest": "/app/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/js/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
+    },
+    {
+      "src": "/(.*)\\.html$",
+      "dest": "/$1.html"
+    },
+    {
+      "src": "/api/(.*)",
+      "status": 404,
+      "dest": "No backend deployed (use Firebase or external API)"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}

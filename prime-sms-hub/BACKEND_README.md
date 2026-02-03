@@ -82,12 +82,14 @@ python liveserver.py
 All API keys are in `backend/.env`:
 
 ```env
-✅ FIREBASE_API_KEY          = AIzaSyD8ljUFvRZmGajh4UTfh6zfb85OnHanoGM
-✅ PAYSTACK_PUBLIC_KEY       = pk_live_639470fbe710a9b3503068dd875e4b027bd096fe
-✅ PAYSTACK_SECRET_KEY       = sk_live_7611f114920baf48c114d508cc385683f939509d
-✅ FIVESIM_API_KEY           = eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9...
-✅ SENDGRID_API_KEY          = SG.0dWt5tuFTLGowEmtBQ3ncg.G69SXMOx2...
+✅ FIREBASE_API_KEY          = YOUR_FIREBASE_API_KEY_HERE
+✅ PAYSTACK_PUBLIC_KEY       = YOUR_PAYSTACK_PUBLIC_KEY_HERE
+✅ PAYSTACK_SECRET_KEY       = YOUR_PAYSTACK_SECRET_KEY_HERE
+✅ FIVESIM_API_KEY           = YOUR_5SIM_API_KEY_HERE
+✅ SENDGRID_API_KEY          = SG.YOUR_SENDGRID_API_KEY_HERE
 ```
+
+**⚠️ SECURITY NOTE**: Never commit real API keys to GitHub! Use environment variables.
 
 **No additional setup needed!**
 

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Numbers - primesmshub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/my-numbers.css">
+</head>
+<body class="dashboard-page" data-live-reload="soft">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="nav-brand">
+                <span>primesmshub</span>
+            </a>
+        </div>
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="buy-domain.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">
+                        <span class="text-lg">🌐</span>
+                        <span class="ms-3">Buy Domain <span class="badge-new badge-new-small">New</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📊</span>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📞</span>
+                        <span class="ms-3">Buy Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-usa-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🇺🇸</span>
+                        <span class="ms-3">Buy USA Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="order-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📋</span>
+                        <span class="ms-3">My Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transaction-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">💳</span>
+                        <span class="ms-3">My Transactions</span>
+                    </a>
+                </li>
+                <li class="pt-4 border-t">
+                    <a href="support.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">❓</span>
+                        <span class="ms-3">Support</span>
+                    </a>
+                </li>
+                <li>
+                    <button id="logoutBtn" class="w-full text-left flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🚪</span>
+                        <span class="ms-3">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <h2>My Active Numbers</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="userEmail">user@example.com</span>
+                    <img src="images/neil.jpg" alt="User" class="user-avatar-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <!-- Stats -->
+            <section class="numbers-stats">
+                <div class="stat-card">
+                    <h4>Active Numbers</h4>
+                    <p class="stat-value" id="activeCount">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Expiring Soon (24h)</h4>
+                    <p class="stat-value" id="expiringCount">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total SMS Received</h4>
+                    <p class="stat-value" id="totalSMS">0</p>
+                </div>
+            </section>
+
+            <!-- Filter/Search -->
+            <section class="numbers-filter">
+                <input type="text" id="searchInput" class="filter-input" placeholder="Search by phone number, country...">
+                <select id="serviceFilter" class="filter-input">
+                    <option value="">All Services</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="discord">Discord</option>
+                    <option value="google">Google</option>
+                    <option value="twitter">Twitter</option>
+                </select>
+                <select id="statusFilter" class="filter-input">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="expiring">Expiring Soon</option>
+                    <option value="expired">Expired</option>
+                </select>
+            </section>
+
+            <!-- Numbers Grid -->
+            <section class="numbers-grid-section">
+                <div class="numbers-grid" id="numbersGrid">
+                    <div class="loading">Loading your numbers...</div>
+                </div>
+            </section>
+
+            <!-- Empty State -->
+            <section id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📭</div>
+                <h3>No Numbers Yet</h3>
+                <p>You haven't purchased any numbers yet. Start by buying a number to receive SMS!</p>
+                <a href="buy-number.html" class="btn btn-primary">Buy Your First Number</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- SMS View Modal -->
+    <div id="smsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>SMS Messages</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sms-info">
+                    <div class="info-item">
+                        <span class="label">Number:</span>
+                        <span class="value" id="smsNumber"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Service:</span>
+                        <span class="value" id="smsService"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Status:</span>
+                        <span class="value" id="smsStatus"></span>
+                    </div>
+                </div>
+
+                <div class="sms-list" id="smsList">
+                    <div class="no-sms">No SMS received yet. Share this number and wait for messages.</div>
+                </div>
+
+                <div class="sms-actions">
+                    <button class="btn btn-secondary" onclick="refreshSMS()">🔄 Refresh</button>
+                    <button class="btn btn-secondary" id="copySmsBtn" onclick="copySMSNumber()">📋 Copy Number</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extend Modal -->
+    <div id="extendModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Extend Number Expiry</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="extendForm" class="modal-form">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="extendNumber" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Current Expiry</label>
+                    <input type="text" id="extendCurrentExpiry" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="extendDuration">Additional Duration</label>
+                    <select id="extendDuration" required>
+                        <option value="">Select duration</option>
+                        <option value="1">1 Month - ₦500</option>
+                        <option value="3">3 Months - ₦1,200</option>
+                        <option value="6">6 Months - ₦2,200</option>
+                    </select>
+                </div>
+                <div class="cost-info">
+                    <p>Cost: <strong id="extensionCost">₦0.00</strong></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Extend Number</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/fivesim.js"></script>
+    <script src="js/my-numbers.js"></script>
+</body>
+</html>

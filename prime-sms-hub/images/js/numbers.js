@@ -51,7 +51,6 @@ async function loadCountriesAndServices() {
             { code: 'US', name: 'United States', flag: '🇺🇸' },
             { code: 'UK', name: 'United Kingdom', flag: '🇬🇧' },
             { code: 'NG', name: 'Nigeria', flag: '🇳🇬' },
-            { code: 'CA', name: 'Canada', flag: '🇨🇦' },
             { code: 'AU', name: 'Australia', flag: '🇦🇺' },
             { code: 'DE', name: 'Germany', flag: '🇩🇪' },
             { code: 'FR', name: 'France', flag: '🇫🇷' },
@@ -106,7 +105,6 @@ function generateSampleNumbers() {
         { code: 'US', name: 'United States', flag: '🇺🇸', price: 500 },
         { code: 'UK', name: 'United Kingdom', flag: '🇬🇧', price: 600 },
         { code: 'NG', name: 'Nigeria', flag: '🇳🇬', price: 300 },
-        { code: 'CA', name: 'Canada', flag: '🇨🇦', price: 550 },
         { code: 'AU', name: 'Australia', flag: '🇦🇺', price: 650 }
     ];
     
@@ -148,8 +146,7 @@ function generatePhoneNumber(countryCode) {
         'US': ['+1-212', '+1-310', '+1-415'],
         'UK': ['+44-20', '+44-79', '+44-77'],
         'NG': ['+234-701', '+234-802', '+234-903'],
-        'CA': ['+1-416', '+1-604', '+1-514'],
-        'AU': ['+61-2', '+61-3', '+61-4']
+            'AU': ['+61-2', '+61-3', '+61-4']
     };
     
     const prefix = prefixes[countryCode]?.[Math.floor(Math.random() * prefixes[countryCode].length)] || '+1-212';

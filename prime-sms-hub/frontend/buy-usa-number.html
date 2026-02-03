@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy USA Number - Prime SMS Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/buy-number.css">
+</head>
+<body class="bg-gray-100" data-live-reload="soft">
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start">
+                    <button id="sidebarToggle" type="button" class="inline-flex items-center p-2 text-sm text-[#FF6B35] rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                        </svg>
+                    </button>
+                    <a href="/" class="flex ms-2 md:me-24 nav-brand">
+                        <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                        <span class="font-bold text-lg">primesmshub</span>
+                    </a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="fund-wallet.html" class="text-[#FF6B35] border-2 border-[#FF6B35] hover:bg-[#FF6B35] font-medium rounded-md text-sm px-4 md:px-8 py-2 text-center bg-transparent hover:text-white hidden md:block transition">Fund Wallet</a>
+                    <div class="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-md">
+                        <span id="walletBalance" class="text-[#FF6B35] font-medium">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-24 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="dashboard.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📊</span>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📞</span>
+                        <span class="ms-3">Buy Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-usa-number.html" class="flex items-center p-2 text-white bg-[#FF6B35] rounded-lg group transition font-semibold">
+                        <span class="text-lg">🇺🇸</span>
+                        <span class="ms-3">USA Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="my-numbers.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📱</span>
+                        <span class="ms-3">My Numbers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="order-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📋</span>
+                        <span class="ms-3">Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transaction-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">💳</span>
+                        <span class="ms-3">Transactions</span>
+                    </a>
+                </li>
+                <li class="pt-4 border-t">
+                    <a href="support.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">❓</span>
+                        <span class="ms-3">Help & FAQ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">⚙️</span>
+                        <span class="ms-3">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <button id="logoutBtn" class="w-full text-left flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🚪</span>
+                        <span class="ms-3">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="p-4 sm:ml-64 min-h-screen">
+        <div class="p-4 mt-16">
+            <!-- Page Title -->
+            <div class="text-justify h-auto mb-4 rounded bg-white px-4 py-6 shadow-sm">
+                <h2 class="font-bold text-2xl md:text-3xl text-gray-900">🇺🇸 Get a USA Phone Number</h2>
+                <p class="text-gray-600 mt-2">Select a state, area code (optional) and choose from available phone numbers</p>
+            </div>
+
+            <!-- Service-first Selection -->
+            <div class="text-justify h-auto mb-4 rounded bg-white px-4 pt-6 pb-8 shadow-sm">
+                <form id="serviceForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6 items-end">
+                        <!-- Service Select -->
+                        <div>
+                            <label for="serviceSelect" class="block mb-2 text-sm font-semibold text-gray-900">Select Service / App</label>
+                            <select id="serviceSelect" name="serviceSelect" class="w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md bg-white focus:border-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-opacity-20 transition" required>
+                                <option value="">Choose a service</option>
+                            </select>
+                        </div>
+
+                        <!-- Duration -->
+                        <div>
+                            <label for="duration" class="block mb-2 text-sm font-semibold text-gray-900">Rental Duration</label>
+                            <select id="duration" name="duration" class="w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md bg-white focus:border-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-opacity-20 transition" required>
+                                <option value="1">1 Month</option>
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="12">12 Months</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" id="serviceContinueBtn" class="px-6 py-3 bg-[#FF6B35] text-white rounded-md font-semibold">Continue</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order History / Active Numbers -->
+            <div class="text-justify h-auto mb-6 rounded bg-white px-4 py-6 shadow-sm">
+                <h3 class="font-semibold text-gray-900 mb-4">Order History</h3>
+                <div class="overflow-auto">
+                    <table class="orders-table w-full" id="orderHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>PHONE NUMBER</th>
+                                <th>CODE</th>
+                                <th>SERVICE</th>
+                                <th>TIMER</th>
+                                <th>ID</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                </form>
+            </div>
+
+            <!-- Available Numbers -->
+            <div class="bg-white rounded shadow-sm p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Available USA Numbers</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="numbersGrid">
+                    <div class="col-span-full text-center py-12 text-gray-500">
+                        <p class="text-lg">Select a service to view available USA numbers (fetched from 5SIM)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-900">Purchase USA Number</h2>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form id="purchaseForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Phone Number</label>
+                    <input type="text" id="selectedNumber" readonly class="w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Service</label>
+                    <input type="text" id="selectedState" readonly class="w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50">
+                    <input type="hidden" id="selectedServiceKey">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Price</label>
+                    <input type="text" id="selectedPrice" readonly class="w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 font-bold text-[#FF6B35]">
+                </div>
+                <div>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="useForSending" name="useForSending" class="w-4 h-4 rounded border-gray-300 text-[#FF6B35] focus:ring-[#FF6B35]">
+                        <span class="text-sm font-medium text-gray-900">Enable SMS sending on this number</span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full text-white bg-[#FF6B35] hover:bg-[#E55A24] font-medium rounded-md text-sm px-8 py-3 transition duration-200 mt-6">
+                    Confirm Purchase
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="hidden fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-md border-l-4 border-[#FF6B35] z-50">
+        <p id="alertMessage" class="text-gray-900 font-medium"></p>
+    </div>
+
+    <script>const COUNTRY = 'US';</script>
+    <script src="js/logout-helper.js"></script>
+    <script src="js/backend-api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/buy-number.js"></script>
+    <script src="js/fivesim.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/buy-usa-number.js"></script>
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        sidebarToggle?.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Modal handling
+        const modal = document.getElementById('purchaseModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        closeModal?.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.add('hidden');
+        });
+
+        // Alert handling
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = message;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 4000);
+        }
+    </script>
+</body>
+</html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy USA Number - Prime SMS Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/buy-number.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="nav-brand">
+                <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                <span>Prime SMS Hub</span>
+            </a>
+        </div>
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="buy-domain.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">
+                        <span class="text-lg">🌐</span>
+                        <span class="ms-3">Buy Domain <span class="badge-new badge-new-small">New</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📊</span>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📞</span>
+                        <span class="ms-3">Buy Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-usa-number.html" class="flex items-center p-2 text-white bg-[#FF6B35] rounded-lg group transition font-semibold">
+                        <span class="text-lg">🇺🇸</span>
+                        <span class="ms-3">Buy USA Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="order-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📋</span>
+                        <span class="ms-3">My Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transaction-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">💳</span>
+                        <span class="ms-3">My Transactions</span>
+                    </a>
+                </li>
+                <li class="pt-4 border-t">
+                    <a href="support.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">❓</span>
+                        <span class="ms-3">Support</span>
+                    </a>
+                </li>
+                <li>
+                    <button id="logoutBtn" class="w-full text-left flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🚪</span>
+                        <span class="ms-3">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <h2>Buy USA Number</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="userEmail">user@example.com</span>
+                    <img src="images/neil.jpg" alt="User" class="user-avatar-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="buy-number-container">
+                <!-- Filter Section removed — service-first flow is used above to fetch USA numbers automatically from 5SIM -->
+
+                <!-- Available Numbers -->
+                <section class="numbers-section">
+                    <h3>Available USA Numbers</h3>
+                    <div class="numbers-grid" id="numbersGrid">
+                        <div class="loading">Searching for numbers...</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- Alert -->
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/buy-usa-number.js"></script>
+</body>
+</html>

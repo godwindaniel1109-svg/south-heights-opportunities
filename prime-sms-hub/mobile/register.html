@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FF6B35">
+    <title>Register - Prime SMS Hub</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <main class="mobile-main" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: var(--spacing-lg);">
+        <!-- LOGO -->
+        <div style="margin-bottom: var(--spacing-2xl); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: var(--spacing-lg);">📱</div>
+            <div style="font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Create Account
+            </div>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div style="width: 100%; max-width: 400px;">
+            <div id="alert" class="alert hidden" style="margin-bottom: var(--spacing-md);"></div>
+
+            <form id="registerForm" style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" name="phone" placeholder="+234 812 345 6789" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" placeholder="Min. 6 characters" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regConfirm">Confirm Password</label>
+                    <input type="password" id="regConfirm" name="confirmPassword" placeholder="Repeat password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">Create Account</button>
+            </form>
+
+            <div style="text-align: center; margin-top: var(--spacing-xl); color: var(--text-secondary); font-size: 0.875rem;">
+                Already have an account? <a href="login.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Sign in</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/firebase-config.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.textContent;
+
+            if (!email || !phone || !password || !confirm) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                showAlert('Passwords do not match', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Creating account...';
+
+            try {
+                const auth = await getAuthAsync().catch(err => {
+                    showAlert('Service unavailable. Please try again.', 'error');
+                    return null;
+                });
+                
+                if (!auth) return;
+
+                const db = await getDBAsync().catch(err => {
+                    showAlert('Data service unavailable. Please try again.', 'error');
+                    return null;
+                });
+                
+                if (!db) return;
+
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                await user.sendEmailVerification();
+
+                await db.collection('users').doc(user.uid).set({
+                    email: email,
+                    phone: phone,
+                    balance: 0,
+                    createdAt: new Date()
+                });
+
+                showAlert('Account created! Check your email to verify.', 'success');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1600);
+            } catch (err) {
+                showAlert(err.message || 'Registration failed', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 4000);
+        }
+    </script>
+</body>
+</html>

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'channels',
     'api',
@@ -70,12 +71,30 @@ WSGI_APPLICATION = 'prime_sms.wsgi.application'
 ASGI_APPLICATION = 'prime_sms.asgi.application'
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# Use PostgreSQL if DATABASE_URL is set (for Vercel/production), otherwise SQLite (for local dev)
+DATABASE_URL = env('DATABASE_URL', default=None)
+if DATABASE_URL:
+    # Parse DATABASE_URL (format: postgresql://user:password@host:port/dbname)
+    import urllib.parse
+    result = urllib.parse.urlparse(DATABASE_URL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': result.path[1:],  # Remove leading '/'
+            'USER': result.username,
+            'PASSWORD': result.password,
+            'HOST': result.hostname,
+            'PORT': result.port or '5432',
+        }
     }
-}
+else:
+    # Fallback to SQLite for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -139,6 +158,9 @@ CHANNEL_LAYERS = {
     }
 }
 
+# Channels routing
+# We'll add a basic websocket path for support chat consumer
+
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', default='http://localhost:8000,http://127.0.0.1:8000').split(',')
 CORS_ALLOW_CREDENTIALS = True
@@ -161,6 +183,27 @@ FIVESIM_API_URL = 'https://api.5sim.net/v1'
 
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 SENDGRID_FROM_EMAIL = env('SENDGRID_FROM_EMAIL', default='noreply@primesmshub.com')
+
+# Telegram Bot Configuration
+TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN', default=None)
+TELEGRAM_ADMIN_CHAT_ID = env('TELEGRAM_ADMIN_CHAT_ID', default=None)
+# Optional secret for webhook validation (set in Telegram webhook 'secret_token' parameter)
+TELEGRAM_WEBHOOK_SECRET = env('TELEGRAM_WEBHOOK_SECRET', default=None)
+
+# Admin dashboard secret for non-interactive exports or automation
+ADMIN_DASHBOARD_SECRET = env('ADMIN_DASHBOARD_SECRET', default='dev-secret')
+
+# Channels (WebSocket) production configuration: prefer Redis when REDIS_URL is provided
+REDIS_URL = env('REDIS_URL', default=None)
+if REDIS_URL:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                'hosts': [REDIS_URL]
+            }
+        }
+    }
 
 # Logging
 LOGGING = {

@@ -101,6 +101,50 @@ class Profile(models.Model):
         return f"Profile - {self.user.username}"
 
 
+from django.utils import timezone
+
+class Conversation(models.Model):
+    STATUS_CHOICES = [
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='conversations', null=True, blank=True)
+    page = models.CharField(max_length=255, blank=True, default='support')
+    telegram_chat_id = models.BigIntegerField(null=True, blank=True)
+    telegram_message_id = models.BigIntegerField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    last_message_time = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-last_message_time']
+
+    def __str__(self):
+        return f"Conversation {self.id} - {self.user or 'Anonymous'}"
+
+
+class SupportMessage(models.Model):
+    SENDER_CHOICES = [
+        ('user', 'User'),
+        ('admin', 'Admin'),
+        ('system', 'System')
+    ]
+
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    sender = models.CharField(max_length=20, choices=SENDER_CHOICES)
+    sender_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    content = models.TextField()
+    telegram_message_id = models.BigIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"{self.sender} - {self.conversation.id} - {self.created_at}"
+
+
 class Notification(models.Model):
     NOTIF_TYPE_CHOICES = [
         ('info', 'Info'),

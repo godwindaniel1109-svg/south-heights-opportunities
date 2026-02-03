@@ -2,28 +2,124 @@
 // FIREBASE CONFIGURATION
 // ========================================
 
-// Load Firebase SDK from CDN
-if (!window.firebase) {
-    const script = document.createElement('script');
-    script.src = 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    document.head.appendChild(script);
-}
-
-const firebaseConfig = {
-    apiKey: "AIzaSyD8ljUFvRZmGajh4UTfh6zfb85OnHanoGM",
-    authDomain: "prime-sms-hub.firebaseapp.com",
-    projectId: "prime-sms-hub",
-    storageBucket: "prime-sms-hub.firebasestorage.app",
-    messagingSenderId: "789181833042",
-    appId: "1:789181833042:web:c2b063e001c484856a248b"
+// Hide Firebase internal errors from users - wrap console.error
+const originalError = console.error;
+console.error = function(...args) {
+    const msg = args[0]?.toString() || '';
+    // Hide Firebase/internal errors from users, but log for debugging
+    if (msg.includes('Firebase') || msg.includes('firestore') || msg.includes('auth')) {
+        // Log to browser console for dev, but don't show in UI
+        originalError.apply(console, ['[Internal]', ...args]);
+    } else {
+        originalError.apply(console, args);
+    }
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Load Firebase SDKs and initialize safely
+(function(){
+    const libs = [
+        'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js',
+        'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js',
+        'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js',
+        'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js'
+    ];
+    libs.forEach(src => {
+        if (!document.querySelector(`script[src="${src}"]`)) {
+            const s = document.createElement('script'); s.src = src; document.head.appendChild(s);
+        }
+    });
+    const check = setInterval(() => {
+        if (window.firebase && firebase.auth) {
+            clearInterval(check);
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            window.auth = firebase.auth();
+            window.db = firebase.firestore();
+            window.storage = firebase.storage();
+        }
+    }, 100);
+})();
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+const firebaseConfig = {
+  apiKey: "AIzaSyDoJYqyAwFbG0ZKuEQzJSlwucQjQwTmmMo",
+  authDomain: "primesmshub-24c8b.firebaseapp.com",
+  projectId: "primesmshub-24c8b",
+  storageBucket: "primesmshub-24c8b.firebasestorage.app",
+  messagingSenderId: "546449049036",
+  appId: "1:546449049036:web:4663a2846e0da751d24969"
+};
+
+// Initialize (will also be done by loader above); expose lazy vars
+const auth = window.auth || (window.firebase && firebase.auth && firebase.auth());
+const db = window.db || (window.firebase && firebase.firestore && firebase.firestore());
+const storage = window.storage || (window.firebase && firebase.storage && firebase.storage());
+
+// Compatibility helpers for code that expects the modular Firebase API (getAuth/getDB/getStorage)
+function getAuth(){
+    if (typeof auth !== 'undefined' && auth) return auth;
+    if (window.firebase && firebase.auth) return firebase.auth();
+    throw new Error('Firebase Auth not initialized');
+}
+function getDB(){
+    if (typeof db !== 'undefined' && db) return db;
+    if (window.firebase && firebase.firestore) return firebase.firestore();
+    throw new Error('Firestore not initialized');
+}
+function getStorage(){
+    if (typeof storage !== 'undefined' && storage) return storage;
+    if (window.firebase && firebase.storage) return firebase.storage();
+    throw new Error('Firebase Storage not initialized');
+
+// Async initializers that wait for Firebase to be ready
+// Configurable init timeout (ms). Override by setting window.FIREBASE_INIT_TIMEOUT_MS
+window.FIREBASE_INIT_TIMEOUT_MS = window.FIREBASE_INIT_TIMEOUT_MS || 8000;
+
+function getAuthAsync(timeout = window.FIREBASE_INIT_TIMEOUT_MS, signal) {
+    return new Promise((resolve, reject) => {
+        const start = Date.now();
+        if (signal && signal.aborted) return reject(new Error('Auth init cancelled'));
+        const onAbort = () => { reject(new Error('Auth init cancelled')); };
+        if (signal) signal.addEventListener('abort', onAbort, { once: true });
+        (function check() {
+            if ((typeof auth !== 'undefined' && auth) || (window.firebase && firebase.auth)) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return resolve((typeof auth !== 'undefined' && auth) ? auth : firebase.auth());
+            }
+            if (signal && signal.aborted) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return reject(new Error('Auth init cancelled'));
+            }
+            if (Date.now() - start > timeout) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return reject(new Error('Auth init timeout'));
+            }
+            setTimeout(check, 100);
+        })();
+    });
+}
+function getDBAsync(timeout = window.FIREBASE_INIT_TIMEOUT_MS, signal) {
+    return new Promise((resolve, reject) => {
+        const start = Date.now();
+        if (signal && signal.aborted) return reject(new Error('Firestore init cancelled'));
+        const onAbort = () => { reject(new Error('Firestore init cancelled')); };
+        if (signal) signal.addEventListener('abort', onAbort, { once: true });
+        (function check() {
+            if ((typeof db !== 'undefined' && db) || (window.firebase && firebase.firestore)) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return resolve((typeof db !== 'undefined' && db) ? db : firebase.firestore());
+            }
+            if (signal && signal.aborted) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return reject(new Error('Firestore init cancelled'));
+            }
+            if (Date.now() - start > timeout) {
+                if (signal) signal.removeEventListener('abort', onAbort);
+                return reject(new Error('Firestore init timeout'));
+            }
+            setTimeout(check, 100);
+        })();
+    });
+}
+} 
 
 // ========================================
 // FIRESTORE COLLECTIONS STRUCTURE

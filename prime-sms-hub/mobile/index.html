@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="description" content="Buy temporary phone numbers and receive SMS codes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SMS Hub">
+    
+    <title>Prime SMS Hub - Mobile</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="../images/godwin.jpg">
+    <link rel="apple-touch-icon" href="../images/godwin.jpg">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="mobile-header">
+        <div class="mobile-header-title">SMS Hub</div>
+        <button class="mobile-header-action" id="menuBtn" onclick="toggleMenu()">⚙️</button>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="mobile-main">
+        <!-- WELCOME SECTION -->
+        <div class="card">
+            <div class="card-header">Welcome Back</div>
+            <div id="userName" class="card-value">Guest</div>
+            <div class="card-footer">Tap to manage your account</div>
+        </div>
+
+        <!-- QUICK STATS -->
+        <div class="card">
+            <div class="card-header">Account Balance</div>
+            <div id="balance" class="card-value">₦0.00</div>
+            <button class="btn btn-primary" onclick="openAddFunds()">Add Funds</button>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+            <div class="card" style="padding: var(--spacing-md); text-align: center; cursor: pointer;" onclick="goTo('buy.html')">
+                <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">📱</div>
+                <div style="font-size: 0.875rem; font-weight: 600;">Buy Number</div>
+            </div>
+            <div class="card" style="padding: var(--spacing-md); text-align: center; cursor: pointer;" onclick="goTo('numbers.html')">
+                <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">📋</div>
+                <div style="font-size: 0.875rem; font-weight: 600;">My Numbers</div>
+            </div>
+            <div class="card" style="padding: var(--spacing-md); text-align: center; cursor: pointer;" onclick="goTo('history.html')">
+                <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">📊</div>
+                <div style="font-size: 0.875rem; font-weight: 600;">History</div>
+            </div>
+            <div class="card" style="padding: var(--spacing-md); text-align: center; cursor: pointer;" onclick="goTo('support.html')">
+                <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">💬</div>
+                <div style="font-size: 0.875rem; font-weight: 600;">Support</div>
+            </div>
+        </div>
+
+        <!-- RECENT ACTIVITY -->
+        <div class="card">
+            <div class="card-header">Recent Activity</div>
+            <div id="recentActivity" style="font-size: 0.875rem; color: var(--text-secondary); padding: var(--spacing-md) 0; text-align: center;">
+                No recent activity
+            </div>
+        </div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="mobile-nav">
+        <a href="#" class="nav-item active" onclick="setActive(this); goTo('index.html')">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); goTo('numbers.html')">
+            <span class="nav-icon">📱</span>
+            <span>Numbers</span>
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); goTo('history.html')">
+            <span class="nav-icon">📊</span>
+            <span>History</span>
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); goTo('profile.html')">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- MENU MODAL -->
+    <div id="menuModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span>Menu</span>
+                <button class="modal-close" onclick="toggleMenu()">✕</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                <button class="btn btn-secondary" onclick="goTo('support.html')">📞 Support</button>
+                <button class="btn btn-secondary" onclick="goTo('about.html')">ℹ️ About</button>
+                <button class="btn btn-secondary" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/mock-data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/mobile.js"></script>
+    <script src="../js/firebase-config.js"></script>
+</body>
+</html>

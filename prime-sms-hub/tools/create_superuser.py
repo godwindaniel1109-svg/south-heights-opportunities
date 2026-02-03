@@ -12,8 +12,8 @@ django.setup()
 
 User = get_user_model()
 username = 'Godwin Daniel'
-email = 'godwin.daniel1109@gmail.com'
-password = 'Godwin@2005'
+email = 'admin@example.com'  # CHANGE THIS
+password = 'CHANGE_THIS_PASSWORD'  # CHANGE THIS
 
 u = User.objects.filter(username=username).first()
 if u:

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - primesmshub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/branding.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page shining-bg font-improved">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <a href="/" class="nav-brand">
+                    <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                    <span class="app-name-nav"><span class="gold">P</span>r<span class="gold">i</span>mesmsHub</span>
+                </a>
+                <p>Create an account</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" name="email" required placeholder="you@example.com">
+                    <div class="field-error" id="regEmailError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" name="phone" required placeholder="+234 812 345 6789">
+                    <div class="field-error" id="regPhoneError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div class="form-group password-group">
+                    <label for="regPassword">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="regPassword" name="password" required placeholder="Minimum 6 characters">
+                        <button type="button" class="toggle-pass" data-target="regPassword">👁️</button>
+                    </div>
+                    <div class="field-error" id="regPasswordError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div class="form-group password-group">
+                    <label for="regConfirm">Confirm Password</label>
+                    <div class="password-field">
+                        <input type="password" id="regConfirm" name="confirmPassword" required placeholder="Repeat password">
+                        <button type="button" class="toggle-pass" data-target="regConfirm">👁️</button>
+                    </div>
+                    <div class="field-error" id="regConfirmError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:.5rem;">
+                    <div id="formSpinner" class="form-spinner inline hidden" style="display:inline-flex;align-items:center"><div class="spinner spinner--small" aria-hidden="true"></div><button type="button" id="formSpinnerCancel" class="btn btn-link hidden" style="margin-left:.4rem;padding:0;font-size:.9rem;">Cancel</button></div>
+                    <button type="submit" class="btn btn-primary btn-block" style="flex:1">Create Account</button>
+                </div>
+
+                <div class="auth-footer">  
+                    <p>Already have an account? <a href="login.html">Sign in</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="auth-illustration">
+            <div class="illustration-content">
+                <img src="images/neil.jpg" alt="Get Started" style="width: 250px; height: 250px; border-radius: 10px; object-fit: cover; margin-bottom: 1rem;">
+                <h2>Get started with Prime SMS Hub</h2>
+                <p>Create an account to buy temporary phone numbers and receive SMS codes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

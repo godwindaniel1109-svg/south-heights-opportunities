@@ -1,0 +1,305 @@
+/* ========================================
+   HISTORY PAGES STYLES
+   ======================================== */
+
+/* Filter Bar */
+.filter-bar {
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.filter-input {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-input::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.summary-card h4 {
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+/* Table Section */
+.orders-section,
+.transactions-section {
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.orders-table,
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table thead,
+.transactions-table thead {
+    background-color: var(--bg-tertiary);
+}
+
+.orders-table th,
+.transactions-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.orders-table td,
+.transactions-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.orders-table tbody tr:hover,
+.transactions-table tbody tr:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.orders-table tbody tr:last-child td,
+.transactions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Pagination */
+.pagination-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Export Section */
+.export-section {
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.export-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.export-buttons .btn {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.empty-state p {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .orders-table,
+    .transactions-table {
+        font-size: 0.9rem;
+    }
+
+    .orders-table th,
+    .orders-table td,
+    .transactions-table th,
+    .transactions-table td {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-group {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .orders-section,
+    .transactions-section,
+    .filter-bar {
+        padding: 1rem;
+    }
+
+    .table-responsive {
+        overflow-x: scroll;
+    }
+
+    .orders-table,
+    .transactions-table {
+        font-size: 0.85rem;
+        min-width: 600px;
+    }
+
+    .orders-table th,
+    .orders-table td,
+    .transactions-table th,
+    .transactions-table td {
+        padding: 0.5rem;
+    }
+
+    .export-buttons {
+        flex-direction: column;
+    }
+
+    .export-buttons .btn {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-table,
+    .transactions-table {
+        font-size: 0.75rem;
+        min-width: 500px;
+    }
+
+    .orders-table th,
+    .orders-table td,
+    .transactions-table th,
+    .transactions-table td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .btn-action {
+        padding: 2px 4px;
+        font-size: 1rem;
+    }
+
+    .pagination {
+        gap: 0.5rem;
+    }
+
+    .pagination-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .pagination-info {
+        font-size: 0.75rem;
+    }
+}
+
+/* Hide columns on very small screens */
+@media (max-width: 640px) {
+    .orders-table .col-hidden,
+    .transactions-table .col-hidden {
+        display: none;
+    }
+}

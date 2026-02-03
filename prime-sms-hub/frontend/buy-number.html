@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Number - Prime SMS Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-dark: #0d122b;
+            --secondary-dark: #1a1f3c;
+            --accent-blue: #42c5f5;
+            --accent-purple: #3756c4;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --pending: #f59e0b;
+            --cancelled: #ef4444;
+        }
+
+        body {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--secondary-dark);
+            border-right: 1px solid rgba(66, 197, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            text-align: center;
+        }
+
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        /* New feature callout inserted below logo */
+        .sidebar-new-feature {
+            padding: 10px 16px;
+            margin: 10px 18px;
+            background: linear-gradient(90deg, rgba(255,107,53,0.08), rgba(255,107,53,0.02));
+            border-radius: 8px;
+            color: #fff;
+            text-align: left;
+        }
+
+        .sidebar-new-feature .new-title { font-weight:700; display:block }
+        .sidebar-new-feature .new-sub { color: var(--text-gray); font-size:0.85rem; margin-top:4px }
+
+        .wallet-balance {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .wallet-balance .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--text-light);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item.active {
+            background: rgba(66, 197, 245, 0.15);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 25px;
+            font-size: 1.1rem;
+            margin-right: 12px;
+        }
+
+        .logout-section {
+            padding: 20px;
+            border-top: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .country-selection {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .country-selection h2 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .country-dropdown {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .dropdown-toggle {
+            width: 100%;
+            padding: 15px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .dropdown-toggle:hover {
+            border-color: var(--accent-blue);
+            background: rgba(66, 197, 245, 0.1);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--secondary-dark);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 8px;
+            margin-top: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(66, 197, 245, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .country-flag {
+            font-size: 1.5rem;
+        }
+
+        .country-info {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .country-name {
+            font-weight: 500;
+        }
+
+        .country-price {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .service-section {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            display: none;
+        }
+
+        .service-section.active {
+            display: block;
+        }
+
+        .service-section h2 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .service-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .service-tab {
+            padding: 10px 20px;
+            background: rgba(13, 18, 43, 0.5);
+            border: 1px solid rgba(66, 197, 245, 0.3);
+            border-radius: 20px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .service-tab:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .service-tab.active {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+        }
+
+        .numbers-table {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            overflow: hidden;
+            display: none;
+        }
+
+        .numbers-table.active {
+            display: block;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+        }
+
+        .table-header h2 {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            background: rgba(13, 18, 43, 0.5);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(66, 197, 245, 0.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(55, 86, 196, 0.4);
+        }
+
+        .btn-buy {
+            padding: 8px 16px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-buy:hover {
+            box-shadow: 0 4px 12px rgba(55, 86, 196, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 18, 43, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(66, 197, 245, 0.2);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-light);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+        }
+
+        .modal-info {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(66, 197, 245, 0.1);
+        }
+
+        .info-label {
+            color: var(--text-gray);
+        }
+
+        .info-value {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .timer-display {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .sms-code-display {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .sms-code-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .sms-code {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success);
+            font-family: monospace;
+            letter-spacing: 3px;
+        }
+
+        .copy-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-confirm {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body data-live-reload="soft">
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="images/godwin.jpg" alt="Prime SMS Hub" onerror="this.style.display='none'">
+            <h1>PRIME SMS HUB</h1>
+            <p>verify more for less</p>
+        </div>
+
+        <div class="wallet-balance">
+            <h3>Your Balance</h3>
+            <div class="amount" id="walletBalanceSidebar">₦0</div>
+        </div>
+
+        <div class="nav-menu">            <a href="buy-domain.html" class="nav-item" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified when it drops!');">
+                <i class="icon">🌐</i>
+                Buy Domain <span class="badge-new badge-new-small">New</span>
+            </a>            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="buy-number.html" class="nav-item active">
+                <i class="fas fa-phone"></i>
+                Buy Number
+            </a>
+            <a href="buy-usa-number.html" class="nav-item">
+                <i class="fas fa-phone"></i>
+                Buy Number (US)
+            </a>
+            <a href="order-history.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                Order History
+            </a>
+            <a href="transaction-history.html" class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                My Transactions
+            </a>
+            <a href="fund-wallet.html" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                Fund Wallet
+            </a>
+            <a href="support.html" class="nav-item">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+        </div>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-phone" style="margin-right: 10px;"></i>Buy Phone Number</h1>
+            <div class="user-info">
+                <span>Welcome</span>
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+
+        <div class="country-selection">
+            <h2>Step 1: Select Country</h2>
+            <div class="country-dropdown">
+                <button class="dropdown-toggle" onclick="toggleDropdown()">
+                    <span id="selectedCountryText">Choose a country</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu" id="countryDropdown">
+                    <!-- Countries will be populated dynamically by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="service-section" id="serviceSection">
+            <h2>Step 2: Select Service</h2>
+            <div class="service-tabs">
+                <button class="service-tab active" onclick="filterByService('all')">All Services</button>
+                <button class="service-tab" onclick="filterByService('telegram')"><i class="fab fa-telegram" style="margin-right: 5px;"></i>Telegram</button>
+                <button class="service-tab" onclick="filterByService('whatsapp')"><i class="fab fa-whatsapp" style="margin-right: 5px;"></i>WhatsApp</button>
+                <button class="service-tab" onclick="filterByService('facebook')"><i class="fab fa-facebook" style="margin-right: 5px;"></i>Facebook</button>
+                <button class="service-tab" onclick="filterByService('google')"><i class="fab fa-google" style="margin-right: 5px;"></i>Google</button>
+                <button class="service-tab" onclick="filterByService('twitter')"><i class="fab fa-twitter" style="margin-right: 5px;"></i>Twitter</button>
+                <button class="service-tab" onclick="filterByService('instagram')"><i class="fab fa-instagram" style="margin-right: 5px;"></i>Instagram</button>
+                <button class="service-tab" onclick="filterByService('viber')">Viber</button>
+                <button class="service-tab" onclick="filterByService('line')">LINE</button>
+                <button class="service-tab" onclick="filterByService('snapchat')">Snapchat</button>
+                <button class="service-tab" onclick="filterByService('tiktok')"><i class="fab fa-tiktok" style="margin-right: 5px;"></i>TikTok</button>
+                <button class="service-tab" onclick="filterByService('youtube')"><i class="fab fa-youtube" style="margin-right: 5px;"></i>YouTube</button>
+                <button class="service-tab" onclick="filterByService('discord')"><i class="fab fa-discord" style="margin-right: 5px;"></i>Discord</button>
+                <button class="service-tab" onclick="filterByService('slack')">Slack</button>
+                <button class="service-tab" onclick="filterByService('pinterest')"><i class="fab fa-pinterest" style="margin-right: 5px;"></i>Pinterest</button>
+                <button class="service-tab" onclick="filterByService('linkedin')"><i class="fab fa-linkedin" style="margin-right: 5px;"></i>LinkedIn</button>
+                <button class="service-tab" onclick="filterByService('reddit')"><i class="fab fa-reddit" style="margin-right: 5px;"></i>Reddit</button>
+                <button class="service-tab" onclick="filterByService('amazon')">Amazon</button>
+                <button class="service-tab" onclick="filterByService('airbnb')">Airbnb</button>
+                <button class="service-tab" onclick="filterByService('uber')">Uber</button>
+                <button class="service-tab" onclick="filterByService('paypal')">PayPal</button>
+                <button class="service-tab" onclick="filterByService('stripe')">Stripe</button>
+                <button class="service-tab" onclick="filterByService('dropbox')">Dropbox</button>
+                <button class="service-tab" onclick="filterByService('github')"><i class="fab fa-github" style="margin-right: 5px;"></i>GitHub</button>
+                <button class="service-tab" onclick="filterByService('twitch')"><i class="fab fa-twitch" style="margin-right: 5px;"></i>Twitch</button>
+                <button class="service-tab" onclick="filterByService('spotify')">Spotify</button>
+                <button class="service-tab" onclick="filterByService('apple')">Apple ID</button>
+                <button class="service-tab" onclick="filterByService('microsoft')">Microsoft</button>
+                <button class="service-tab" onclick="filterByService('adobe')">Adobe</button>
+                <button class="service-tab" onclick="filterByService('salesforce')">Salesforce</button>
+                <button class="service-tab" onclick="filterByService('zendesk')">Zendesk</button>
+                <button class="service-tab" onclick="filterByService('mailchimp')">Mailchimp</button>
+            </div>
+
+            <div class="numbers-table active">
+                <div class="table-header">
+                    <h2>Available Numbers</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phone Number</th>
+                            <th>Service</th>
+                            <th>Price</th>
+                            <th>Availability</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="numbersTableBody">
+                        <tr><td>+1 (201) 234-5601</td><td><i class="fab fa-telegram"></i> Telegram</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5601', 'Telegram', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5602</td><td><i class="fab fa-whatsapp"></i> WhatsApp</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5602', 'WhatsApp', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5603</td><td><i class="fab fa-facebook"></i> Facebook</td><td>₦1,250</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5603', 'Facebook', '₦1,250')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5604</td><td><i class="fab fa-google"></i> Google</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5604', 'Google', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5605</td><td><i class="fab fa-twitter"></i> Twitter</td><td>₦1,280</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5605', 'Twitter', '₦1,280')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5606</td><td><i class="fab fa-instagram"></i> Instagram</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5606', 'Instagram', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5607</td><td>Viber</td><td>₦1,280</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5607', 'Viber', '₦1,280')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5608</td><td>LINE</td><td>₦1,290</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5608', 'LINE', '₦1,290')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5609</td><td>Snapchat</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5609', 'Snapchat', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (201) 234-5610</td><td><i class="fab fa-tiktok"></i> TikTok</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (201) 234-5610', 'TikTok', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6711</td><td><i class="fab fa-youtube"></i> YouTube</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6711', 'YouTube', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6712</td><td><i class="fab fa-discord"></i> Discord</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6712', 'Discord', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6713</td><td>Slack</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6713', 'Slack', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6714</td><td><i class="fab fa-pinterest"></i> Pinterest</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6714', 'Pinterest', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (202) 345-6715</td><td><i class="fab fa-linkedin"></i> LinkedIn</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (202) 345-6715', 'LinkedIn', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7816</td><td><i class="fab fa-reddit"></i> Reddit</td><td>₦1,290</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7816', 'Reddit', '₦1,290')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7817</td><td>Amazon</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7817', 'Amazon', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7818</td><td>Airbnb</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7818', 'Airbnb', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7819</td><td>Uber</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7819', 'Uber', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (203) 456-7820</td><td>PayPal</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (203) 456-7820', 'PayPal', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8921</td><td>Stripe</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8921', 'Stripe', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8922</td><td>Dropbox</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8922', 'Dropbox', '₦1,300')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8923</td><td><i class="fab fa-github"></i> GitHub</td><td>₦1,310</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8923', 'GitHub', '₦1,310')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8924</td><td><i class="fab fa-twitch"></i> Twitch</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8924', 'Twitch', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (204) 567-8925</td><td>Spotify</td><td>₦1,320</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (204) 567-8925', 'Spotify', '₦1,320')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9026</td><td>Apple ID</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9026', 'Apple ID', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9027</td><td>Microsoft</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9027', 'Microsoft', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9028</td><td>Adobe</td><td>₦1,350</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9028', 'Adobe', '₦1,350')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9029</td><td>Salesforce</td><td>₦1,360</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9029', 'Salesforce', '₦1,360')">Buy</button></td></tr>
+                        <tr><td>+1 (205) 678-9030</td><td>Zendesk</td><td>₦1,340</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (205) 678-9030', 'Zendesk', '₦1,340')">Buy</button></td></tr>
+                        <tr><td>+1 (206) 789-0131</td><td>Mailchimp</td><td>₦1,330</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (206) 789-0131', 'Mailchimp', '₦1,330')">Buy</button></td></tr>
+                        <tr><td>+1 (206) 789-0132</td><td><i class="fab fa-telegram"></i> Telegram</td><td>₦1,300</td><td><span style="color: var(--success);">✓ Available</span></td><td><button class="btn-buy" onclick="openPurchaseModal('+1 (206) 789-0132', 'Telegram', '₦1,300')">Buy</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePurchaseModal()">×</button>
+            <div class="modal-header">
+                <h2>Purchase Confirmation</h2>
+            </div>
+            <div class="modal-info">
+                <div class="info-row">
+                    <span class="info-label">Phone Number:</span>
+                    <span class="info-value" id="modalPhone">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Service:</span>
+                    <span class="info-value" id="modalService">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Price:</span>
+                    <span class="info-value" id="modalPrice">-</span>
+                </div>
+            </div>
+
+            <div class="sms-code-display" id="codeDisplay" style="display: none;">
+                <div class="sms-code-label">Your SMS Code:</div>
+                <div class="sms-code" id="smsCode">123456</div>
+                <button class="copy-btn" onclick="copyCode()">📋 Copy Code</button>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Time Remaining:</span>
+                <span class="timer-display" id="timerDisplay">20:00</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-confirm" onclick="confirmPurchase()">Confirm & Close</button>
+                <button class="btn-cancel" onclick="closePurchaseModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/logout-helper.js"></script>
+    <script src="js/backend-api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/buy-number.js"></script>
+    <script src="js/live-reload.js"></script>
+    <script>const COUNTRY = 'ALL';</script>
+    <script src="js/buy-number.js"></script>
+    <script>
+        // Countries will be loaded dynamically from 5SIM API
+        let ALL_COUNTRIES = [];
+
+        // Function to get flag emoji from country code (using Unicode regional indicators)
+        function getCountryFlag(code) {
+            const flagMap = {
+                'US': '🇺🇸', 'GB': '🇬🇧', 'NG': '🇳🇬', 'AF': '🇦🇫', 'AX': '🇦🇽', 'AL': '🇦🇱', 'DZ': '🇩🇿', 'AS': '🇦🇸',
+                'AD': '🇦🇩', 'AO': '🇦🇴', 'AI': '🇦🇮', 'AQ': '🇦🇶', 'AG': '🇦🇬', 'AR': '🇦🇷', 'AM': '🇦🇲', 'AW': '🇦🇼',
+                'AU': '🇦🇺', 'AT': '🇦🇹', 'AZ': '🇦🇿', 'BS': '🇧🇸', 'BH': '🇧🇭', 'BD': '🇧🇩', 'BB': '🇧🇧', 'BY': '🇧🇾',
+                'BE': '🇧🇪', 'BZ': '🇧🇿', 'BJ': '🇧🇯', 'BM': '🇧🇲', 'BT': '🇧🇹', 'BO': '🇧🇴', 'BA': '🇧🇦', 'BW': '🇧🇼',
+                'BR': '🇧🇷', 'IO': '🇮🇴', 'BN': '🇧🇳', 'BG': '🇧🇬', 'BF': '🇧🇫', 'BI': '🇧🇮', 'KH': '🇰🇭', 'CM': '🇨🇲',
+                'CA': '🇨🇦', 'CV': '🇨🇻', 'KY': '🇰🇾', 'CF': '🇨🇫', 'TD': '🇹🇩', 'CL': '🇨🇱', 'CN': '🇨🇳', 'CX': '🇨🇽',
+                'CC': '🇨🇨', 'CO': '🇨🇴', 'KM': '🇰🇲', 'CG': '🇨🇬', 'CD': '🇨🇩', 'CK': '🇨🇰', 'CR': '🇨🇷', 'CI': '🇨🇮',
+                'HR': '🇭🇷', 'CU': '🇨🇺', 'CY': '🇨🇾', 'CZ': '🇨🇿', 'DK': '🇩🇰', 'DJ': '🇩🇯', 'DM': '🇩🇲', 'DO': '🇩🇴',
+                'EC': '🇪🇨', 'EG': '🇪🇬', 'SV': '🇸🇻', 'GQ': '🇬🇶', 'ER': '🇪🇷', 'EE': '🇪🇪', 'ET': '🇪🇹', 'FK': '🇫🇰',
+                'FO': '🇫🇴', 'FJ': '🇫🇯', 'FI': '🇫🇮', 'FR': '🇫🇷', 'GF': '🇬🇫', 'PF': '🇵🇫', 'GA': '🇬🇦', 'GM': '🇬🇲',
+                'GE': '🇬🇪', 'DE': '🇩🇪', 'GH': '🇬🇭', 'GI': '🇬🇮', 'GR': '🇬🇷', 'GL': '🇬🇱', 'GD': '🇬🇩', 'GP': '🇬🇵',
+                'GU': '🇬🇺', 'GT': '🇬🇹', 'GG': '🇬🇬', 'GN': '🇬🇳', 'GW': '🇬🇼', 'GY': '🇬🇾', 'HT': '🇭🇹', 'VA': '🇻🇦',
+                'HN': '🇭🇳', 'HK': '🇭🇰', 'HU': '🇭🇺', 'IS': '🇮🇸', 'IN': '🇮🇳', 'ID': '🇮🇩', 'IR': '🇮🇷', 'IQ': '🇮🇶',
+                'IE': '🇮🇪', 'IM': '🇮🇲', 'IL': '🇮🇱', 'IT': '🇮🇹', 'JM': '🇯🇲', 'JP': '🇯🇵', 'JE': '🇯🇪', 'JO': '🇯🇴',
+                'KZ': '🇰🇿', 'KE': '🇰🇪', 'KI': '🇰🇮', 'KP': '🇰🇵', 'KR': '🇰🇷', 'KW': '🇰🇼', 'KG': '🇰🇬', 'LA': '🇱🇦',
+                'LV': '🇱🇻', 'LB': '🇱🇧', 'LS': '🇱🇸', 'LR': '🇱🇷', 'LY': '🇱🇾', 'LI': '🇱🇮', 'LT': '🇱🇹', 'LU': '🇱🇺',
+                'MO': '🇲🇴', 'MK': '🇲🇰', 'MG': '🇲🇬', 'MW': '🇲🇼', 'MY': '🇲🇾', 'MV': '🇲🇻', 'ML': '🇲🇱', 'MT': '🇲🇹',
+                'MH': '🇲🇭', 'MQ': '🇲🇶', 'MR': '🇲🇷', 'MU': '🇲🇺', 'YT': '🇾🇹', 'MX': '🇲🇽', 'FM': '🇫🇲', 'MD': '🇲🇩',
+                'MC': '🇲🇨', 'MN': '🇲🇳', 'ME': '🇲🇪', 'MS': '🇲🇸', 'MA': '🇲🇦', 'MZ': '🇲🇿', 'MM': '🇲🇲', 'NA': '🇳🇦',
+                'NR': '🇳🇷', 'NP': '🇳🇵', 'NL': '🇳🇱', 'AN': '🇧🇶', 'NC': '🇳🇨', 'NZ': '🇳🇿', 'NI': '🇳🇮', 'NE': '🇳🇪',
+                'NU': '🇳🇺', 'NF': '🇳🇫', 'MP': '🇲🇵', 'NO': '🇳🇴', 'OM': '🇴🇲', 'PK': '🇵🇰', 'PW': '🇵🇼', 'PS': '🇵🇸',
+                'PA': '🇵🇦', 'PG': '🇵🇬', 'PY': '🇵🇾', 'PE': '🇵🇪', 'PH': '🇵🇭', 'PN': '🇵🇳', 'PL': '🇵🇱', 'PT': '🇵🇹',
+                'PR': '🇵🇷', 'QA': '🇶🇦', 'RO': '🇷🇴', 'RU': '🇷🇺', 'RW': '🇷🇼', 'RE': '🇷🇪', 'BL': '🇧🇱', 'SH': '🇸🇭',
+                'KN': '🇰🇳', 'LC': '🇱🇨', 'MF': '🇲🇫', 'PM': '🇵🇲', 'VC': '🇻🇨', 'WS': '🇼🇸', 'SM': '🇸🇲', 'ST': '🇸🇹',
+                'SA': '🇸🇦', 'SN': '🇸🇳', 'RS': '🇷🇸', 'SC': '🇸🇨', 'SL': '🇸🇱', 'SG': '🇸🇬', 'SK': '🇸🇰', 'SI': '🇸🇮',
+                'SB': '🇸🇧', 'SO': '🇸🇴', 'ZA': '🇿🇦', 'SS': '🇸🇸', 'GS': '🇬🇸', 'ES': '🇪🇸', 'LK': '🇱🇰', 'SD': '🇸🇩',
+                'SR': '🇸🇷', 'SJ': '🇸🇯', 'SZ': '🇸🇿', 'SE': '🇸🇪', 'CH': '🇨🇭', 'SY': '🇸🇾', 'TW': '🇹🇼', 'TJ': '🇹🇯',
+                'TZ': '🇹🇿', 'TH': '🇹🇭', 'TL': '🇹🇱', 'TG': '🇹🇬', 'TK': '🇹🇰', 'TO': '🇹🇴', 'TT': '🇹🇹', 'TN': '🇹🇳',
+                'TR': '🇹🇷', 'TM': '🇹🇲', 'TC': '🇹🇨', 'TV': '🇹🇻', 'UG': '🇺🇬', 'UA': '🇺🇦', 'AE': '🇦🇪', 'UY': '🇺🇾',
+                'UZ': '🇺🇿', 'VU': '🇻🇺', 'VE': '🇻🇪', 'VN': '🇻🇳', 'VG': '🇻🇬', 'VI': '🇻🇮', 'WF': '🇼🇫', 'YE': '🇾🇪',
+                'ZM': '🇿🇲', 'ZW': '🇿🇼'
+            };
+            return flagMap[code] || '🌐';
+        }
+
+        // Fetch countries dynamically from 5SIM API
+        async function fetchCountriesFrom5SIM() {
+            try {
+                const dropdown = document.getElementById('countryDropdown');
+                if (dropdown) {
+                    dropdown.innerHTML = '<div class="dropdown-item" style="text-align:center;padding:20px;"><span>Loading countries...</span></div>';
+                }
+
+                // Fetch pricing data from backend (which calls 5SIM API)
+                const response = await fetch('/api/phone-numbers/available_numbers/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch countries from 5SIM API');
+                }
+
+                const data = await response.json();
+                const countriesMap = new Map();
+
+                // Process 5SIM pricing data - structure: { country_code: { service: price } }
+                // or array of { country, services: { service: price } }
+                let pricingData = data;
+                
+                if (typeof data === 'object' && !Array.isArray(data)) {
+                    // If data is object, each key is a country
+                    Object.entries(data).forEach(([countryCode, countryData]) => {
+                        if (countryData && typeof countryData === 'object') {
+                            const services = countryData.services || countryData;
+                            if (services && typeof services === 'object') {
+                                // Calculate minimum and maximum prices across all services
+                                const prices = Object.values(services).filter(p => typeof p === 'number');
+                                if (prices.length > 0) {
+                                    const minPrice = Math.min(...prices);
+                                    const maxPrice = Math.max(...prices);
+                                    const sellingMinPrice = (minPrice * 2 * 1200).toLocaleString(); // 2x price in NGN
+                                    const sellingMaxPrice = (maxPrice * 2 * 1200).toLocaleString();
+                                    
+                                    countriesMap.set(countryCode.toUpperCase(), {
+                                        code: countryCode.toUpperCase(),
+                                        name: countryData.country || countryCode,
+                                        mobile_code: countryData.mobile_code || '',
+                                        price: `₦${sellingMinPrice}-${sellingMaxPrice}`,
+                                        minPriceUSD: minPrice,
+                                        maxPriceUSD: maxPrice,
+                                        services: services,
+                                        flag: getCountryFlag(countryCode.toUpperCase())
+                                    });
+                                }
+                            }
+                        }
+                    });
+                } else if (Array.isArray(data)) {
+                    // If data is array
+                    data.forEach(item => {
+                        if (item && typeof item === 'object') {
+                            const countryCode = (item.country || item.iso || item.code || '').toUpperCase();
+                            if (countryCode) {
+                                const services = item.services || {};
+                                const prices = Object.values(services).filter(p => typeof p === 'number');
+                                if (prices.length > 0) {
+                                    const minPrice = Math.min(...prices);
+                                    const maxPrice = Math.max(...prices);
+                                    const sellingMinPrice = (minPrice * 2 * 1200).toLocaleString();
+                                    const sellingMaxPrice = (maxPrice * 2 * 1200).toLocaleString();
+                                    
+                                    countriesMap.set(countryCode, {
+                                        code: countryCode,
+                                        name: item.country || item.name || countryCode,
+                                        mobile_code: item.mobile_code || '',
+                                        price: `₦${sellingMinPrice}-${sellingMaxPrice}`,
+                                        minPriceUSD: minPrice,
+                                        maxPriceUSD: maxPrice,
+                                        services: services,
+                                        flag: getCountryFlag(countryCode)
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Convert map to array and sort alphabetically
+                ALL_COUNTRIES = Array.from(countriesMap.values()).sort((a, b) => 
+                    a.name.localeCompare(b.name)
+                );
+
+                // Populate dropdown
+                populateCountryDropdown();
+
+                return ALL_COUNTRIES;
+            } catch (error) {
+                console.error('Error fetching countries from 5SIM:', error);
+                const dropdown = document.getElementById('countryDropdown');
+                if (dropdown) {
+                    dropdown.innerHTML = '<div class="dropdown-item" style="text-align:center;padding:20px;color:#ef4444;"><span>Failed to load countries. Please refresh.</span></div>';
+                }
+                return [];
+            }
+        }
+
+        // Function to populate country dropdown dynamically
+        function populateCountryDropdown() {
+            const dropdown = document.getElementById('countryDropdown');
+            if (!dropdown) return;
+            
+            dropdown.innerHTML = '';
+            
+            if (ALL_COUNTRIES.length === 0) {
+                dropdown.innerHTML = '<div class="dropdown-item" style="text-align:center;padding:20px;"><span>No countries available</span></div>';
+                return;
+            }
+            
+            ALL_COUNTRIES.forEach(country => {
+                const flag = country.flag || getCountryFlag(country.code);
+                const item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.onclick = () => selectCountry(country.code, flag, country.price, country);
+                item.innerHTML = `
+                    <span class="country-flag">${flag}</span>
+                    <div class="country-info">
+                        <span class="country-name">${country.name}</span>
+                        <span class="country-price">${country.price}</span>
+                    </div>
+                `;
+                dropdown.appendChild(item);
+            });
+        }
+
+        // Update wallet balance in sidebar
+        (async function(){
+            try{
+                const wallet = await api.getWalletBalance();
+                const el = document.getElementById('walletBalanceSidebar');
+                if (el) {
+                    const symbol = wallet.currency === 'NGN' ? '₦' : (wallet.currency === 'USD' ? '$' : wallet.currency);
+                    el.textContent = `${symbol}${Number(wallet.balance || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}`;
+                }
+            } catch(e) { /* ignore if api not available */ }
+        })();
+        
+        // Fetch countries from 5SIM API on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchCountriesFrom5SIM();
+        });
+        
+        // Also fetch if DOM already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', fetchCountriesFrom5SIM);
+        } else {
+            fetchCountriesFrom5SIM();
+        }
+        
+        let timerInterval;
+        let selectedCountry = null;
+
+        function toggleDropdown() {
+            document.getElementById('countryDropdown').classList.toggle('active');
+        }
+
+        async function selectCountry(code, flag, price, countryData = null) {
+            selectedCountry = { code, flag, price, countryData };
+            document.getElementById('selectedCountryText').textContent = `${flag} ${code}`;
+            document.getElementById('countryDropdown').classList.remove('active');
+            
+            // Show loading state
+            const serviceSection = document.getElementById('serviceSection');
+            serviceSection.classList.add('active');
+            
+            // Fetch and display available numbers for this country
+            await fetchNumbersForCountry(code);
+        }
+        
+        // Fetch available numbers from 5SIM API for selected country
+        async function fetchNumbersForCountry(countryCode) {
+            try {
+                const tbody = document.getElementById('numbersTableBody');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;">Loading numbers...</td></tr>';
+                
+                // Fetch available numbers from backend (5SIM API)
+                const response = await fetch(`/api/phone-numbers/available_numbers/?country=${encodeURIComponent(countryCode.toLowerCase())}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch numbers');
+                }
+                
+                const data = await response.json();
+                tbody.innerHTML = '';
+                
+                // Process numbers - 5SIM returns pricing data, not individual numbers
+                // Numbers are purchased on-demand, so we show available services with prices
+                let numbers = [];
+                if (Array.isArray(data)) {
+                    // If array, find items matching the country
+                    data.forEach(item => {
+                        if (item && typeof item === 'object') {
+                            const itemCountry = (item.country || item.iso || item.code || '').toLowerCase();
+                            if (itemCountry === countryCode.toLowerCase()) {
+                                const services = item.services || {};
+                                Object.entries(services).forEach(([service, priceUSD]) => {
+                                    if (typeof priceUSD === 'number') {
+                                        const sellingPriceNGN = Math.round(priceUSD * 2 * 1200);
+                                        numbers.push({
+                                            phone: `Available on purchase`,
+                                            service: service.charAt(0).toUpperCase() + service.slice(1),
+                                            price: `₦${sellingPriceNGN.toLocaleString()}`,
+                                            priceUSD: priceUSD,
+                                            available: true,
+                                            country: countryCode,
+                                            serviceKey: service
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                } else if (data && typeof data === 'object') {
+                    // Extract from object structure - 5SIM pricing format
+                    const countryData = data[countryCode.toLowerCase()] || data[countryCode.toUpperCase()];
+                    if (countryData && countryData.services) {
+                        // Create entries for each available service
+                        Object.entries(countryData.services).forEach(([service, priceUSD]) => {
+                            if (typeof priceUSD === 'number') {
+                                const sellingPriceNGN = Math.round(priceUSD * 2 * 1200);
+                                numbers.push({
+                                    phone: 'Available on purchase',
+                                    service: service.charAt(0).toUpperCase() + service.slice(1),
+                                    price: `₦${sellingPriceNGN.toLocaleString()}`,
+                                    priceUSD: priceUSD,
+                                    available: true,
+                                    country: countryCode,
+                                    serviceKey: service
+                                });
+                            }
+                        });
+                    }
+                }
+                
+                if (numbers.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;">No numbers available for this country.</td></tr>';
+                    return;
+                }
+                
+                // Display numbers in table
+                numbers.forEach(item => {
+                    const phone = item.phone || item.number || item.msisdn || 'Available on purchase';
+                    const service = item.service || 'N/A';
+                    const price = item.price || `₦${Math.round((item.priceUSD || 0) * 2 * 1200).toLocaleString()}`;
+                    const available = item.available !== false;
+                    const country = item.country || countryCode;
+                    const serviceKey = item.serviceKey || service.toLowerCase();
+                    
+                    const tr = document.createElement('tr');
+                    const priceEscaped = price.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const countryEscaped = country.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const serviceKeyEscaped = serviceKey.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    
+                    tr.innerHTML = `
+                        <td>${phone}</td>
+                        <td>${service}</td>
+                        <td>${price}</td>
+                        <td><span style="color: ${available ? 'var(--success)' : 'var(--cancelled)';">${available ? '✓ Available' : '✗ Unavailable'}</span></td>
+                        <td><button class="btn-buy" onclick="buyNumberFrom5SIM('${countryEscaped}', '${serviceKeyEscaped}', '${priceEscaped}')">Buy</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+            } catch (error) {
+                console.error('Error fetching numbers for country:', error);
+                const tbody = document.getElementById('numbersTableBody');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#ef4444;">Failed to load numbers. Please try again.</td></tr>';
+                }
+            }
+        }
+
+        function filterByService(service) {
+            const tabs = document.querySelectorAll('.service-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Buy number from 5SIM API
+        async function buyNumberFrom5SIM(country, service, price) {
+            try {
+                // First check wallet balance
+                const walletResponse = await fetch('/api/wallet/balance/', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                    }
+                });
+                
+                if (walletResponse.ok) {
+                    const walletData = await walletResponse.json();
+                    const walletBalance = parseFloat(walletData.balance || 0);
+                    const purchaseAmount = parseFloat(price.replace(/[₦,]/g, ''));
+                    
+                    if (walletBalance < purchaseAmount) {
+                        alert(`Insufficient wallet balance. Your balance is ₦${walletBalance.toLocaleString()}, but you need ₦${purchaseAmount.toLocaleString()}. Please fund your wallet first.`);
+                        return;
+                    }
+                }
+                
+                const response = await fetch('/api/phone-numbers/buy_number/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                    },
+                    body: JSON.stringify({
+                        country: country.toLowerCase(),
+                        service: service.toLowerCase(),
+                        amount: parseFloat(price.replace(/[₦,]/g, ''))
+                    })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(`Failed to purchase: ${error.error || error.message || 'Unknown error'}`);
+                    return;
+                }
+                
+                const data = await response.json();
+                // Show purchase modal with actual number
+                openPurchaseModal(data.phone_number || data.phone || 'Purchased', service, price, data);
+            } catch (error) {
+                console.error('Error purchasing number:', error);
+                alert('Failed to purchase number. Please try again.');
+            }
+        }
+
+        function openPurchaseModal(phone, service, price, purchaseData = null) {
+            document.getElementById('modalPhone').textContent = phone;
+            document.getElementById('modalService').textContent = service;
+            document.getElementById('modalPrice').textContent = price;
+            
+            // Generate random 6-digit code
+            const code = String(Math.floor(Math.random() * 999999)).padStart(6, '0');
+            document.getElementById('smsCode').textContent = code;
+            document.getElementById('codeDisplay').style.display = 'block';
+            
+            document.getElementById('purchaseModal').classList.add('active');
+            
+            let timeLeft = 1200; // 20 minutes
+            updateTimer(timeLeft);
+            
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    closePurchaseModal();
+                }
+            }, 1000);
+        }
+
+        function updateTimer(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('smsCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function confirmPurchase() {
+            closePurchaseModal();
+        }
+
+        function logout() {
+            if (typeof showLogoutConfirmation === 'function') {
+                showLogoutConfirmation(() => {
+                    window.location.href = 'login.html';
+                });
+            } else {
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('countryDropdown');
+            const toggle = document.querySelector('.dropdown-toggle');
+            if (!dropdown.contains(e.target) && !toggle.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

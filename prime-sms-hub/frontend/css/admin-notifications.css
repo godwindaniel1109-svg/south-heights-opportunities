@@ -1,0 +1,78 @@
+/* ========================================
+   ADMIN NOTIFICATION STYLES
+   ======================================== */
+
+.admin-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-primary);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    min-width: 300px;
+    max-width: 400px;
+    box-shadow: var(--shadow-xl);
+    z-index: 10000;
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.notification-header strong {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.notification-header button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.notification-header button:hover {
+    color: var(--danger-color);
+}
+
+.notification-body {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Mobile responsiveness for notifications */
+@media (max-width: 768px) {
+    .admin-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+}

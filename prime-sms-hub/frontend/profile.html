@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - primesmshub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/branding.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="nav-brand">
+                <img src="images/godwin.jpg" alt="Prime SMS Hub" class="logo-img">
+                <span class="app-name-nav"><span class="gold">P</span>r<span class="gold">i</span>mesmsHub</span>
+            </a>
+        </div>
+        <div class="sidebar-new-feature">
+            <a href="buy-domain.html" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');" style="color:inherit;text-decoration:none;">
+                <span class="badge-new">New</span>
+                <span class="new-title">Buy Domain</span>
+                <span class="new-sub">Coming soon — launch imminent!</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="buy-domain.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition" onclick="event.preventDefault(); alert('Buy Domain is coming soon — sign up to be notified!');">
+                        <span class="text-lg">🌐</span>
+                        <span class="ms-3">Buy Domain <span class="badge-new badge-new-small">New</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📊</span>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📞</span>
+                        <span class="ms-3">Buy Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buy-usa-number.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🇺🇸</span>
+                        <span class="ms-3">Buy USA Number</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="order-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">📋</span>
+                        <span class="ms-3">My Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="transaction-history.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">💳</span>
+                        <span class="ms-3">My Transactions</span>
+                    </a>
+                </li>
+                <li class="pt-4 border-t">
+                    <a href="support.html" class="flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">❓</span>
+                        <span class="ms-3">Support</span>
+                    </a>
+                </li>
+                <li>
+                    <button id="logoutBtn" class="w-full text-left flex items-center p-2 text-[#0d0fc6] rounded-lg hover:bg-gray-100 group transition">
+                        <span class="text-lg">🚪</span>
+                        <span class="ms-3">Logout</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h2>My Profile</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="userEmail">user@example.com</span>
+                    <img src="images/neil.jpg" alt="User" class="user-avatar-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+            <!-- Profile Card -->
+            <section class="profile-section">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <div class="profile-info">
+                            <h3 id="profileName">User Name</h3>
+                            <p id="profileEmail">user@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <span class="stat-label">Member Since</span>
+                            <span class="stat-value" id="memberSince">Dec 2024</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="stat-label">Total Spent</span>
+                            <span class="stat-value" id="totalSpent">₦0.00</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="stat-label">Numbers Purchased</span>
+                            <span class="stat-value" id="numbersPurchased">0</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="stat-label">Account Status</span>
+                            <span class="stat-value status-active">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabs -->
+            <section class="tabs-section">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('account')">Account Settings</button>
+                    <button class="tab-btn" onclick="showTab('security')">Security</button>
+                    <button class="tab-btn" onclick="showTab('referral')">Referral</button>
+                    <button class="tab-btn" onclick="showTab('preferences')">Preferences</button>
+                </div>
+
+                <!-- Account Tab -->
+                <div id="account" class="tab-content active">
+                    <h3>Account Information</h3>
+                    <form id="accountForm" class="profile-form">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" readonly>
+                            <small>Email cannot be changed</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" name="country">
+                                <option value="">Select country</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="GH">Ghana</option>
+                                <option value="KE">Kenya</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="US">United States</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Security Tab -->
+                <div id="security" class="tab-content">
+                    <h3>Security Settings</h3>
+                    <div class="security-items">
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Password</h4>
+                                <p>Last changed 2 months ago</p>
+                            </div>
+                            <button class="btn btn-secondary" onclick="openChangePasswordModal()">Change Password</button>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Two-Factor Authentication</h4>
+                                <p>Not enabled</p>
+                            </div>
+                            <button class="btn btn-secondary" onclick="enableTwoFactor()">Enable 2FA</button>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Active Sessions</h4>
+                                <p>1 device logged in</p>
+                            </div>
+                            <button class="btn btn-secondary" onclick="viewSessions()">View Sessions</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Referral Tab -->
+                <div id="referral" class="tab-content">
+                    <h3>Referral Program</h3>
+                    <div class="referral-card">
+                        <h4>Earn ₦500 per referral!</h4>
+                        <p>Share your referral code and earn ₦500 for every friend who signs up and makes their first purchase.</p>
+                        <div class="referral-code">
+                            <label>Your Referral Code:</label>
+                            <div class="code-display">
+                                <span id="referralCode">REF123ABC</span>
+                                <button class="btn-copy" onclick="copyReferralCode()">📋 Copy</button>
+                            </div>
+                        </div>
+                        <div class="referral-link">
+                            <label>Share this link:</label>
+                            <div class="code-display">
+                                <span id="referralLink">https://primesms.com?ref=REF123ABC</span>
+                                <button class="btn-copy" onclick="copyReferralLink()">📋 Copy</button>
+                            </div>
+                        </div>
+                        <div class="referral-stats">
+                            <div class="stat">
+                                <span class="label">Total Referrals</span>
+                                <span class="value" id="totalReferrals">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Earnings</span>
+                                <span class="value" id="referralEarnings">₦0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences Tab -->
+                <div id="preferences" class="tab-content">
+                    <h3>Preferences</h3>
+                    <form id="preferencesForm" class="profile-form">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="emailNotif" checked>
+                                Email notifications for new SMS
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="balanceAlert" checked>
+                                Alert when balance is low
+                            </label>
+                        </div>
+                               <div class="form-group">
+                                   <label class="checkbox-label">
+                                       <input type="checkbox" id="notifySound">
+                                       Notification sound
+                                   </label>
+                                   <small class="hint">Play sound for incoming notifications</small>
+                               </div>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="en">English</option>
+                                <option value="yo">Yoruba</option>
+                                <option value="ig">Igbo</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Danger Zone -->
+            <section class="danger-zone">
+                <h3>⚠️ Danger Zone</h3>
+                <div class="danger-actions">
+                    <button class="btn btn-danger" onclick="openDeleteAccountModal()">Delete Account</button>
+                </div>
+                <small>Permanently delete your account and all data. This action cannot be undone.</small>
+            </section>
+        </div>
+    </main>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="changePasswordForm" class="modal-form">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert alert-hidden"></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/profile.js"></script>
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+        }
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleSidebar);
+        }
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+        }
+
+        // Close sidebar when clicking on a nav link (mobile)
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

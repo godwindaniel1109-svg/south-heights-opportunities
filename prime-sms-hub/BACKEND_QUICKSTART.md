@@ -49,11 +49,13 @@ cd ..
 ### Step 2: Configure API Keys
 Edit `backend/.env` and add your keys:
 ```env
-FIREBASE_API_KEY=AIzaSyD8ljUFvRZmGajh4UTfh6zfb85OnHanoGM
-PAYSTACK_SECRET_KEY=sk_live_7611f114920baf48c114d508cc385683f939509d
-FIVESIM_API_KEY=eyJhbGci...
-SENDGRID_API_KEY=SG.0dWt5tuFT...
+FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY_HERE
+PAYSTACK_SECRET_KEY=YOUR_PAYSTACK_SECRET_KEY_HERE
+FIVESIM_API_KEY=YOUR_5SIM_API_KEY_HERE
+SENDGRID_API_KEY=SG.YOUR_SENDGRID_API_KEY_HERE
 ```
+
+**⚠️ SECURITY NOTE**: Never commit real API keys to GitHub! Copy from `backend/.env.example` and fill in your actual keys.
 
 ### Step 3: Initialize Database
 ```bash

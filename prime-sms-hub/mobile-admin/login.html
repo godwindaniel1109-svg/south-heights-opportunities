@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FF6B35">
+    <title>Admin Login - Prime SMS Hub</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="../mobile/css/mobile.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px 24px;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-logo-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .login-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .login-logo-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+            background: #fafafa;
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .login-error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .login-error.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+
+        .login-links a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .login-links a:hover {
+            color: #FF5722;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #FF6B35;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 20px;
+            }
+
+            .login-logo-icon {
+                font-size: 40px;
+            }
+
+            .login-logo-text {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <a href="../mobile/" class="back-link">← Back to User App</a>
+
+        <div class="login-logo">
+            <div class="login-logo-icon">🛡️</div>
+            <div class="login-logo-text">Admin Panel</div>
+            <div class="login-logo-subtitle">Prime SMS Hub Management</div>
+        </div>
+
+        <div id="errorMessage" class="login-error"></div>
+
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+            <div class="form-group">
+                <label class="form-label">Admin Email</label>
+                <input type="email" id="adminEmail" class="form-input" placeholder="admin@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="adminPassword" class="form-input" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">Sign In as Admin</button>
+        </form>
+
+        <div class="login-links">
+            <p style="margin-bottom: 12px; color: #666;">Not an admin?</p>
+            <a href="../mobile/">User Login</a>
+        </div>
+    </div>
+
+    <script src="../mobile/js/api.js"></script>
+    <script src="../mobile/js/mock-data.js"></script>
+    <script>
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorDiv = document.getElementById('errorMessage');
+
+            // Clear previous errors
+            errorDiv.classList.remove('active');
+            errorDiv.textContent = '';
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.textContent = 'Signing in...';
+
+            try {
+                // Try real API first
+                const result = await api.adminLogin(email, password);
+
+                if (result && result.token) {
+                    // Success - redirect to admin dashboard
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    window.location.href = 'index.html';
+                } else {
+                    // Try mock data for demo/offline
+                    const mockAdmin = getMockData('admin.users')?.find(u => u.email === email);
+                    if (mockAdmin && password === 'admin123') {
+                        localStorage.setItem('authToken', 'mock-token-' + Date.now());
+                        localStorage.setItem('adminRole', 'admin');
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', email);
+                        window.location.href = 'index.html';
+                    } else {
+                        throw new Error('Invalid credentials');
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                errorDiv.classList.add('active');
+                errorDiv.textContent = 'Invalid email or password. For demo, try: admin@example.com / admin123';
+                
+                loginBtn.classList.remove('loading');
+                loginBtn.textContent = 'Sign In as Admin';
+            }
+        }
+
+        // Auto-fill demo credentials if online status checks fail
+        window.addEventListener('load', () => {
+            // Check if we're in demo mode
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                const hint = document.createElement('div');
+                hint.style.cssText = 'text-align: center; margin-top: 16px; font-size: 12px; color: #999;';
+                hint.innerHTML = '💡 Demo mode: admin@example.com / admin123';
+                document.querySelector('.login-links').appendChild(hint);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -63,3 +63,35 @@ class NotificationSerializer(serializers.ModelSerializer):
             return obj.user.profile.avatar.url
         except Exception:
             return None
+
+
+# === Support Chat Serializers ===
+from .models import Conversation, SupportMessage
+
+
+class SupportMessageSerializer(serializers.ModelSerializer):
+    sender_display = serializers.SerializerMethodField()
+
+    class Meta:
+        model = SupportMessage
+        fields = ['id', 'conversation', 'sender', 'sender_user', 'sender_display', 'content', 'telegram_message_id', 'created_at']
+
+    def get_sender_display(self, obj):
+        if obj.sender == 'user' and obj.sender_user:
+            return obj.sender_user.email or obj.sender_user.username
+        return obj.sender
+
+
+class ConversationSerializer(serializers.ModelSerializer):
+    messages = SupportMessageSerializer(many=True, read_only=True)
+    user_display = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Conversation
+        fields = ['id', 'user', 'user_display', 'page', 'telegram_chat_id', 'telegram_message_id', 'status', 'last_message_time', 'created_at', 'messages']
+
+    def get_user_display(self, obj):
+        try:
+            return obj.user.email or obj.user.username
+        except Exception:
+            return None

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/history.css">
+    <style>
+        .filter-section {
+            background-color: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .user-table thead {
+            background-color: var(--bg-tertiary);
+        }
+
+        .user-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .user-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-table tr:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background-color: rgba(74, 222, 128, 0.2);
+            color: #15803d;
+        }
+
+        .status-badge.suspended {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #991b1b;
+        }
+
+        .status-badge.banned {
+            background-color: rgba(107, 114, 128, 0.2);
+            color: #1f2937;
+        }
+
+        .user-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .user-info {
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .filter-section {
+                grid-template-columns: 1fr;
+            }
+
+            .user-table {
+                font-size: 0.9rem;
+            }
+
+            .user-table th,
+            .user-table td {
+                padding: 0.75rem;
+            }
+
+            .user-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">primesmshub Admin</div>
+        <div class="nav-actions">
+            <span id="adminEmail" style="color: var(--text-secondary); margin-right: 1.5rem;"></span>
+            <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="avatar">A</div>
+                <h3>Admin Panel</h3>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="admin-dashboard.html">📊 Dashboard</a></li>
+                <li class="active"><a href="admin-users.html">👥 Users</a></li>
+                <li><a href="admin-payments.html">💰 Payments</a></li>
+                <li><a href="admin-numbers.html">📱 Numbers</a></li>
+                <li><a href="admin-transactions.html">📈 Transactions</a></li>
+                <li><a href="admin-reports.html">📄 Reports</a></li>
+                <li><a href="admin-settings.html">⚙️ Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>User Management</h1>
+                <p>Manage users and their account status</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section">
+                <input 
+                    type="text" 
+                    id="searchUsers" 
+                    placeholder="Search by email..."
+                    class="form-control"
+                    onkeyup="filterUserTable()"
+                >
+                <select id="statusFilter" class="form-control" onchange="filterUserTable()">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="suspended">Suspended</option>
+                    <option value="banned">Banned</option>
+                </select>
+                <select id="dateFilter" class="form-control" onchange="filterUserTable()">
+                    <option value="">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                </select>
+            </div>
+
+            <!-- Users Table -->
+            <div style="background-color: var(--bg-primary); border-radius: var(--radius-lg); overflow-x: auto;">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>Balance</th>
+                            <th>Numbers</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td>user1@example.com</td>
+                            <td>John Doe</td>
+                            <td>₦150,000</td>
+                            <td>5</td>
+                            <td>2024-01-15</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <div class="user-actions">
+                                    <button class="btn btn-sm btn-secondary" onclick="openUserModal('user1@example.com')">View</button>
+                                    <button class="btn btn-sm btn-danger" onclick="suspendUser('user1@example.com')">Suspend</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>user2@example.com</td>
+                            <td>Jane Smith</td>
+                            <td>₦75,500</td>
+                            <td>3</td>
+                            <td>2024-01-20</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <div class="user-actions">
+                                    <button class="btn btn-sm btn-secondary" onclick="openUserModal('user2@example.com')">View</button>
+                                    <button class="btn btn-sm btn-danger" onclick="suspendUser('user2@example.com')">Suspend</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>user3@example.com</td>
+                            <td>Mike Johnson</td>
+                            <td>₦0</td>
+                            <td>0</td>
+                            <td>2024-02-01</td>
+                            <td><span class="status-badge suspended">Suspended</span></td>
+                            <td>
+                                <div class="user-actions">
+                                    <button class="btn btn-sm btn-secondary" onclick="openUserModal('user3@example.com')">View</button>
+                                    <button class="btn btn-sm btn-primary" onclick="activateUser('user3@example.com')">Activate</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 2rem;">
+                <button class="btn btn-outline btn-sm">← Previous</button>
+                <span style="margin: 0 1rem;">Page 1 of 10</span>
+                <button class="btn btn-outline btn-sm">Next →</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="userModal" class="user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>User Details</h2>
+                <button class="close-btn" onclick="closeUserModal()">&times;</button>
+            </div>
+
+            <div class="user-info">
+                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                <p><strong>Name:</strong> <span id="modalName"></span></p>
+                <p><strong>Phone:</strong> <span id="modalPhone"></span></p>
+                <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                <p><strong>Balance:</strong> <span id="modalBalance"></span></p>
+            </div>
+
+            <div>
+                <h3>Actions</h3>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="editUserBalance()">Edit Balance</button>
+                    <button class="btn btn-danger" onclick="deleteUserAccount()">Delete Account</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                <h3>Add Funds</h3>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="number" id="fundAmount" placeholder="Amount (₦)" class="form-control" style="flex: 1;">
+                    <button class="btn btn-secondary" onclick="addUserFunds()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/backend-api.js"></script>
+    <script src="js/admin-users.js"></script>
+</body>
+</html>

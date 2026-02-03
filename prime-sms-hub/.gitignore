@@ -1,13 +1,98 @@
+# Python
 venv/
 venv311/
 __pycache__/
 *.pyc
-db.sqlite3
-*.sqlite3
-*.env
-node_modules/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
 dist/
 build/
-venv311/
-collected_static/
+pip-log.txt
+
+# Environment & Secrets
+*.env
+.env.local
+.env.production
+.env.development
+*.key
+*.pem
+secrets.json
+config.local.js
+config.production.js
+
+# Database
+db.sqlite3
+*.sqlite3
+*.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
+logs/
+*.log.*
+
+# Static files (Django)
+collected_static/
+staticfiles/
+media/uploads/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# API Keys and Secrets (keep example files)
+!*.example.js
+!*.example.json
+!.env.example
+!config.example.js
+
+# Config files with real keys (should use config.js instead)
+**/config.js
+**/firebase-config.js
+!**/config.example.js
+!**/firebase-config.example.js
+
+# But allow firebase-config.js if it only has placeholders
+# (We'll check this manually or with check-secrets.ps1)
+
+# Documentation with sensitive info (update these)
+# BACKEND_README.md
+# BACKEND_QUICKSTART.md
+# LOCALHOST_SETUP.md
+
+# Duplicate/unused directories
+images/js/
+frontend/images/js/
+js/old/
+frontend/js/old/
+
+# Media uploads
+media/uploads/
+media/proofs/

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <blockquote cite="https://www.freecodecamp.org/news/learn-to-code-book/">
+        "Can you imagine what it would be like to be a successful developer? To have built software systems that people
+        rely upon?"
+    </blockquote>
+    <blockquote cite="https://www.freecodecamp.org/news/learn-to-code-book/">
+        <p>Build your projects. Show them to your friends. Build projects for your friends.</p>
+        <p>Build your network. Help the people you meet along the way. What goes around comes around. You'll get what's
+            coming to you.</p>
+        <p>It is not too late. Life is long.</p>
+        <p>You will look back on this moment years from now and be glad you made a move.</p>
+    </blockquote>
+
+    <div>
+  <blockquote cite="https://www.freecodecamp.org/news/learn-to-code-book/">
+    Can you imagine what it would be like to be a successful developer? To have built software systems that people rely upon?
+  </blockquote>
+  <p>—Quincy Larson, <cite>How to Learn to Code and Get a Developer Job [Full Book].</cite></p>
+</div>
+
+
+<p><abbr>HTML</abbr> is the foundation of the web.</p>
+
+<p>
+  You can use the unarticulated annotation element to highlight
+  <u>inccccort</u> <u>spling</u> <u>issses</u>.
+</p>
+
+<address>
+  <h2>Company Name</h2>
+  <p>
+    1234 Elm Street<br />
+    Springfield, IL 62701<br />
+    United States
+  </p>
+
+  <p>Phone: <a href="tel:+15555555555">+1 (555) 555-5555</a></p>
+  <p>Email: <a href="mailto:contact@company.com">contact@company.com</a></p>
+</address>
+
+<p><abbr title="HyperText Markup Language">HTML</abbr> is the foundation of the web.</p>
+
+<p>The reservations are for <time datetime="20:00">20:00 </time></p>
+
+<p>
+  The graduation will be on <time datetime="2024-06-15T15:00">June 15</time>
+</p>
+
+<p><s>Tomorrow's hike will be meeting at noon.</s></p>
+
+<p>Due to unforeseen weather conditions, the hike has been canceled.</p>
+
+<ruby> 明日 <rp>(</rp><rt>Ashita</rt><rp>)</rp> </ruby>
+
+<form action="">
+  <label for="email"> Email Address: </label>
+  <input type="email" id="email" placeholder="example@email.com" />
+</form>
+
+<form action="">
+  <label for="email"> Email Address: </label>
+  <input type="email" id="email" />
+</form>
+
+
+<button>Start Game</button>
+
+<button type="button">Show Alert</button>
+
+
+<form action="">
+  <label for="email">Email address:</label>
+  <input type="email" id="email" name="email" />
+  <button type="reset">Reset form</button>
+  <button type="submit">Submit form</button>
+</form>
+
+<form action="">
+  <label for="email">Email Address (Required field):</label>
+  <input
+    required
+    type="email"
+    name="email"
+    id="email"
+    minlength="4"
+    maxlength="64"
+  />
+  <button type="submit">Submit Form</button>
+</form>
+<!-- The minlength and maxlength attributes are used to set the minimum and maximum length in characters for the email input. If you don't include the minimum length or exceed the max length of characters, the browser will show an alert message. -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hotel Feedback Form</title>
+  </head>
+  <body>
+    <header>
+      <h1>Hotel Feedback Form</h1>
+      <p>
+        Thank you for staying with us. Please provide feedback on your recent
+        stay.
+      </p>
+    </header>
+    <main>
+      <form method="POST" action="https://hotel-feedback.freecodecamp.org">
+        <fieldset>
+          <legend>Personal Information</legend>
+          <label for="full-name">Name (required):</label>
+          <input type="text" id="full-name" name="name" placeholder="e.g., John Doe" required size="20">
+
+          <label for="email">Email address (required):</label>
+          <input
+            placeholder="example@email.com"
+            required
+            id="email"
+            type="email"
+            name="email"
+            size="20"
+          />
+          <label for="age">Age (optional):</label>
+          <input type="number" name="age" id="age" min="3" max="100" />
+        </fieldset>
+
+        <fieldset>
+          <legend>Was this your first time at our hotel?</legend>
+          <input id="yes-option" type="radio" name="hotel-stay" />
+          <label for="yes-option">Yes</label>
+          <input id="no-option" type="radio" name="hotel-stay" />
+          <label for="no-option">No</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            Why did you choose to stay at our hotel? (Check all that apply)
+          </legend>
+
+          <input type="checkbox" id="ads" name="choice" value="ads" />
+          <label for="ads">Social Media Ads</label>
+
+          <input
+            type="checkbox"
+            id="recommendation"
+            name="choice"
+            value="recommendation"
+          />
+          <label for="recommendation">Personal Recommendation</label>
+          
+          <input type="checkbox" id="location" name="choice" value="location" />
+          <label for="location">Location</label>
+
+          <input
+            checked
+            type="checkbox"
+            id="reputation"
+            name="choice"
+            value="reputation"
+          />
+          <label for="reputation">Reputation</label>
+          
+          <input type="checkbox" id="price" name="choice" value="price" />
+          <label for="price">Price</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ratings</legend>
+
+          <label for="service">How was the service?</label>
+
+          <select name="service" id="service">
+            <option value="poor">Poor</option>
+            <option value="satisfactory">Satisfactory</option>
+            <option value="good">Good</option>
+            <option value="very-good">Very Good</option>
+            <option selected value="excellent">Excellent</option>
+          </select>
+
+          <label for="food">How was the food?</label>
+
+          <select name="food" id="food">
+            <option value="poor">Poor</option>
+            <option value="satisfactory">Satisfactory</option>
+            <option value="good">Good</option>
+            <option value="very-good">Very Good</option>
+            <option selected value="excellent">Excellent</option>
+            <form action="#gouhkh"></form>
+          </select>
+        </fieldset>
+
+        <label for="comments">Other Comments?</label>
+        <textarea cols="30" rows="10" name="comments" id="comments"></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>
+
+<table id="quickfacts">
+  <thead>
+    <tr>
+      <th colspan="2">Quick Facts: Software Developers, Quality Assurance Analysts, and Testers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023 Median Pay</th>
+      <td>
+        $130,160 per year
+        <br>$62.58 per hour
+      </td>
+    </tr>
+    <tr>
+      <th>Typical Entry-Level Education</th>
+      <td>Bachelor's degree</td>
+    </tr>
+    <tr>
+      <th>Work Experience in a Related Occupation</th>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>On-the-job Training</th>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Number of Jobs, 2022</th>
+      <td>1,795,300</td>
+    </tr>
+    <tr>
+      <th>Job Outlook, 2022-32</th>
+      <td>25% (Much faster than average)</td>
+    </tr>
+    <tr>
+      <th>Employment Change, 2022-32</th>
+      <td>451,200</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>If this table had a footer it would be here.</th>
+    </tr>
+  </tfoot>
+</table>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Calculus Final Exams Table</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <table>
+      <caption>
+        Calculus Final Exam Grades
+      </caption>
+
+      <thead>     
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Davis</td>
+          <td>Alex</td>
+          <td>54</td>
+        </tr>
+
+        <tr>
+          <td>Doe</td>
+          <td>Samantha</td>
+          <td>92</td>
+        </tr>
+
+        <tr>
+          <td>Rodriguez</td>
+          <td>Marcus</td>
+          <td>88</td>
+        </tr>
+
+        <tr>
+          <td>Thompson</td>
+          <td>Jane</td>
+          <td>77</td>
+        </tr>
+
+        <tr>
+          <td>Williams</td>
+          <td>Natalie</td>
+          <td>83</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="2">Average Grade</td>
+          <td>78.8</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>
+</body><br>
+
+</html>
