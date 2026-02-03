@@ -14,9 +14,11 @@ const MeetupsPage = () => {
     { id: 6, title: 'Students & Young Professionals - Pittsburgh', city: 'Pittsburgh', date: '2026-02-28', time: '5:00 PM', location: 'University Auditorium, Pittsburgh, PA', attendees: 60, description: 'Mentorship and career guidance for new professionals.' },
     { id: 7, title: 'Executive Roundtable - Philadelphia', city: 'Philadelphia', date: '2026-03-01', time: '12:00 PM', location: '500 Walnut St, Philadelphia, PA', attendees: 22, description: 'C-level executive networking lunch.' },
     { id: 8, title: 'Arts & Culture Event - Harrisburg', city: 'Harrisburg', date: '2026-03-05', time: '7:00 PM', location: 'State Museum, Harrisburg, PA', attendees: 55, description: 'Local artists and cultural enthusiasts gathering.' },
+    { id: 9, title: 'South Heights Community Gathering', city: 'South Heights', date: '2026-03-08', time: '6:00 PM', location: '456 Heights Ave, South Heights, PA', attendees: 48, description: 'Neighborhood networking and community building event for South Heights residents.' },
+    { id: 10, title: 'Magic Motors Automotive Meetup', city: 'Magic Motors', date: '2026-03-12', time: '5:30 PM', location: 'Magic Motors Hub, Magic Motors, PA', attendees: 72, description: 'Car enthusiasts and automotive professionals sharing knowledge and networking.' },
   ]
 
-  const cities = ['all', 'Philadelphia', 'Pittsburgh', 'Harrisburg', 'Allentown']
+  const cities = ['all', 'Philadelphia', 'Pittsburgh', 'Harrisburg', 'Allentown', 'South Heights', 'Magic Motors']
   const filtered = filter === 'all' ? meetups : meetups.filter(m => m.city === filter)
 
   return (
