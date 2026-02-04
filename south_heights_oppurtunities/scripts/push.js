@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const arg = process.argv[2];
+import { execSync } from 'child_process'
+const arg = process.argv[2]
 function run(cmd) {
   try {
     execSync(cmd, { stdio: 'inherit' });

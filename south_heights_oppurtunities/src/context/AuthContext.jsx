@@ -132,6 +132,12 @@ export const AuthProvider = ({ children }) => {
     return (user.dwtTokens || 0) > 0
   }
 
+  const isAdmin = () => {
+    // Check if user is an admin (hardcoded for demo — use DB in production)
+    const adminEmails = ['admin@pennysavia.com']
+    return user && adminEmails.includes(user.email)
+  }
+
   return (
     <AuthContext.Provider value={{ 
       user, 
@@ -143,7 +149,8 @@ export const AuthProvider = ({ children }) => {
       submitDWTPurchase,
       approveDWTPurchase,
       withdraw,
-      hasApprovedDWT
+      hasApprovedDWT,
+      isAdmin
     }}>
       {children}
     </AuthContext.Provider>
