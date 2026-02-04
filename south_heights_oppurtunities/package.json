@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "push:frontend": "node scripts/push.js frontend",
+    "push:backend": "node scripts/push.js backend",
+    "push:all": "node scripts/push.js all"
   },
   "dependencies": {
     "react": "^18.2.0",

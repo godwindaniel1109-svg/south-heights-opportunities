@@ -21,6 +21,16 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
+      <div className="landing-navbar">
+        <div className="navbar-logo">
+          <img src="/logo.svg" alt="Pennysavia USA Logo" className="logo-icon" />
+          <span className="logo-text">Pennysavia USA</span>
+        </div>
+        <div className="navbar-links">
+          <Link to="/login" className="nav-link">Sign In</Link>
+          <Link to="/register" className="nav-cta">Join Now</Link>
+        </div>
+      </div>
       <div className="landing-container">
         <div className="landing-hero">
           <div className="hero-text">
