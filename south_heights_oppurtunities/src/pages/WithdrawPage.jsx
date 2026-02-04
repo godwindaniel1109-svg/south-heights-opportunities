@@ -173,8 +173,36 @@ const WithdrawPage = () => {
             {isValidAmount && <p className="form-hint">You will receive {Math.floor(amountNum / 50)} DWT token(s)</p>}
           </div>
 
+          {(formData.fullName || formData.email || formData.phone || formData.giftcardAmount) && (
+            <div className="summary-card">
+              <h4>📋 Submission Summary</h4>
+              <div className="summary-row">
+                <span className="summary-label">Name:</span>
+                <span className="summary-value">{formData.fullName || '—'}</span>
+              </div>
+              <div className="summary-row">
+                <span className="summary-label">Email:</span>
+                <span className="summary-value">{formData.email || '—'}</span>
+              </div>
+              <div className="summary-row">
+                <span className="summary-label">Phone:</span>
+                <span className="summary-value">{formData.phone || '—'}</span>
+              </div>
+              <div className="summary-row">
+                <span className="summary-label">Amount:</span>
+                <span className="summary-value">{formData.giftcardAmount ? `$${formData.giftcardAmount}` : '—'}</span>
+              </div>
+              {isValidAmount && (
+                <div className="summary-row highlight">
+                  <span className="summary-label">DWT Tokens Earned:</span>
+                  <span className="summary-value">{Math.floor(amountNum / 50)} 🪙</span>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="form-group">
-            <label>Upload 2 Gift Card Images (Front & Back) *</label>
+            <label>Upload Payment Proof Image *</label>
             <div className="upload-area">
               {[0, 1].map(idx => (
                 <div key={idx} className="upload-slot">
@@ -191,14 +219,6 @@ const WithdrawPage = () => {
             </div>
             <p className="form-hint">{giftImages.length}/2 images uploaded</p>
           </div>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            disabled={!canSubmit || sending}
-          >
-            {sending ? 'Submitting...' : 'Submit Gift Card'}
-          </button>
 
           {message.text && (
             <div className={`message ${message.type}`}>
