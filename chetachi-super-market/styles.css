@@ -74,9 +74,32 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.voice-search-btn {
+.ask-amount-btn {
     position: absolute;
     right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    border: none;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.ask-amount-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+}
+
+.voice-search-btn {
+    position: absolute;
+    right: 88px;
     top: 50%;
     transform: translateY(-50%);
     background: rgba(255,255,255,0.2);
@@ -108,29 +131,6 @@ body {
     0% { opacity: 1; }
     50% { opacity: 0.7; }
     100% { opacity: 1; }
-}
-
-.ask-amount-btn {
-    position: absolute;
-    right: 88px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-    border: none;
-    color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-    z-index: 1;
-}
-
-.ask-amount-btn:hover {
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
 }
 
 .search-results {
