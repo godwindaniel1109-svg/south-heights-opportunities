@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chetachi Super Market - Your Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h1>Chetachi Super Market</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search goods...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <button id="askAmountBtn" class="ask-amount-btn">Ask Amount</button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="chat-btn">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="hero-pattern"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">🏪 Your Trusted Neighborhood Supermarket</span>
+                    <h1 class="hero-title">Chetachi Provision Store</h1>
+                    <h2 class="hero-subtitle">Quality Groceries. Affordable Prices. Everyday Convenience.</h2>
+                    <p class="hero-description">Now available online for easier shopping. Fresh groceries delivered to your doorstep or visit our store in Trade More Estate, Lugbe, Abuja.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-content">
+                                <h3>10,000+</h3>
+                                <p>Happy Customers</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-content">
+                                <h3>5,000+</h3>
+                                <p>Quality Products</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">🏷️</div>
+                            <div class="stat-content">
+                                <h3>50+</h3>
+                                <p>Categories</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-content">
+                                <h3>4.8/5</h3>
+                                <p>Customer Rating</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>View Products & Prices</span>
+                        </a>
+                        <a href="https://wa.me/2348012345678" class="btn-whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Order on WhatsApp</span>
+                        </a>
+                    </div>
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Free Delivery on Orders ₦5,000+</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Same Day Delivery Available</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>100% Fresh Products Guaranteed</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=800&h=600&fit=crop" alt="Chetachi Super Market">
+                        <div class="hero-floating-card card-1">
+                            <div class="floating-icon">💰</div>
+                            <div class="floating-text">
+                                <strong>Best Prices</strong>
+                                <span>In the Estate</span>
+                            </div>
+                        </div>
+                        <div class="hero-floating-card card-2">
+                            <div class="floating-icon">🚚</div>
+                            <div class="floating-text">
+                                <strong>Fast Delivery</strong>
+                                <span>Same Day</span>
+                            </div>
+                        </div>
+                        <div class="hero-floating-card card-3">
+                            <div class="floating-icon">⭐</div>
+                            <div class="floating-text">
+                                <strong>4.8 Rating</strong>
+                                <span>10,000+ Reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-card-icon">🎁</div>
+                        <h3>Special Welcome Offer</h3>
+                        <p>Get <strong>20% OFF</strong> on your first order</p>
+                        <span class="hero-card-code">Use code: <strong>WELCOME20</strong></span>
+                        <div class="hero-card-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Limited Time Offer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll to explore</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Chetachi Super Market</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Fast Delivery</h3>
+                    <p>Same-day delivery available for orders placed before 2 PM</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure Payment</h3>
+                    <p>100% secure payment processing with multiple payment options</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-undo"></i>
+                    <h3>Easy Returns</h3>
+                    <p>30-day return policy with no questions asked</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer service for all your queries</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-medal"></i>
+                    <h3>Quality Assurance</h3>
+                    <p>All products undergo strict quality control checks</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Loyalty Rewards</h3>
+                    <p>Earn points with every purchase and get exclusive discounts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="featured-categories">
+        <div class="container">
+            <h2>Shop Popular Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/electronics/300/200" alt="Electronics">
+                    <h3>Electronics</h3>
+                    <p>2,450 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/fashion/300/200" alt="Fashion">
+                    <h3>Fashion</h3>
+                    <p>1,800 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/home/300/200" alt="Home">
+                    <h3>Home & Living</h3>
+                    <p>1,500 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/sports/300/200" alt="Sports">
+                    <h3>Sports</h3>
+                    <p>980 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/beauty/300/200" alt="Beauty">
+                    <h3>Beauty</h3>
+                    <p>1,200 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+                <div class="category-card">
+                    <img src="https://picsum.photos/seed/groceries/300/200" alt="Groceries">
+                    <h3>Groceries</h3>
+                    <p>3,200 Products</p>
+                    <a href="categories.html" class="category-link">Shop Now</a>
+                </div>
+            </div>
+            <div class="view-all-categories">
+                <a href="categories.html" class="btn-outline">View All Categories</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/product1/300/300" alt="Product">
+                        <span class="badge">-20%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Laptop</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(245)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$899</span>
+                            <span class="original">$1,199</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/product2/300/300" alt="Product">
+                        <span class="badge hot">Hot</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Smartphone Pro</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(512)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$699</span>
+                            <span class="original">$899</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/product3/300/300" alt="Product">
+                        <span class="badge new">New</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(189)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$199</span>
+                            <span class="original">$299</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/product4/300/300" alt="Product">
+                    </div>
+                    <div class="product-info">
+                        <h3>Smart Watch</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(423)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$349</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-products">
+                <a href="products.html" class="btn-outline">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hot Deals Preview -->
+    <section class="deals-preview">
+        <div class="container">
+            <h2>Hot Deals This Week</h2>
+            <div class="deals-grid">
+                <div class="deal-card">
+                    <img src="https://picsum.photos/seed/deal1/400/300" alt="Deal">
+                    <div class="deal-info">
+                        <h3>Flash Sale</h3>
+                        <p>Up to 50% off</p>
+                        <div class="countdown">
+                            <span>2d 14h 23m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="deal-card">
+                    <img src="https://picsum.photos/seed/deal2/400/300" alt="Deal">
+                    <div class="deal-info">
+                        <h3>Weekend Special</h3>
+                        <p>Buy 2 Get 1 Free</p>
+                        <div class="countdown">
+                            <span>1d 8h 45m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="deal-card">
+                    <img src="https://picsum.photos/seed/deal3/400/300" alt="Deal">
+                    <div class="deal-info">
+                        <h3>Clearance Sale</h3>
+                        <p>Up to 70% off</p>
+                        <div class="countdown">
+                            <span>5d 12h 30m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-deals">
+                <a href="deals.html" class="btn-primary">View All Deals</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image-section">
+                    <div class="about-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=800&h=600&fit=crop" alt="About Chetachi Super Market">
+                        <div class="about-badge">
+                            <div class="badge-content">
+                                <h3>10+</h3>
+                                <p>Years Serving</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-stats-mini">
+                        <div class="mini-stat">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>10,000+</h4>
+                                <p>Customers</p>
+                            </div>
+                        </div>
+                        <div class="mini-stat">
+                            <i class="fas fa-box"></i>
+                            <div>
+                                <h4>5,000+</h4>
+                                <p>Products</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text-section">
+                    <span class="section-label">About Us</span>
+                    <h2>A Supermarket Built on Trust & Quality</h2>
+                    <p class="about-intro">Chetachi Provision Store has become a household name within Trade More Estate, Lugbe, Abuja. Known for its well-stocked shelves, fair pricing, and excellent customer service, the supermarket continues to serve families with commitment and reliability.</p>
+                    <p>Our mission is simple — to make quality groceries easily accessible and affordable for everyone. We pride ourselves on providing fresh products daily, maintaining a clean and organized shopping environment, and offering competitive pricing without compromising quality.</p>
+                    <div class="about-features-list">
+                        <div class="about-feature-item">
+                            <div class="feature-icon-wrapper">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Serving the Estate with Dedication</h4>
+                                <p>We've been a trusted part of the Trade More Estate community for over 10 years</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="feature-icon-wrapper">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Consistent Product Availability</h4>
+                                <p>Known for always having what you need when you need it</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="feature-icon-wrapper">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Trusted by Hundreds Daily</h4>
+                                <p>Over 10,000 happy customers trust us for their daily shopping needs</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="feature-icon-wrapper">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Clean & Organized Environment</h4>
+                                <p>Well-maintained store with clean aisles and fresh products</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-cta">
+                        <a href="#contact" class="btn-outline">Visit Our Store</a>
+                        <a href="https://wa.me/2348012345678" class="btn-primary" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers Banner -->
+    <section class="special-offers">
+        <div class="container">
+            <div class="offers-slider">
+                <div class="offer-card featured-offer">
+                    <div class="offer-content">
+                        <span class="offer-badge">🔥 Hot Deal</span>
+                        <h3>Weekend Mega Sale</h3>
+                        <p>Up to 50% OFF on selected items</p>
+                        <div class="offer-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in 2 days</span>
+                        </div>
+                        <a href="#products" class="offer-btn">Shop Now</a>
+                    </div>
+                    <div class="offer-image">
+                        <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400&h=300&fit=crop" alt="Special Offer">
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">🎁</div>
+                    <h4>Buy 2 Get 1 Free</h4>
+                    <p>On all beverages</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">💳</div>
+                    <h4>Free Delivery</h4>
+                    <p>Orders above ₦5,000</p>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-icon">⭐</div>
+                    <h4>New Customer</h4>
+                    <p>20% OFF first order</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Testimonials</span>
+                <h2>What Our Customers Say</h2>
+                <p>Real reviews from real customers in Trade More Estate</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card featured-review">
+                    <div class="review-header">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="review-date">2 days ago</span>
+                    </div>
+                    <p class="review-text">"Chetachi always has everything I need! Best prices in the estate and very organized. The staff are welcoming and helpful. I've been shopping here for 3 years and never been disappointed."</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Customer">
+                        <div class="reviewer-info">
+                            <h4>Mrs. Ngozi Okoro</h4>
+                            <span>Regular Customer • Trade More Estate</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="review-date">1 week ago</span>
+                    </div>
+                    <p class="review-text">"The quality of their products is outstanding. I love how clean the store is and how helpful the staff are. Best prices in the estate. Highly recommend!"</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Customer">
+                        <div class="reviewer-info">
+                            <h4>Mr. Adebayo Williams</h4>
+                            <span>Local Resident • Lugbe</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="review-date">2 weeks ago</span>
+                    </div>
+                    <p class="review-text">"Affordable prices and great variety. They have everything I need for my family. The fresh produce section is my favorite! Very organized and welcoming staff."</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Customer">
+                        <div class="reviewer-info">
+                            <h4>Mrs. Chioma Eze</h4>
+                            <span>Family Shopper • Trade More Estate</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="review-date">3 weeks ago</span>
+                    </div>
+                    <p class="review-text">"Fast service and transparent pricing. I can check prices online before visiting. This saves me time and money. Great supermarket!"</p>
+                    <div class="reviewer">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Customer">
+                        <div class="reviewer-info">
+                            <h4>Mr. Ifeanyi Okafor</h4>
+                            <span>Regular Customer • Lugbe</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Location Section -->
+    <section class="store-location" id="contact">
+        <div class="container">
+            <div class="location-header">
+                <span class="section-label">Visit Us</span>
+                <h2>Our Store Location</h2>
+                <p>Strategically located in the heart of Trade More Estate, Lugbe, Abuja</p>
+            </div>
+            <div class="location-content-wrapper">
+                <div class="location-info-card">
+                    <div class="location-details">
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="location-text">
+                                <h3>Address</h3>
+                                <p>Close to 9 Lagos Street<br>Trade More Estate<br>Lugbe, Abuja, Nigeria</p>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="location-text">
+                                <h3>Phone</h3>
+                                <p>+234 801 234 5678<br>+234 802 345 6789</p>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="location-text">
+                                <h3>Email</h3>
+                                <p>info@chetachiprovision.com<br>orders@chetachiprovision.com</p>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="location-text">
+                                <h3>Opening Hours</h3>
+                                <p><strong>Monday - Saturday:</strong> 7:00 AM - 9:00 PM<br><strong>Sunday:</strong> 8:00 AM - 8:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location-actions">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Trade+More+Estate+Lugbe+Abuja" target="_blank" class="btn-primary">
+                            <i class="fas fa-directions"></i>
+                            Get Directions
+                        </a>
+                        <a href="https://wa.me/2348012345678" target="_blank" class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="location-map-wrapper">
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.8!2d7.4532!3d8.9942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwNTknMzkuMSJOIDdCsDI3JzExLjUiRQ!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; border-radius: 16px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Gallery Section -->
+    <section class="instagram-gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <span class="section-label">Gallery</span>
+                <h2>A Clean, Organized & Customer-Friendly Environment</h2>
+                <p>Take a look inside our store</p>
+            </div>
+            <div class="gallery-grid-enhanced">
+                <div class="gallery-item-large">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=800&h=600&fit=crop" alt="Store Interior">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Store Interior</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=600&h=400&fit=crop" alt="Product Shelves">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Product Shelves</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&h=400&fit=crop" alt="Fresh Products">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Fresh Products</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Shopping Experience">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Shopping Experience</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556910096-6f5e72db6803?w=600&h=400&fit=crop" alt="Store Aisles">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Store Aisles</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=400&fit=crop" alt="Customer Service">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <p>Customer Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Stay Updated with Exclusive Deals</h2>
+                    <p>Subscribe to our newsletter and get 10% off your first order</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Chetachi Super Market</h3>
+                    <p>Your trusted shopping partner for quality products and exceptional service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>My Account</h4>
+                    <ul>
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">Register</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Order History</a></li>
+                        <li><a href="#">Account Settings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Download Our App</h4>
+                    <p>Shop on the go with our mobile app</p>
+                    <div class="app-buttons">
+                        <a href="#" class="app-btn">
+                            <i class="fab fa-apple"></i>
+                            <div class="app-btn-text">
+                                <small>Download on the</small>
+                                <span>App Store</span>
+                            </div>
+                        </a>
+                        <a href="#" class="app-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div class="app-btn-text">
+                                <small>Get it on</small>
+                                <span>Google Play</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Chetachi Super Market. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Customer Support</h4>
+                <button class="minimize-chat">&minus;</button>
+            </div>
+            <div class="chat-messages">
+                <p>Hello! Welcome to Chetachi Super Market. How can I help you today?</p>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Search Nigerian provision products..." id="searchInput">
+                <button onclick="performSearch()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Penguin Mascot -->
+    <div class="penguin-mascot" id="penguinMascot">
+      <div class="penguin">
+        <div class="penguin-head">
+          <div class="face left"></div>
+          <div class="face right"></div>
+          <div class="chin"></div>
+          <div class="eye left">
+            <div class="eye-lid"></div>
+          </div>
+          <div class="eye right">
+            <div class="eye-lid"></div>
+          </div>
+          <div class="blush left"></div>
+          <div class="blush right"></div>
+          <div class="beak top"></div>
+          <div class="beak bottom"></div>
+        </div>
+        <div class="shirt">
+          <div>🛒</div>
+          <p>Chetachi</p>
+        </div> 
+        <div class="penguin-body">
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="foot left"></div>
+          <div class="foot right"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <p>Loading Chetachi Super Market...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

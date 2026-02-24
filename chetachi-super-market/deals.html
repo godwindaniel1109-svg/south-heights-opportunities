@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deals - Chetachi Super Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h1>Chetachi Super Market</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html" class="active">Deals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search all Nigeria provision products...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="chat-btn">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Hot Deals & Special Offers</h1>
+                <p>Don't miss out on these amazing deals!</p>
+            </div>
+
+            <!-- Flash Sale Banner -->
+            <div class="flash-sale-banner">
+                <div class="flash-sale-content">
+                    <div class="flash-sale-text">
+                        <h2>⚡ FLASH SALE</h2>
+                        <p>Up to 70% OFF on Selected Items</p>
+                        <div class="countdown-timer">
+                            <div class="time-unit">
+                                <span id="flash-days">02</span>
+                                <label>Days</label>
+                            </div>
+                            <div class="time-unit">
+                                <span id="flash-hours">14</span>
+                                <label>Hours</label>
+                            </div>
+                            <div class="time-unit">
+                                <span id="flash-minutes">23</span>
+                                <label>Minutes</label>
+                            </div>
+                            <div class="time-unit">
+                                <span id="flash-seconds">45</span>
+                                <label>Seconds</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flash-sale-image">
+                        <img src="https://picsum.photos/seed/flashsale/400/250" alt="Flash Sale">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal Categories -->
+            <div class="deal-categories">
+                <h2>Deal Categories</h2>
+                <div class="deal-tabs">
+                    <button class="deal-tab active">All Deals</button>
+                    <button class="deal-tab">Flash Sale</button>
+                    <button class="deal-tab">Clearance</button>
+                    <button class="deal-tab">Bundle Offers</button>
+                    <button class="deal-tab">Seasonal</button>
+                </div>
+            </div>
+
+            <!-- Deals Grid -->
+            <div class="deals-grid">
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal1/400/300" alt="Deal">
+                        <span class="deal-badge flash">FLASH SALE</span>
+                        <div class="deal-discount">-50%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Premium Laptop Bundle</h3>
+                        <p>Laptop + Mouse + Bag</p>
+                        <div class="deal-price">
+                            <span class="current">$899</span>
+                            <span class="original">$1,799</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 2d 14h 23m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal2/400/300" alt="Deal">
+                        <span class="deal-badge hot">HOT DEAL</span>
+                        <div class="deal-discount">-40%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Smartphone Package</h3>
+                        <p>Phone + Case + Screen Protector</p>
+                        <div class="deal-price">
+                            <span class="current">$599</span>
+                            <span class="original">$999</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 1d 8h 45m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal3/400/300" alt="Deal">
+                        <span class="deal-badge clearance">CLEARANCE</span>
+                        <div class="deal-discount">-70%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Home Theater System</h3>
+                        <p>Sound Bar + Subwoofer + Speakers</p>
+                        <div class="deal-price">
+                            <span class="current">$299</span>
+                            <span class="original">$999</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 5d 12h 30m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal4/400/300" alt="Deal">
+                        <span class="deal-badge bundle">BUNDLE</span>
+                        <div class="deal-discount">-35%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Fitness Starter Pack</h3>
+                        <p>Dumbbells + Yoga Mat + Resistance Bands</p>
+                        <div class="deal-price">
+                            <span class="current">$129</span>
+                            <span class="original">$199</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 3d 6h 15m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal5/400/300" alt="Deal">
+                        <span class="deal-badge seasonal">SEASONAL</span>
+                        <div class="deal-discount">-45%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Summer Essentials Kit</h3>
+                        <p>Sunscreen + Sunglasses + Beach Towel</p>
+                        <div class="deal-price">
+                            <span class="current">$49</span>
+                            <span class="original">$89</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 7d 18h 20m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <img src="https://picsum.photos/seed/deal6/400/300" alt="Deal">
+                        <span class="deal-badge flash">FLASH SALE</span>
+                        <div class="deal-discount">-60%</div>
+                    </div>
+                    <div class="deal-info">
+                        <h3>Gaming Console Bundle</h3>
+                        <p>Console + 2 Games + Controller</p>
+                        <div class="deal-price">
+                            <span class="current">$399</span>
+                            <span class="original">$999</span>
+                        </div>
+                        <div class="deal-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in: 1d 22h 10m</span>
+                        </div>
+                        <button class="deal-btn">Grab Deal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Offers -->
+            <div class="special-offers">
+                <h2>Special Offers</h2>
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <h3>Buy 2 Get 1 Free</h3>
+                        <p>On selected electronics</p>
+                        <button class="offer-btn">Shop Now</button>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Free Shipping</h3>
+                        <p>On orders over $50</p>
+                        <button class="offer-btn">Learn More</button>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Free Gift</h3>
+                        <p>With purchases over $100</p>
+                        <button class="offer-btn">View Gifts</button>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Member Exclusive</h3>
+                        <p>Extra 10% off for members</p>
+                        <button class="offer-btn">Join Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="deal-newsletter">
+                <div class="newsletter-content">
+                    <h2>Never Miss a Deal!</h2>
+                    <p>Subscribe to our newsletter and get exclusive deals delivered to your inbox</p>
+                    <form class="deal-newsletter-form">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit">Subscribe to Deals</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Chetachi Super Market</h3>
+                    <p>Your trusted shopping partner</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for exclusive deals</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chetachi Super Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Customer Support</h4>
+                <button class="minimize-chat">&minus;</button>
+            </div>
+            <div class="chat-messages">
+                <p>Hello! How can I help you today?</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <p>Loading Chetachi Super Market...</p>
+        </div>
+    </div>
+</body>
+</html>

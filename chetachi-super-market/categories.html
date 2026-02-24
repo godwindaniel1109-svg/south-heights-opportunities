@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Chetachi Super Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h1>Chetachi Super Market</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html" class="active">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search all Nigeria provision products...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="chat-btn">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Shop by Categories</h1>
+                <p>Explore our wide range of product categories</p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/electronics/400/300" alt="Electronics">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Electronics</h3>
+                        <p>2,450 Products</p>
+                        <div class="category-description">
+                            <span>Laptops, Phones, Tablets & More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/fashion/400/300" alt="Fashion">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Fashion & Clothing</h3>
+                        <p>1,800 Products</p>
+                        <div class="category-description">
+                            <span>Men's, Women's & Kids Fashion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/home/400/300" alt="Home & Living">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Home & Living</h3>
+                        <p>1,500 Products</p>
+                        <div class="category-description">
+                            <span>Furniture, Decor & Kitchen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/sports/400/300" alt="Sports">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Sports & Outdoors</h3>
+                        <p>980 Products</p>
+                        <div class="category-description">
+                            <span>Fitness, Camping & Adventure</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/beauty/400/300" alt="Beauty">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Beauty & Health</h3>
+                        <p>1,200 Products</p>
+                        <div class="category-description">
+                            <span>Skincare, Makeup & Wellness</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/groceries/400/300" alt="Groceries">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Groceries & Food</h3>
+                        <p>3,200 Products</p>
+                        <div class="category-description">
+                            <span>Fresh Produce, Dairy & More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/toys/400/300" alt="Toys">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Toys & Games</h3>
+                        <p>750 Products</p>
+                        <div class="category-description">
+                            <span>Educational Toys & Board Games</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/books/400/300" alt="Books">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Books & Media</h3>
+                        <p>1,100 Products</p>
+                        <div class="category-description">
+                            <span>Fiction, Non-Fiction & E-Books</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/automotive/400/300" alt="Automotive">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Automotive</h3>
+                        <p>650 Products</p>
+                        <div class="category-description">
+                            <span>Car Parts & Accessories</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/pets/400/300" alt="Pet Supplies">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Pet Supplies</h3>
+                        <p>890 Products</p>
+                        <div class="category-description">
+                            <span>Food, Toys & Accessories</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/office/400/300" alt="Office">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Office Supplies</h3>
+                        <p>420 Products</p>
+                        <div class="category-description">
+                            <span>Stationery & Equipment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://picsum.photos/seed/baby/400/300" alt="Baby Products">
+                        <div class="category-overlay">
+                            <button class="view-category-btn">View Products</button>
+                        </div>
+                    </div>
+                    <div class="category-info">
+                        <h3>Baby & Kids</h3>
+                        <p>580 Products</p>
+                        <div class="category-description">
+                            <span>Diapers, Clothes & Toys</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Categories -->
+            <div class="featured-categories">
+                <h2>Trending Categories</h2>
+                <div class="featured-grid">
+                    <div class="featured-item">
+                        <img src="https://picsum.photos/seed/summer/200/150" alt="Summer Sale">
+                        <h3>Summer Essentials</h3>
+                        <p>Up to 40% off</p>
+                    </div>
+                    <div class="featured-item">
+                        <img src="https://picsum.photos/seed/backtoschool/200/150" alt="Back to School">
+                        <h3>Back to School</h3>
+                        <p>Everything you need</p>
+                    </div>
+                    <div class="featured-item">
+                        <img src="https://picsum.photos/seed/fitness/200/150" alt="Fitness">
+                        <h3>Fitness Gear</h3>
+                        <p>Get fit today</p>
+                    </div>
+                    <div class="featured-item">
+                        <img src="https://picsum.photos/seed/garden/200/150" alt="Garden">
+                        <h3>Garden & Outdoor</h3>
+                        <p>Transform your space</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Chetachi Super Market</h3>
+                    <p>Your trusted shopping partner</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for exclusive deals</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chetachi Super Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Customer Support</h4>
+                <button class="minimize-chat">&minus;</button>
+            </div>
+            <div class="chat-messages">
+                <p>Hello! How can I help you today?</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <p>Loading Chetachi Super Market...</p>
+        </div>
+    </div>
+</body>
+</html>

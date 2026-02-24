@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Chetachi Super Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h1>Chetachi Super Market</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html" class="active">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search all Nigeria provision products...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="chat-btn">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>All Products</h1>
+                <p>Discover our complete collection of premium products</p>
+            </div>
+
+            <!-- Product Filters -->
+            <div class="product-filters">
+                <button class="filter-btn active">All Products</button>
+                <button class="filter-btn">Electronics</button>
+                <button class="filter-btn">Fashion</button>
+                <button class="filter-btn">Home & Living</button>
+                <button class="filter-btn">Sports</button>
+                <button class="filter-btn">Beauty</button>
+                <button class="filter-btn">Groceries</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/laptop/300/300" alt="Premium Laptop">
+                        <span class="badge">-20%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Laptop Pro</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(245)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$899</span>
+                            <span class="original">$1,199</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/phone/300/300" alt="Smartphone">
+                        <span class="badge hot">Hot</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Smartphone Pro Max</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(512)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$699</span>
+                            <span class="original">$899</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/headphones/300/300" alt="Headphones">
+                        <span class="badge new">New</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(189)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$199</span>
+                            <span class="original">$299</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/watch/300/300" alt="Smart Watch">
+                    </div>
+                    <div class="product-info">
+                        <h3>Smart Watch Ultra</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(423)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$349</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/tablet/300/300" alt="Tablet">
+                        <span class="badge">-15%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Digital Tablet</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(156)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$449</span>
+                            <span class="original">$529</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/camera/300/300" alt="Camera">
+                        <span class="badge new">New</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Digital Camera</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(89)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$799</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/speaker/300/300" alt="Speaker">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bluetooth Speaker</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(267)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$129</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/keyboard/300/300" alt="Keyboard">
+                        <span class="badge">-25%</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Mechanical Keyboard</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(134)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$89</span>
+                            <span class="original">$119</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/mouse/300/300" alt="Mouse">
+                    </div>
+                    <div class="product-info">
+                        <h3>Gaming Mouse</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(198)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$59</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/monitor/300/300" alt="Monitor">
+                        <span class="badge hot">Hot</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>4K Gaming Monitor</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(445)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$599</span>
+                            <span class="original">$799</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/console/300/300" alt="Gaming Console">
+                    </div>
+                    <div class="product-info">
+                        <h3>Gaming Console</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(678)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$499</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://picsum.photos/seed/drone/300/300" alt="Drone">
+                        <span class="badge new">New</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Camera Drone</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(92)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">$899</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="wishlist-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="comment-btn">
+                                <i class="fas fa-comment"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">Next</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Chetachi Super Market</h3>
+                    <p>Your trusted shopping partner</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for exclusive deals</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chetachi Super Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Customer Support</h4>
+                <button class="minimize-chat">&minus;</button>
+            </div>
+            <div class="chat-messages">
+                <p>Hello! How can I help you today?</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <p>Loading Chetachi Super Market...</p>
+        </div>
+    </div>
+</body>
+</html>

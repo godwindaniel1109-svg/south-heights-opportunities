@@ -1,0 +1,186 @@
+.chat-home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f5f5f5;
+}
+
+.chat-home-header {
+  background: white;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-home-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.online-indicator {
+  font-size: 0.85rem;
+  color: #4caf50;
+}
+
+.chat-search {
+  padding: 1rem;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #4caf50;
+}
+
+.users-list {
+  flex: 1;
+  overflow-y: auto;
+  background: white;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.user-item:hover {
+  background: #f9f9f9;
+}
+
+.user-item:active {
+  background: #f0f0f0;
+}
+
+.user-avatar-container {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #4caf50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.online-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: #4caf50;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.last-message-time {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.user-preview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.last-message-preview {
+  font-size: 0.875rem;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.no-messages {
+  font-size: 0.875rem;
+  color: #999;
+  font-style: italic;
+}
+
+.unread-badge {
+  background: #4caf50;
+  color: white;
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: #999;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .chat-home-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .user-avatar,
+  .user-avatar-placeholder {
+    width: 45px;
+    height: 45px;
+  }
+
+  .user-name {
+    font-size: 0.95rem;
+  }
+
+  .last-message-preview {
+    font-size: 0.8rem;
+  }
+}

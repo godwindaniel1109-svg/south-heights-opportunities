@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOGO Store</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <!-- TOP NAVBAR -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='/'">
+                <div class="logo-mark"></div>
+                <div class="logo-text">LOGO</div>
+            </div>
+
+            <button class="mobile-menu-toggle" type="button" aria-label="Toggle categories">
+                <div class="hamburger"></div>
+            </button>
+
+            <button class="all-categories-btn" type="button">
+                <div class="grid-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span style="color: gray;">All Categories</span>
+            </button>
+
+            <span class="nav-link">Today's Deal</span>
+            <span class="nav-link nav-link-strong">Sell on LOGO</span>
+        </div>
+
+        <div class="nav-center">
+            <div class="search-wrapper">
+                <form class="search-bar" onsubmit="event.preventDefault()">
+                    <div class="search-icon"></div>
+                    <input type="text" class="search-input" placeholder="Search for products, brands and categories" />
+                    <div class="country-select">
+                        <span class="dwin-text">All Nigeria</span>
+                        <span class="chevron-down"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="cart-btn">
+                <span class="material-symbols-outlined cart-icon">shopping_cart</span>
+                <div class="cart-badge">0</div>
+            </div>
+            <button class="login-btn" type="button">Login</button>
+        </div>
+    </header>
+
+    <!-- SIDEBAR + BACKDROP -->
+    <div class="sidebar-backdrop"></div>
+    <aside class="sidebar" aria-label="Product categories">
+        <div class="sidebar-header">Browse categories</div>
+
+        <!-- Category template: each has expandable sub-list -->
+        <div class="category-group" data-category="appliances">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">A</div>
+                    <span>Appliances</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Refrigerators</div>
+                    <div class="subcategory-item">Washing Machines</div>
+                    <div class="subcategory-item">Air Conditioners</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="baby">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">B</div>
+                    <span>Baby Products</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Diapers &amp; Wipes</div>
+                    <div class="subcategory-item">Feeding</div>
+                    <div class="subcategory-item">Toys &amp; Gifts</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="computing">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">C</div>
+                    <span>Computing</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Laptops</div>
+                    <div class="subcategory-item">Desktops</div>
+                    <div class="subcategory-item">Accessories</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="fashion">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">F</div>
+                    <span>Fashion</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Men's Clothing</div>
+                    <div class="subcategory-item">Women's Clothing</div>
+                    <div class="subcategory-item">Shoes &amp; Bags</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="gaming">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">G</div>
+                    <span>Gaming</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Consoles</div>
+                    <div class="subcategory-item">Games</div>
+                    <div class="subcategory-item">Accessories</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="gym">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">GY</div>
+                    <span>Gym Equipments</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Treadmills</div>
+                    <div class="subcategory-item">Weights</div>
+                    <div class="subcategory-item">Yoga &amp; Fitness</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="health">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">H</div>
+                    <span>Health &amp; Beauty</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Skincare</div>
+                    <div class="subcategory-item">Hair Care</div>
+                    <div class="subcategory-item">Supplements</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="home">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">HO</div>
+                    <span>Home &amp; Office</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Furniture</div>
+                    <div class="subcategory-item">Decor</div>
+                    <div class="subcategory-item">Office Supplies</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group" data-category="phones">
+            <div class="category-item">
+                <div class="category-main">
+                    <div class="category-icon">P</div>
+                    <span>Phones &amp; Tablets</span>
+                </div>
+                <div class="category-chevron"></div>
+            </div>
+            <div class="subcategory-list">
+                <div class="subcategory-inner">
+                    <div class="subcategory-item">Smartphones</div>
+                    <div class="subcategory-item">Tablets</div>
+                    <div class="subcategory-item">Accessories</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN PAGE CONTENT -->
+    <main class="page">
+        <div class="page-content">
+            <div class="hero-card">
+                <img src="images/HeroBanner.png" alt="Hero banner for LOGO store" class="hero-banner" />
+            </div>
+            <div class="cards-container">
+                <a href="#" class="card-item card-link card-link-white">
+                    <img src="images/Card.png" alt="Furniture" />
+                    <span class="card-label card-label-white">
+                        <span class="card-label-text">Furniture</span>
+                        <span class="material-symbols-outlined card-label-arrow-icon">arrow_right_alt</span>
+                    </span>
+                </a>
+                <a href="#" class="card-item card-link card-link-black">
+                    <img src="images/shop.jpg" alt="Shoes" />
+                    <span class="card-label card-label-black">
+                        <span class="card-label-text">Shoes</span>
+                        <span
+                            class="material-symbols-outlined card-label-arrow-icon card-label-arrow-black">arrow_right_alt</span>
+                    </span>
+                </a>
+                <a href="#" class="card-item card-link card-link-white">
+                    <img src="images/Card-desing.png" alt="Gaming" />
+                    <span class="card-label card-label-white">
+                        <span class="card-label-text">Gaming</span>
+                        <span class="material-symbols-outlined card-label-arrow-icon">arrow_right_alt</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <div class="trending-section">
+            <div class="trending-header">
+                <h2 class="trending-title">Trending Products</h2>
+                <a href="#" class="view-all-link">
+                    <span>View All</span>
+                    <span class="material-symbols-outlined">arrow_right_alt</span>
+                </a>
+            </div>
+            <div class="trending-products">
+                <div class="product-card">
+                    <img src="images/phones.png" alt="Gadget Pro" class="product-image" />
+                    <h3 class="product-name">Gadget Pro</h3>
+                    <p class="product-description">High-performance gadget for daily use</p>
+                    <p class="product-price">₦150,000</p>
+                    <div class="product-rating">
+                        <span class="rating-badge">3.9</span>
+                        <span class="material-symbols-outlined rating-star">star</span>
+                        <span class="rating-count">(120)</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/Card-desing.png" alt="Smartwatch X" class="product-image" />
+                    <h3 class="product-name">Smartwatch X</h3>
+                    <p class="product-description">Tracks fitness and notifications</p>
+                    <p class="product-price">₦85,000</p>
+                    <div class="product-rating">
+                        <span class="rating-badge">4.5</span>
+                        <span class="material-symbols-outlined rating-star">star</span>
+                        <span class="rating-count">(220)</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/shop.jpg" alt="Wireless Earbuds" class="product-image" />
+                    <h3 class="product-name">Wireless Earbuds</h3>
+                    <p class="product-description">Superior sound quality with noise cancellation</p>
+                    <div class="product-price-wrapper">
+                        <span class="price-label">STARTING PRICE</span>
+                        <span class="product-price">₦45,000</span>
+                    </div>
+                    <button class="auction-badge">ON AUCTION</button>
+                    <div class="product-rating">
+                        <span class="rating-badge">4.2</span>
+                        <span class="material-symbols-outlined rating-star">star</span>
+                        <span class="rating-count">(300)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-showcase">
+                <a href="#" class="category-card category-card-large" data-category="phones">
+                    <img src="images/phones.png" alt="Phones & Accessories" />
+                    <div class="category-overlay">
+                        <span class="category-title">Phones & Accessories</span>
+                        <span class="material-symbols-outlined category-arrow">arrow_right_alt</span>
+                    </div>
+                </a>
+
+                <a href="#" class="category-card category-card-small" data-category="cars">
+                    <img src="images/cars.png" alt="Cars" />
+                    <div class="category-overlay">
+                        <span class="category-title">Cars</span>
+                        <span class="material-symbols-outlined category-arrow">arrow_right_alt</span>
+                    </div>
+                </a>
+
+                <a href="#" class="category-card category-card-tall" data-category="women-fashion">
+                    <img src="images/women-fashion.png" alt="Women Fashion" />
+                    <div class="category-overlay">
+                        <span class="category-title">Women Fashion</span>
+                        <span class="material-symbols-outlined category-arrow">arrow_right_alt</span>
+                    </div>
+                </a>
+
+                <a href="#" class="category-card category-card-small" data-category="men-fashion">
+                    <img src="images/men-fashion.png" alt="Men Fashion" />
+                    <div class="category-overlay">
+                        <span class="category-title">Men Fashion</span>
+                        <span class="material-symbols-outlined category-arrow">arrow_right_alt</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="index.js" defer></script>
+</body>
+
+</html>

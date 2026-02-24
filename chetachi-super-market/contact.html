@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Chetachi Super Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h1>Chetachi Super Market</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                        <li><a href="contact.html" class="active">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search all Nigeria provision products...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="chat-btn">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Get in Touch</h1>
+                <p>We're here to help and answer any questions you might have</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <h2>Contact Information</h2>
+                    <div class="contact-info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Store Location</h3>
+                                <p>123 Shopping Street<br>Market District, City 12345<br>Nigeria</p>
+                                <a href="#" class="map-link">View on Map</a>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Phone Numbers</h3>
+                                <p>Main: +234 801 234 5678<br>Customer Care: +234 802 345 6789<br>WhatsApp: +234 803 456 7890</p>
+                                <a href="tel:+2348012345678" class="call-link">Call Now</a>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Email Addresses</h3>
+                                <p>General: info@chetachisupermarket.com<br>Support: support@chetachisupermarket.com<br>Orders: orders@chetachisupermarket.com</p>
+                                <a href="mailto:info@chetachisupermarket.com" class="email-link">Send Email</a>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-details">
+                                <h3>Business Hours</h3>
+                                <p>Monday - Friday: 8:00 AM - 9:00 PM<br>Saturday: 8:00 AM - 10:00 PM<br>Sunday: 9:00 AM - 8:00 PM<br>Holidays: 10:00 AM - 6:00 PM</p>
+                                <span class="status open">We're Open Now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="social-section">
+                        <h3>Follow Us</h3>
+                        <div class="social-links-large">
+                            <a href="#" class="social-link-large">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-link-large">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-link-large">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-link-large">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </a>
+                            <a href="#" class="social-link-large">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Forms -->
+                <div class="contact-forms-section">
+                    <!-- Quick Contact Form -->
+                    <div class="contact-form-card">
+                        <h2>Send us a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="product">Product Question</option>
+                                    <option value="order">Order Status</option>
+                                    <option value="return">Return/Refund</option>
+                                    <option value="complaint">Complaint</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="5" required placeholder="Tell us how we can help you..."></textarea>
+                            </div>
+
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <label for="newsletter">Send me updates about special offers</label>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h2>Quick Actions</h2>
+                        <div class="actions-grid">
+                            <a href="#" class="action-card">
+                                <i class="fas fa-truck"></i>
+                                <h3>Track Order</h3>
+                                <p>Check your order status</p>
+                            </a>
+                            <a href="#" class="action-card">
+                                <i class="fas fa-undo"></i>
+                                <h3>Return Item</h3>
+                                <p>Start a return request</p>
+                            </a>
+                            <a href="#" class="action-card">
+                                <i class="fas fa-question-circle"></i>
+                                <h3>FAQs</h3>
+                                <p>Find quick answers</p>
+                            </a>
+                            <a href="#" class="action-card">
+                                <i class="fas fa-headset"></i>
+                                <h3>Live Chat</h3>
+                                <p>Chat with support</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How can I track my order?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can track your order by clicking on "Track Order" in the quick actions section or by using your order number and email address on our tracking page.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What is your return policy?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer a 30-day return policy for most items. Products must be in their original condition with all tags and packaging. Please visit our return policy page for detailed information.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do you offer international shipping?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Currently, we ship within Nigeria. We are working on expanding our shipping services to other African countries and internationally.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How can I become a member?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can become a member by creating an account on our website. Membership is free and comes with benefits like exclusive deals, reward points, and early access to sales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Map -->
+            <div class="location-section">
+                <h2>Visit Our Store</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <img src="https://picsum.photos/seed/map/800/400" alt="Store Location Map">
+                        <div class="map-overlay">
+                            <button class="directions-btn">
+                                <i class="fas fa-directions"></i>
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Chetachi Super Market</h3>
+                    <p>Your trusted shopping partner</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="deals.html">Deals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for exclusive deals</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Chetachi Super Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Customer Support</h4>
+                <button class="minimize-chat">&minus;</button>
+            </div>
+            <div class="chat-messages">
+                <p>Hello! How can I help you today?</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="loader-icon">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <p>Loading Chetachi Super Market...</p>
+        </div>
+    </div>
+</body>
+</html>

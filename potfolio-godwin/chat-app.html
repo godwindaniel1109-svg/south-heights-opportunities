@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godwin Daniel - Chat Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #e94560;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0f3460;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .chat-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chat-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .chat-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stats-container .stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 120px;
+        }
+
+        .stats-container .stat h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .stats-container .stat p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .assistant-intro {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.8s ease;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quick-replies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-reply-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-reply-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.3);
+        }
+
+        .quick-reply-btn i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-messages {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .chat-messages.active {
+            display: block;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.bot {
+            text-align: left;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-content {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-content {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-content {
+            background: var(--accent-color);
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.3rem;
+        }
+
+        .chat-input-container {
+            display: none;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input-container.active {
+            display: flex;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .send-btn {
+            background: var(--accent-color);
+            border: none;
+            color: var(--text-light);
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .send-btn:hover {
+            background: #d63851;
+            transform: translateY(-2px);
+        }
+
+        .telegram-link {
+            background: linear-gradient(45deg, #0088cc, #00aaff);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .telegram-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            animation: slideInRight 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .chat-header h1 {
+                font-size: 2rem;
+            }
+
+            .quick-replies {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+
+            .quick-reply-btn {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .quick-reply-btn i {
+                font-size: 1.5rem;
+            }
+
+            .chat-container {
+                padding: 1.5rem;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="chat-header">
+            <h1>Godwin Daniel</h1>
+            <h2>Prime Dwin</h2>
+            <p>Visionary CEO | Strategic Leader | Innovation Architect</p>
+            
+            <div class="stats-container">
+                <div class="stat">
+                    <h3>15+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat">
+                    <h3>500+</h3>
+                    <p>Projects Led</p>
+                </div>
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Awards Won</p>
+                </div>
+            </div>
+            
+            <p class="assistant-intro">Hi! I'm Godwin's AI assistant. How can I help you today?</p>
+        </header>
+
+        <main class="chat-container">
+            <div class="quick-replies" id="quickReplies">
+                <button class="quick-reply-btn" data-action="about">
+                    <i class="fas fa-user"></i>
+                    About Godwin
+                </button>
+                <button class="quick-reply-btn" data-action="services">
+                    <i class="fas fa-code"></i>
+                    Services
+                </button>
+                <button class="quick-reply-btn" data-action="projects">
+                    <i class="fas fa-briefcase"></i>
+                    Projects
+                </button>
+                <button class="quick-reply-btn" data-action="skills">
+                    <i class="fas fa-tools"></i>
+                    Skills
+                </button>
+                <button class="quick-reply-btn" data-action="contact">
+                    <i class="fas fa-envelope"></i>
+                    Contact Info
+                </button>
+                <button class="quick-reply-btn" data-action="chat">
+                    <i class="fas fa-comments"></i>
+                    Chat with Bot
+                </button>
+                <button class="quick-reply-btn" data-action="text-godwin">
+                    <i class="fas fa-user-tie"></i>
+                    Text Godwin
+                </button>
+                <button class="quick-reply-btn" data-action="appointment">
+                    <i class="fas fa-calendar"></i>
+                    Book Meeting
+                </button>
+                <button class="quick-reply-btn" data-action="portfolio">
+                    <i class="fas fa-globe"></i>
+                    View Portfolio
+                </button>
+                <button class="quick-reply-btn" data-action="github">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </button>
+                <button class="quick-reply-btn" data-action="linkedin">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </button>
+                <button class="quick-reply-btn" data-action="instagram">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </button>
+                <button class="quick-reply-btn" data-action="tiktok">
+                    <i class="fab fa-tiktok"></i>
+                    TikTok
+                </button>
+                <button class="quick-reply-btn" data-action="help">
+                    <i class="fas fa-question-circle"></i>
+                    Help
+                </button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+            </div>
+
+            <div class="chat-input-container" id="chatInputContainer">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send
+                </button>
+            </div>
+
+            <div id="telegramContainer" style="text-align: center; display: none;">
+                <p style="margin-bottom: 1rem;">Click below to text Godwin directly on Telegram:</p>
+                <a href="https://t.me/Prime_Dwin" target="_blank" class="telegram-link">
+                    <i class="fab fa-telegram"></i>
+                    Text Godwin on Telegram
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Bot responses for different actions
+        const botResponses = {
+            'about': {
+                message: "Godwin Daniel is a Frontend Developer crafting exceptional digital experiences through code and creativity. He specializes in modern web technologies and has 15+ years of experience with 500+ projects led.",
+                followUp: "Would you like to know more about his skills or see his portfolio?"
+            },
+            'services': {
+                message: "Godwin offers: Frontend Development, UI/UX Design, Web Performance Optimization, Responsive Design, JavaScript Development, and Technical Consulting.",
+                followUp: "Which service are you interested in learning more about?"
+            },
+            'projects': {
+                message: "Godwin has led 500+ projects across various industries including e-commerce, fintech, healthcare, and education platforms.",
+                followUp: "Would you like to see specific project examples or case studies?"
+            },
+            'skills': {
+                message: "Technical Skills: HTML, CSS, JavaScript, React, Vue.js, Node.js, Git, Responsive Design, Performance Optimization, UI/UX Design.",
+                followUp: "Are you looking for help with a specific technology?"
+            },
+            'contact': {
+                message: "Contact Godwin:\n📧 Email: godwin.daniel1109@gmail.com\n📱 Phone: +234 7048694977\n📍 Location: Maitama Abuja, Nigeria",
+                followUp: "Would you like to schedule a consultation?"
+            },
+            'chat': {
+                message: "I'm here to help! You can ask me anything about Godwin's work, skills, projects, or services. What would you like to know?",
+                followUp: "Feel free to ask any questions!"
+            },
+            'text-godwin': {
+                message: "Great! You can text Godwin directly on Telegram for immediate response. He'll get back to you as soon as possible.",
+                followUp: "Click the Telegram link below to start chatting with Godwin directly.",
+                showTelegram: true
+            },
+            'appointment': {
+                message: "To book a meeting with Godwin, please email him at godwin.daniel1109@gmail.com with your preferred date, time, and meeting purpose.",
+                followUp: "Godwin typically responds within 24 hours to schedule appointments."
+            },
+            'portfolio': {
+                message: "Visit Godwin's portfolio website to see his complete work, projects, and professional information.",
+                followUp: "Would you like the direct link to his portfolio?",
+                link: "https://godwindaniel.com"
+            },
+            'github': {
+                message: "Check out Godwin's GitHub profile for his open-source projects and code contributions.",
+                followUp: "Visit his GitHub to see his latest work!",
+                link: "https://github.com/godwindaniel1109-svg"
+            },
+            'linkedin': {
+                message: "Connect with Godwin on LinkedIn for professional networking and career updates.",
+                followUp: "Send him a connection request on LinkedIn!",
+                link: "https://linkedin.com/in/godwindaniel"
+            },
+            'instagram': {
+                message: "Follow Godwin on Instagram for updates on his projects and professional journey.",
+                followUp: "Check out his Instagram profile!",
+                link: "https://instagram.com/realdwin5"
+            },
+            'tiktok': {
+                message: "Follow Godwin on TikTok for tech tips and professional content.",
+                followUp: "See his TikTok content!",
+                link: "https://tiktok.com/@realdwin"
+            },
+            'help': {
+                message: "I can help you with: Information about Godwin, his services, projects, skills, contact info, or connect you directly with Godwin via Telegram.",
+                followUp: "What would you like to know or do?"
+            }
+        };
+
+        let currentAction = null;
+        let chatHistory = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupQuickReplies();
+            setupChatInput();
+        });
+
+        function setupQuickReplies() {
+            const buttons = document.querySelectorAll('.quick-reply-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.dataset.action;
+                    handleQuickReply(action);
+                });
+            });
+        }
+
+        function handleQuickReply(action) {
+            currentAction = action;
+            const response = botResponses[action];
+            
+            if (response) {
+                // Show chat messages area
+                const chatMessages = document.getElementById('chatMessages');
+                const chatInputContainer = document.getElementById('chatInputContainer');
+                const telegramContainer = document.getElementById('telegramContainer');
+                
+                chatMessages.classList.add('active');
+                
+                // Add user message
+                addMessage(button.textContent, 'user');
+                
+                // Add bot response
+                setTimeout(() => {
+                    addMessage(response.message, 'bot');
+                    
+                    if (response.followUp) {
+                        setTimeout(() => {
+                            addMessage(response.followUp, 'bot');
+                        }, 1000);
+                    }
+                    
+                    if (response.showTelegram) {
+                        telegramContainer.style.display = 'block';
+                    }
+                    
+                    if (response.link) {
+                        setTimeout(() => {
+                            addMessage(`🔗 ${response.link}`, 'bot');
+                        }, 2000);
+                    }
+                }, 500);
+                
+                // Show chat input for continued conversation
+                chatInputContainer.classList.add('active');
+            }
+        }
+
+        function setupChatInput() {
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                chatInput.value = '';
+                
+                // Generate intelligent response
+                setTimeout(() => {
+                    const response = generateIntelligentResponse(message);
+                    addMessage(response, 'bot');
+                }, 500);
+            }
+        }
+
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = text;
+            
+            const messageTime = document.createElement('div');
+            messageTime.className = 'message-time';
+            messageTime.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(messageTime);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Save to history
+            chatHistory.push({text, sender, time: new Date().toISOString()});
+        }
+
+        function generateIntelligentResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check for specific keywords
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                return "Hello! I'm Godwin's AI assistant. How can I help you today?";
+            }
+            
+            if (lowerMessage.includes('experience') || lowerMessage.includes('years')) {
+                return "Godwin has 15+ years of professional experience in frontend development and has led over 500 projects.";
+            }
+            
+            if (lowerMessage.includes('contact') || lowerMessage.includes('reach')) {
+                return "You can reach Godwin at:\n📧 godwin.daniel1109@gmail.com\n📱 +234 7048694977\n📍 Maitama Abuja, Nigeria";
+            }
+            
+            if (lowerMessage.includes('hire') || lowerMessage.includes('work')) {
+                return "Godwin is available for freelance projects and consulting. Please email him at godwin.daniel1109@gmail.com with your project details.";
+            }
+            
+            if (lowerMessage.includes('portfolio') || lowerMessage.includes('website')) {
+                return "You can view Godwin's complete portfolio at his website. Would you like me to provide the link?";
+            }
+            
+            if (lowerMessage.includes('skills') || lowerMessage.includes('technologies')) {
+                return "Godwin's skills include: HTML, CSS, JavaScript, React, Vue.js, Node.js, Git, Responsive Design, and UI/UX Design.";
+            }
+            
+            if (lowerMessage.includes('thank') || lowerMessage.includes('thanks')) {
+                return "You're welcome! Is there anything else I can help you with regarding Godwin's services or information?";
+            }
+            
+            if (lowerMessage.includes('godwin') || lowerMessage.includes('direct')) {
+                return "If you'd like to speak with Godwin directly, I can connect you to his Telegram. Would you like to do that?";
+            }
+            
+            // Default response
+            return "I'm here to help with information about Godwin's work, skills, projects, or services. You can also ask me to connect you directly with Godwin. What would you like to know?";
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Welcome to Galleria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Embedded styles for preview and email compatibility */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+        
+        /* Preview mode - add padding when viewing in browser */
+        @media screen {
+            body {
+                padding: 20px 10px;
+            }
+        }
+        
+        /* Email wrapper */
+        .email-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        
+        /* Mobile responsive - reduce header height */
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 10px !important;
+                overflow-x: hidden !important;
+            }
+            .card-wrapper {
+                padding: 10px 5px !important;
+                max-width: 100% !important;
+            }
+            .header-padding {
+                padding: 20px 15px 25px 15px !important;
+            }
+            .header-outer-padding {
+                padding: 15px 15px !important;
+            }
+            .welcome-text {
+                font-size: 16px !important;
+                white-space: normal !important;
+            }
+            .email-body-padding {
+                padding: 20px !important;
+            }
+            .footer-margin {
+                margin: 40px -20px -20px -20px !important;
+                padding: 24px 20px !important;
+            }
+            .footer-table td {
+                display: block !important;
+                text-align: center !important;
+                padding: 8px 0 !important;
+            }
+            .footer-table td[align="left"] {
+                text-align: center !important;
+            }
+            .footer-table td[align="right"] {
+                text-align: center !important;
+            }
+            .order-details-table tr {
+                display: block !important;
+            }
+            .order-image-cell {
+                display: block !important;
+                width: 100% !important;
+                padding-right: 0 !important;
+                padding-bottom: 16px !important;
+                text-align: center !important;
+            }
+            .order-image {
+                width: 100% !important;
+                max-width: 200px !important;
+                margin: 0 auto !important;
+            }
+            .order-details-cell {
+                display: block !important;
+                width: 100% !important;
+            }
+            /* Mobile responsive for 2x2 image grid - stack vertically but keep 2x2 grid */
+            .order-details-table tr {
+                display: block !important;
+            }
+            .order-details-cell {
+                display: block !important;
+                width: 100% !important;
+            }
+            .order-image-cell {
+                display: block !important;
+                width: 100% !important;
+                padding-right: 0 !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            .order-details-table table {
+                display: table !important;
+                width: 160px !important;
+                margin: 0 auto !important;
+            }
+            .order-details-table table tr {
+                display: table-row !important;
+            }
+            .order-details-table table td {
+                display: table-cell !important;
+                width: 50% !important;
+                padding: 1px !important;
+                text-align: center !important;
+                vertical-align: top !important;
+                float: none !important;
+            }
+            .order-details-table table td img {
+                width: 77px !important;
+                height: 77px !important;
+                max-width: 77px !important;
+                margin: 0 auto !important;
+                display: block !important;
+            }
+            .order-summary-card td {
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            .order-id-row {
+                display: none !important;
+            }
+            .order-id-row-mobile {
+                display: table !important;
+                width: 100% !important;
+                margin-top: 16px !important;
+            }
+            .order-details-table {
+                margin-top: 0 !important;
+            }
+            .footer-margin {
+                text-align: left !important;
+            }
+            .footer-margin p {
+                text-align: left !important;
+            }
+            .purchase-message {
+                text-align: justify !important;
+                word-spacing: normal !important;
+            }
+            .order-details-button {
+                margin: 32px 0 0 0 !important;
+            }
+            .ship-to-section {
+                margin-top: 32px !important;
+            }
+            .regards-section {
+                margin-top: 32px !important;
+                text-align: center !important;
+            }
+            .regards-section p {
+                text-align: center !important;
+                margin: 0 auto !important;
+            }
+            /* Mobile footer improvements */
+            .footer-margin {
+                text-align: center !important;
+                padding: 30px 20px !important;
+            }
+            .footer-margin h3 {
+                text-align: center !important;
+                margin-bottom: 20px !important;
+                font-size: 16px !important;
+            }
+            .footer-margin p {
+                text-align: center !important;
+                margin-bottom: 15px !important;
+                font-size: 13px !important;
+                line-height: 1.6 !important;
+            }
+            .footer-links {
+                text-align: center !important;
+                margin-top: 20px !important;
+            }
+            .footer-links div {
+                margin-bottom: 15px !important;
+                text-align: center !important;
+            }
+            .footer-links a {
+                display: inline-block !important;
+                margin: 0 8px !important;
+                font-size: 12px !important;
+            }
+        }
+    </style>
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td {font-family: Georgia, serif !important;}
+    </style>
+    <![endif]-->
+</head>
+<body>
+    <!-- Wrapper Table -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5; margin: 0; padding: 0;">
+        <tr>
+            <td align="center" style="padding: 20px 10px;" class="card-wrapper">
+                <!-- Main Email Container -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 550px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                    
+                    <!-- Header Section with New Artelia Arts Design -->
+                    <tr>
+                        <td>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-image: url(images/Background.png); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 20px 0;">
+                                            <tr>
+                                                <td align="center" style="padding: 0 12px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 600px; background-color: transparent;">
+                                                        <tr>
+                                                            <td style="padding: 25px 20px;">
+                                                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                                    <tr>
+                                                                        <td style="text-align: center; padding: 0 0 15px 0;">
+                                                                            <img src="images/AALOGO2.png" alt="Artelia Arts Logo" class="logo" style="max-width: 150px; height: auto; border-radius: 20px; display: block; margin: 0 auto; width: 50%;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="text-align: center;">
+                                                                            <p style="color: #ffffff; font-size: 14px; margin: 0; padding: 0; opacity: 0.95;">
+                                                                                Welcome to Artelia Arts, a platform to showcase African arts.</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Email Body Content -->
+                    <tr>
+                        <td style="padding: 40px; background-color: #ffffff; font-family: Georgia, 'Times New Roman', serif; font-size: 16px; line-height: 1.6; color: #333333;" class="email-body-padding">
+                            <p style="margin: 0 0 20px 0;">Hello Elezabeth,</p>
+                            <p style="margin: 0 0 24px 0; font-family: 'Montserrat', Arial, sans-serif;" class="purchase-message">Thank you for your purchase! Your payment has been successfully proceesed, and your artwork order <strong>#AAM-102938</strong> is now being prepared for delivery.</p>
+
+                            <!-- Order summary card -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 0 32px 0; border-collapse: collapse;" class="order-summary-card">
+                                <tr>
+                                    <td style="padding: 16px 24px; border-radius: 8px; background-color: #f9fafb; border: 1px solid #eeeeee; max-width: 480px; margin: 0 auto;">
+                                        <!-- Top row: Order ID and date -->
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="order-id-row">
+                                            <tr>
+                                                <td style="font-size: 12px; color: #999999; font-style: italic;">
+                                                    Order ID&nbsp;&nbsp;<span style="font-size: 14px; color: #111111; font-style: normal; font-weight: 600;">#AAM-102938</span>
+                                                </td>
+                                                <td align="right" style="font-size: 12px; color: #666666;">
+                                                    Nov 19, 2025
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Product details with smaller images on left -->
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 12px;" class="order-details-table">
+                                            <tr>
+                                                <td valign="top" style="width: 180px; padding-right: 20px;" class="order-image-cell">
+                                                    <!-- 2x2 grid of smaller images -->
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="width: 160px; margin: 0 auto;">
+                                                        <tr>
+                                                            <td style="width: 50%; padding-right: 1px; padding-bottom: 1px;">
+                                                                <img src="image 2.png" alt="Artwork 2" style="display: block; width: 77px; height: 77px; object-fit: cover; border-radius: 2px;" class="order-image" />
+                                                            </td>
+                                                            <td style="width: 50%; padding-left: 1px; padding-bottom: 1px;">
+                                                                <img src="image 3.png" alt="Artwork 3" style="display: block; width: 77px; height: 77px; object-fit: cover; border-radius: 2px;" class="order-image" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 50%; padding-right: 1px; padding-top: 1px;">
+                                                                <img src="image 4.png" alt="Artwork 4" style="display: block; width: 77px; height: 77px; object-fit: cover; border-radius: 2px;" class="order-image" />
+                                                            </td>
+                                                            <td style="width: 50%; padding-left: 1px; padding-top: 1px;">
+                                                                <img src="image 5.png" alt="Artwork 5" style="display: block; width: 77px; height: 77px; object-fit: cover; border-radius: 2px;" class="order-image" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!-- Mobile-only Order ID (shown after images) -->
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="display: none; margin-top: 16px;" class="order-id-row-mobile">
+                                                        <tr>
+                                                            <td style="font-size: 12px; color: #999999; font-style: italic;">
+                                                                Order ID&nbsp;&nbsp;<span style="font-size: 14px; color: #111111; font-style: normal; font-weight: 600;">#AAM-102938</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size: 12px; color: #666666; padding-top: 4px;">
+                                                                Nov 19, 2025
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td valign="top" style="font-size: 14px; color: #333333;" class="order-details-cell">
+                                                    <!-- Product details -->
+                                                    <div style="margin-top: 8px;">
+                                                        <p style="margin: 0 0 8px 0; font-weight: 700; font-size: 18px;">
+                                                            Whispers of the Baobab
+                                                        </p>
+                                                        <p style="margin: 0 0 12px 0; font-size: 14px; color: #777777;">
+                                                            Acrylic on Canvas &middot; 24x36 in
+                                                        </p>
+                                                        <p style="margin: 0; font-size: 20px;">
+                                                            <strong>$450</strong>
+                                                            <span style="font-size: 14px; color: #999999; font-style: italic; margin-left: 6px;">Original</span>
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Centered order details button -->
+                            <div style="margin: 40px 0 0 0; text-align: center;" class="order-details-button">
+                                <button style="background-color: #1F363D; color: #ffffff; padding: 12px 28px; border-radius: 5px; border: none; cursor: pointer; font-family: 'Montserrat', Arial, sans-serif; font-size: 16px;">
+                                    See Order Details
+                                </button>
+                            </div>
+
+                            <div class="ship-to-section">
+                                <p style="font-family: 'Montserrat', Arial, sans-serif;">Ship to:</p>
+                                <p style="margin: 0 0 4px 0; font-family: 'Montserrat', Arial, sans-serif;">
+                                    <i class="fas fa-map-marker-alt" style="font-size: 14px; margin-right: 6px; color: #333333;"></i>
+                                    <strong>No 8, Euphrates Crescent, Maitama, Abuja.</strong>
+                                </p>
+                                <p style="margin: 0 0 4px 0; font-family: 'Montserrat', Arial, sans-serif;">Maitama, Abuja</p>
+                                <p style="margin: 0; font-family: 'Montserrat', Arial, sans-serif;">(+234) 8164064958</p>
+                            </div>
+
+                            <div class="regards-section">
+                                <p style="font-family: 'Montserrat', Arial, sans-serif;">Regards,</p>
+                                <p style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 600; margin: 5px 0 0 0;">Artelia Team</p>
+                            </div>
+
+                            <footer style="text-align: center; background-color: #1a2e1a; color: #ffffff; margin: 40px -40px -40px -40px; padding: 24px 40px; font-size: 13px; line-height: 1.6;" class="footer-margin">
+                                <h3 style="color: #ffffff; font-size: 18px; font-weight: bold; margin: 0 0 20px 0; line-height: 1.4;">Discover, Collect, and Celebrate Authentic African Art</h3>
+                                <p style="font-size: 14px; color: #D1D5D8; margin: 0 0 12px 0; line-height: 1.5;">You are receiving this email because you visited artelia.art</p>
+                                <p style="font-size: 14px; color: #D1D5D8; margin: 0 0 25px 0; line-height: 1.5;">
+                                    No 8, Euphrates Crescent, Maitama, Abuja.
+                                </p>
+                                
+                                <div class="footer-links">
+                                    <div style="margin-bottom: 15px;">
+                                        <a href="https://artelia.art/terms" style="color: #8B0000; text-decoration: none; margin-right: 12px; font-family: 'Montserrat', Arial, sans-serif;">Terms of Service</a>
+                                        <a href="https://artelia.art/privacy" style="color: #8B0000; text-decoration: none; font-family: 'Montserrat', Arial, sans-serif;">Privacy Policy</a>
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 12px; color: #9aa0a6; margin: 0; font-family: 'Montserrat', Arial, sans-serif;">© 2025 Artelia. All rights reserved.</p>
+                                    </div>
+                                </div>
+                            </footer>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

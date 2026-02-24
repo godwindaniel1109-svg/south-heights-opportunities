@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godwin Daniel (Prime Dwin) - CEO Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Critical CSS for faster loading */
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.95); z-index: 1000; }
+        .hero { min-height: 100vh; display: flex; align-items: center; }
+        .btn-primary, .btn-secondary { 
+            background: var(--accent-color); 
+            color: white; 
+            padding: 1rem 2rem; 
+            border: none; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Prime Dwin</h2>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar Chat System -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <h3>Login to Chat</h3>
+                <p>Access the exclusive chat system to connect directly with me.</p>
+                <form id="loginFormElement">
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form" style="display: none;">
+                <h3>Sign Up to Chat</h3>
+                <p>Join my exclusive network to get direct access to me.</p>
+                <form id="signupFormElement">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <textarea placeholder="Tell me about yourself..." rows="3"></textarea>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+            
+            <!-- Chat Interface -->
+            <div id="chatInterface" class="chat-interface" style="display: none;">
+                <div class="chat-header">
+                    <div class="user-info">
+                        <img src="images/Godwin-image.jpeg" alt="Godwin" class="user-avatar">
+                        <div>
+                            <h4>Godwin Daniel</h4>
+                            <span class="online-status">Online</span>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button id="settingsBtn" class="settings-btn">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <img src="images/Godwin-image.jpeg" alt="Godwin">
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="sender-name">Godwin</span>
+                                <span class="message-time">Just now</span>
+                            </div>
+                            <p>Welcome! I'm Godwin Daniel. How can I help you today?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-area" id="notificationArea" style="display: none;">
+                    <div class="notification-content">
+                        <i class="fas fa-bell"></i>
+                        <span id="notificationText">New message from Godwin</span>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <form id="chatForm">
+                        <input type="text" id="chatInput" placeholder="Type your message..." required>
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Settings Panel -->
+            <div id="settingsPanel" class="settings-panel" style="display: none;">
+                <div class="settings-header">
+                    <h3>Settings</h3>
+                    <button id="closeSettings" class="close-settings">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <h4>Profile Picture</h4>
+                        <div class="profile-upload">
+                            <img id="profilePreview" src="https://via.placeholder.com/80x80/e94560/ffffff?text=USER" alt="Profile">
+                            <input type="file" id="profilePictureInput" accept="image/*">
+                            <button type="button" id="uploadBtn">Choose Photo</button>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h4>Display Name</h4>
+                        <input type="text" id="displayName" placeholder="Your name">
+                    </div>
+                    <div class="setting-group">
+                        <h4>Notifications</h4>
+                        <label class="switch">
+                            <input type="checkbox" id="notificationToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Enable desktop notifications</span>
+                    </div>
+                    <div class="setting-group">
+                        <h4>Theme</h4>
+                        <select id="themeSelect">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <button id="saveSettings" class="save-settings-btn">Save Settings</button>
+                </div>
+            </div>
+            
+            <div class="sidebar-social">
+                <p>Or connect via:</p>
+                <div class="social-links">
+                    <a href="https://github.com/godwindaniel1109-svg" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/realdwin5" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/realdwin5?igsh=NG9iZDc4ZHI2N2tz" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@realdwin" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Godwin Daniel</h1>
+                    <h2 class="hero-subtitle">Prime Dwin</h2>
+                    <p class="hero-description">Visionary CEO | Strategic Leader | Innovation Architect</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3>15+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Projects Led</p>
+                        </div>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Awards Won</p>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" id="messageBtn">Send Message</button>
+                        <a href="images/Godwin-CV.pdf" download="Godwin-Daniel-CV.pdf" class="btn-primary" style="text-decoration: none; display: inline-block;">Download CV</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-img-container">
+                        <img src="images/Godwin-image.jpeg" alt="Godwin Daniel" class="profile-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Software Engineering</h3>
+                    <p>Full-stack Software Engineering graduate with specialized focus on Frontend Development. I build what users see and interact with, creating seamless digital experiences.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Frontend Expertise</h3>
+                    <p>I specialize in crafting responsive, user-centric interfaces that combine beautiful design with powerful functionality. From concept to deployment, I deliver exceptional web experiences.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Team Collaboration</h3>
+                    <p>I work effectively with teams, bringing technical expertise and collaborative spirit. Beyond coding, I enjoy snooker, football, table tennis and value teamwork in all aspects of life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfolio Gallery</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="images/gallery1.jpeg" alt="Project 1">
+                    <div class="portfolio-overlay">
+                        <h3>Strategic Consulting</h3>
+                        <p>Fortune 500 Transformation</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/gallery2.jpeg" alt="Project 2">
+                    <div class="portfolio-overlay">
+                        <h3>Tech Innovation</h3>
+                        <p>AI-Powered Solutions</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/gallery3.jpeg" alt="Project 3">
+                    <div class="portfolio-overlay">
+                        <h3>Global Expansion</h3>
+                        <p>International Market Entry</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/gallery4.jpeg" alt="Project 4">
+                    <div class="portfolio-overlay">
+                        <h3>Team Leadership</h3>
+                        <p>Building High-Performance Teams</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="images/gallery5.jpeg" alt="Project 5">
+                    <div class="portfolio-overlay">
+                        <h3>Keynote Speaking</h3>
+                        <p>Global Leadership Conferences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>CEO & Founder</h3>
+                        <p class="company">Innovation Labs Inc.</p>
+                        <p class="period">2020 - Present</p>
+                        <p>Leading a team of 200+ professionals in developing cutting-edge technology solutions for enterprise clients.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Managing Partner</h3>
+                        <p class="company">Global Strategy Group</p>
+                        <p class="period">2017 - 2020</p>
+                        <p>Consulted for Fortune 500 companies on digital transformation and market expansion strategies.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Senior Director</h3>
+                        <p class="company">Tech Ventures Corp</p>
+                        <p class="period">2014 - 2017</p>
+                        <p>Spearheaded innovation initiatives that resulted in $50M+ revenue growth and 3 patent filings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values" class="values">
+        <div class="container">
+            <h2 class="section-title">Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <img src="images/values1.jpeg" alt="Integrity">
+                    <h3>Integrity</h3>
+                    <p>Building trust through transparency and ethical leadership in every decision.</p>
+                </div>
+                <div class="value-card">
+                    <img src="images/values2.jpeg" alt="Innovation">
+                    <h3>Innovation</h3>
+                    <p>Pushing boundaries and challenging the status quo to create breakthrough solutions.</p>
+                </div>
+                <div class="value-card">
+                    <img src="images/values3.jpeg" alt="Excellence">
+                    <h3>Excellence</h3>
+                    <p>Delivering exceptional results through continuous improvement and attention to detail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2 class="section-title">Performance Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Revenue Impact</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">
+                            <span class="metric-value">$2.5M+</span>
+                            <span class="metric-label">Revenue Generated</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Team Leadership</h3>
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">
+                            <span class="metric-value">200+</span>
+                            <span class="metric-label">Team Members Led</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Project Success</h3>
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">
+                            <span class="metric-value">95%</span>
+                            <span class="metric-label">Success Rate</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Innovation Index</h3>
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">
+                            <span class="metric-value">12</span>
+                            <span class="metric-label">Patents Filed</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <div class="container">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Strategic Leadership</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>Business Strategy</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Team Building</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Change Management</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technical Expertise</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span>System Architecture</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>Data Analytics</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span>AI/ML Integration</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">Achievements & Recognition</h2>
+            <div class="achievements-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h3>CEO of the Year</h3>
+                        <p>Recognized for outstanding leadership and business growth</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>Innovation Excellence Award</h3>
+                        <p>Breakthrough technology implementation in enterprise solutions</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h3>Top 100 Leaders</h3>
+                        <p>Featured in global leadership recognition program</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What People Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Godwin's strategic vision transformed our entire organization. His leadership style inspires excellence at every level."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/elon-musk.jpeg" alt="Elon Musk">
+                        </div>
+                        <div class="author-info">
+                            <h4>Elon Musk</h4>
+                            <p>CEO, Tesla & SpaceX</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Working with Prime Dwin was a game-changer. His ability to identify opportunities and execute flawlessly is unmatched."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/dr-dan.jpeg" alt="Dr. Dan">
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Dan</h4>
+                            <p>CEO, Seismic Consulting Group</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Godwin's mentorship and guidance have been instrumental in my career growth. He's a true leader who develops other leaders."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/mark-zuckerberg.jpeg" alt="Mark Zuckerberg">
+                        </div>
+                        <div class="author-info">
+                            <h4>Mark Zuckerberg</h4>
+                            <p>CEO, Meta Platforms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always open to discussing new opportunities, innovative projects, and strategic partnerships.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fab fa-telegram"></i>
+                            <div>
+                                <h4>Telegram</h4>
+                                <p>@Prime_Dwin</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>godwin.daniel1109@gmil.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+234 7048694977</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Maitama Abuja Nigeria</p>
+                            </div>
+                        </div>
+                <div class="contact-form">
+                    <form action="https://formbold.com/s/9XrYq" method="POST">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Your Phone</label>
+                            <input type="tel" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" name="subject" placeholder="Enter subject or purpose" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea name="message" placeholder="Tell me about your project or inquiry..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Assistant Section -->
+    <section class="chat-assistant" id="chatAssistant">
+        <div class="container">
+            <div class="chat-container">
+                <header class="chat-header">
+                    <h1>Godwin Daniel</h1>
+                    <h2>Prime Dwin</h2>
+                    <p>Visionary CEO | Strategic Leader | Innovation Architect</p>
+                    
+                    <div class="stats-container">
+                        <div class="stat">
+                            <h3>15+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Projects Led</p>
+                        </div>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Awards Won</p>
+                        </div>
+                    </div>
+                    
+                    <p class="assistant-intro">Hi! I'm Godwin's AI assistant. How can I help you today?</p>
+                </header>
+
+                <div class="quick-replies" id="quickReplies">
+                    <button class="quick-reply-btn" data-action="about">
+                        <i class="fas fa-user"></i>
+                        About Godwin
+                    </button>
+                    <button class="quick-reply-btn" data-action="services">
+                        <i class="fas fa-code"></i>
+                        Services
+                    </button>
+                    <button class="quick-reply-btn" data-action="projects">
+                        <i class="fas fa-briefcase"></i>
+                        Projects
+                    </button>
+                    <button class="quick-reply-btn" data-action="skills">
+                        <i class="fas fa-tools"></i>
+                        Skills
+                    </button>
+                    <button class="quick-reply-btn" data-action="contact">
+                        <i class="fas fa-envelope"></i>
+                        Contact Info
+                    </button>
+                    <button class="quick-reply-btn" data-action="chat">
+                        <i class="fas fa-comments"></i>
+                        Chat with Bot
+                    </button>
+                    <button class="quick-reply-btn" data-action="text-godwin">
+                        <i class="fas fa-user-tie"></i>
+                        Text Godwin
+                    </button>
+                    <button class="quick-reply-btn" data-action="appointment">
+                        <i class="fas fa-calendar"></i>
+                        Book Meeting
+                    </button>
+                    <button class="quick-reply-btn" data-action="portfolio">
+                        <i class="fas fa-globe"></i>
+                        View Portfolio
+                    </button>
+                    <button class="quick-reply-btn" data-action="github">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </button>
+                    <button class="quick-reply-btn" data-action="linkedin">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </button>
+                    <button class="quick-reply-btn" data-action="instagram">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </button>
+                    <button class="quick-reply-btn" data-action="tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        TikTok
+                    </button>
+                    <button class="quick-reply-btn" data-action="help">
+                        <i class="fas fa-question-circle"></i>
+                        Help
+                    </button>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will appear here -->
+                </div>
+
+                <div class="chat-input-container" id="chatInputContainer">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send
+                    </button>
+                </div>
+
+                <div id="telegramContainer" style="text-align: center; display: none;">
+                    <p style="margin-bottom: 1rem;">Click below to text Godwin directly on Telegram:</p>
+                    <a href="https://t.me/Prime_Dwin" target="_blank" class="telegram-link">
+                        <i class="fab fa-telegram"></i>
+                        Text Godwin on Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Prime Dwin</h3>
+                    <p>Frontend Developer crafting exceptional digital experiences through code and creativity.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/godwindaniel1109-svg" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/realdwin5" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/realdwin5?igsh=NG9iZDc4ZHI2N2tz" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@realdwin" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#dashboard">Dashboard</a></li>
+                            <li><a href="#achievements">Achievements</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Business Consulting</a></li>
+                            <li><a href="#">Leadership Coaching</a></li>
+                            <li><a href="#">Strategic Planning</a></li>
+                            <li><a href="#">Innovation Workshops</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <div class="contact-info">
+                            <p><i class="fas fa-envelope"></i> godwin.daniel1109@gmil.com</p>
+                            <p><i class="fas fa-phone"></i> +234 7048694977</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Maitama Abuja Nigeria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Godwin Daniel (Prime Dwin). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

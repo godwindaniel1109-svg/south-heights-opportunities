@@ -1,0 +1,53 @@
+========================================
+  QUICK START - READ THIS!
+========================================
+
+PROBLEM: "localhost refused to connect"
+REASON: Servers aren't running!
+
+========================================
+SOLUTION: Start 2 Servers
+========================================
+
+OPTION 1: Double-click START_SERVERS.bat
+  → Opens 2 windows automatically
+  → Wait for URL in Frontend window
+  → Open that URL in browser
+
+OPTION 2: Manual (2 Terminal Windows)
+
+WINDOW 1 (Backend):
+  cd backend
+  npm install
+  npm run dev
+  → Wait for: "Server running on port 4000"
+
+WINDOW 2 (Frontend):
+  cd frontend
+  npm install
+  npm run dev
+  → Wait for: "Local: http://localhost:3000"
+
+THEN:
+  → Copy URL from Window 2
+  → Paste in browser
+  → Press Enter
+
+========================================
+IMPORTANT
+========================================
+
+✓ Node.js is ALREADY installed (v20.10.0)
+✓ Keep BOTH windows open
+✓ Use the EXACT URL from Window 2
+✓ Don't close the terminal windows!
+
+========================================
+WHAT TO EXPECT
+========================================
+
+Window 1: "Server running on port 4000"
+Window 2: "Local: http://localhost:3000"
+Browser: Landing page appears!
+
+========================================

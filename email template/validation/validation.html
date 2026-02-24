@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artelia Arts.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style type="text/css">
+        @media only screen and (max-width: 480px) {
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            table.wrapper {
+                width: 100% !important;
+            }
+
+            td.inner-padding {
+                padding: 20px 15px !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-size: 14px !important;
+            }
+
+            p,
+            ul,
+            li {
+                font-size: 12px !important;
+                line-height: 1.5 !important;
+            }
+
+            img.logo,
+            img.signature-logo {
+                max-width: 120px !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    style="margin: 0; padding: 0; background-color: #f2f2f2; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+        style="background-color: #f2f2f2; padding: 20px 0;">
+        <tr>
+            <td align="center" style="padding: 0 12px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="wrapper"
+                    style="width: 100%; max-width: 600px; background-color: #ffffff; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-image: url(Background.png); background-size: cover; padding: 25px 20px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <img src="AALOGO2.png" alt="Artelia Arts Logo" class="logo"
+                                            style="max-width: 150px; height: auto; border-radius: 20px; background: transparent; background-color: transparent; display: block; margin: 0 0 15px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <p
+                                            style="color: #ffffff; font-size: 14px; margin: 0; padding: 0; opacity: 0.95;">
+                                            Artwork Validation Scheduled</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td class="inner-padding"
+                            style="padding: 30px 25px; text-align: left; background-color: #ffffff;">
+                            <h2
+                                style="font-size: 12px; font-weight: bold; margin: 0 0 10px 0; padding: 0; color: #333333; text-align: left;">
+                                HI {{Artist First Name}},</h2>
+                            <p
+                                style="font-size: 12px; line-height: 2.2; color: #555555; margin: 0 0 15px 0; padding: 0;">
+                                An order has been successfully placed for your artwork on Artelia. Before the<br>
+                                artwork can be shipped, it must be physically validated.</p>
+                            <h1
+                                style="font-size: 12px; font-weight: bold; color: #111111; margin: 20px 0; padding: 0; text-align: left;">
+                                Validation Details</h1>
+                            <p
+                                style="font-size: 12px; line-height: 1.6; color: #555555; margin: 0 0 15px 0; padding: 0;">
+                                Validation ID: <strong>{{Validation ID}}</strong> <br> Validation Date:
+                                <strong>{{Date}}</strong></p>
+                            <h3
+                                style="font-size: 12px; font-weight: bold; margin: 0 0 10px 0; padding: 0; color: #333333; text-align: left;">
+                                What to do</h3>
+                            <p
+                                style="font-size: 12px; line-height: 1.6; color: #555555; margin: 0 0 15px 0; padding: 0;">
+                                Validation cannot begin without:</p>
+                            <ul style="font-size: 12px; line-height: 1.6; color: #555555; margin: 0 0 15px 0; padding: 0; text-align: left;"
+                                font-family: "Roboto" , sans-serif; font-weight: 700;>
+                                <li style="margin-left: 22px;"> The artwork </li>
+                                <li style="margin-left: 22px;">Your physical presence</li>
+                                <li style="margin-left: 22px;">The correct Validation ID</li><br>
+                                <p
+                                    style="font-size: 12px; line-height: 1.6; color: #555555; margin: 0 0 15px 0; padding: 0;">
+                                    If validation is not completed within the stated window, the order may be delayed.
+                                </p>
+                                <h4
+                                    style="font-size: 12px; font-weight: bold; margin: 0 0 10px 0; padding: 0; color: #333333; text-align: left;">
+                                    Contact Validator</h4>
+                                <p
+                                    style="font-size: 12px; line-height: 2.6; color: #555555; margin: 0 0 15px 0; padding: 0;">
+                                    Email: <strong>{{Email Address}}</strong> <br> Phone: <strong>{{Phone
+                                        Number}}</strong></p>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <!-- Signature -->
+                    <tr>
+                        <td style="font-size: 16px; color: #444444; padding: 0 25px;">
+                            <p style="margin: 0 0 5px 0; padding: 0;">Regards,</p>
+                            <img src="icon 1.png"
+                                    alt="Artelia Arts Logo" class="signature-logo"
+                                    style="max-width: 150px; height: auto; display: block; margin: 10px 0 15px;">
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #0F1F1F; padding: 25px; text-align: center;">
+                            <h3
+                                style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 0 0 15px 0; padding: 0; line-height: 1.4;">
+                                Discover, Collect, and Celebrate Authentic African Art</h3>
+                            <p
+                                style="font-size: 13px; color: #D1D5D8; margin: 0 0 8px 0; padding: 0; line-height: 1.5;">
+                                You are receiving this email because you visited artelia.art</p>
+
+                            <p
+                                style="font-size: 13px; color: #D1D5D8; margin: 0 0 20px 0; padding: 0; line-height: 1.5;">
+                                <i class="fas fa-map-marker-alt"
+                                    style="color: #C45A5A; font-size: 14px; margin-right: 8px;"></i> No 8, Euphrates
+                                Crescent, Maitama, Abuja.
+                            </p>
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #2A3A3A;">
+                                <tr>
+                                    <td style="text-align: left; vertical-align: middle;">
+                                        <a href="https://artelia.art/terms"
+                                            style="color: #C45A5A; font-size: 12px; text-decoration: none; margin-right: 15px;">Terms
+                                            of Service</a>
+                                        <a href="https://artelia.art/privacy"
+                                            style="color: #C45A5A; font-size: 12px; text-decoration: none;">Privacy
+                                            Policy</a>
+                                    </td>
+                                    <td style="text-align: left; vertical-align: middle;">
+                                        <p
+                                            style="font-size: 11px; color: #9aa0a6; margin: 0; padding: 0; text-align: right;">
+                                            © 2025 Artelia. All rights reserved.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

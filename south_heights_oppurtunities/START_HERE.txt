@@ -1,0 +1,82 @@
+========================================
+  HOW TO START THE APPLICATION
+========================================
+
+PROBLEM: "localhost refused to connect"
+SOLUTION: Start both servers!
+
+========================================
+OPTION 1: EASY WAY (Double-click)
+========================================
+
+1. Double-click: START_SERVERS.bat
+2. Wait for 2 windows to open
+3. Look at the Frontend window for the URL
+4. Copy that URL and open in browser
+
+========================================
+OPTION 2: MANUAL WAY (Terminal)
+========================================
+
+STEP 1: Open Terminal/PowerShell Window 1
+   cd backend
+   npm install
+   npm run dev
+   
+   Wait for: "Server running on port 4000"
+   KEEP THIS WINDOW OPEN!
+
+STEP 2: Open Terminal/PowerShell Window 2 (NEW!)
+   cd frontend
+   npm install
+   npm run dev
+   
+   Wait for: "Local: http://localhost:3000"
+   KEEP THIS WINDOW OPEN!
+
+STEP 3: Open Browser
+   Copy the URL from Window 2
+   Paste in browser
+   Press Enter
+
+========================================
+WHAT YOU SHOULD SEE
+========================================
+
+Terminal 1 (Backend):
+  ✓ Server running on port 4000
+
+Terminal 2 (Frontend):
+  ✓ Local: http://localhost:3000
+
+Browser:
+  ✓ Landing page with "Pennysavia USA"
+
+========================================
+TROUBLESHOOTING
+========================================
+
+If you see errors:
+1. Make sure Node.js is installed (you have it!)
+2. Make sure both windows stay open
+3. Check for error messages in terminals
+4. Try closing all Node processes and restart
+
+If still not working:
+- Check if ports 3000 or 4000 are already in use
+- Try different ports in config files
+
+========================================
+REMEMBER
+========================================
+
+- ONE frontend app = ONE URL (http://localhost:3000)
+- Different routes:
+  * / = Landing page (everyone)
+  * /dashboard = User dashboard (after login)
+  * /admin = Admin dashboard (admin only)
+
+- Backend runs on port 4000 (you don't open this in browser)
+- Frontend runs on port 3000 (this is what you open!)
+
+========================================
